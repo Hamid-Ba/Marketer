@@ -12,7 +12,7 @@ namespace Marketer.Domain.Entities.Account
         public bool IsBlock { get; private set; }
         public long PlacedOrderCount { get; private set; }
 
-        public Visitor(string uniqueCode, string fullName, string mobile, string password, bool isBlock, long placedOrderCount)
+        public Visitor(string uniqueCode, string fullName, string mobile, string password)
         {
             UniqueCode = uniqueCode;
             FullName = fullName;
@@ -22,7 +22,7 @@ namespace Marketer.Domain.Entities.Account
             PlacedOrderCount = 0;
         }
 
-        public void Edit(string uniqueCode, string fullName, string mobile, string password, bool isBlock, long placedOrderCount)
+        public void Edit(string uniqueCode, string fullName, string mobile, string password)
         {
             UniqueCode = uniqueCode;
             FullName = fullName;
