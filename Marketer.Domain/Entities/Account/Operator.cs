@@ -12,7 +12,7 @@ namespace Marketer.Domain.Entities.Account
 
         public Role Role { get; private set; }
 
-        public Operator(long roleId,string fullName, string mobile, string password)
+        public Operator(long roleId, string fullName, string mobile, string password)
         {
             RoleId = roleId;
             FullName = fullName;
@@ -20,12 +20,15 @@ namespace Marketer.Domain.Entities.Account
             Password = password;
         }
 
-        public void Edit(long roleId,string fullName, string mobile, string password)
+        public void Edit(long roleId, string fullName, string mobile, string password)
         {
             RoleId = roleId;
             FullName = fullName;
             Mobile = mobile;
-            Password = password;
+
+            if (!string.IsNullOrWhiteSpace(password))
+                Password = password;
+
             LastUpdateDate = DateTime.Now;
         }
 
