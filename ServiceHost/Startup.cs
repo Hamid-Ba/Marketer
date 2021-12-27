@@ -1,28 +1,54 @@
+using Framework.Application.Hashing;
+using Framework.Application.SMS;
+using Marketer.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace ServiceHost
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+            //services.AddTransient<IAuthHelper, AuthHelper>();
+            services.AddTransient<ISmsService, SmsService>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
+            MarketerBootstrapper.Configuration(services, Configuration.GetConnectionString("MarketerConnection"));
+
+            #region Config Authentication
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+                {
+                    o.LoginPath = "/";
+                    o.LogoutPath = "/Logout";
+                    o.AccessDeniedPath = new PathString("/AccessDenied");
+                    o.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
+                });
+
+            #endregion
+
+            #region html encoder
+
+            services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Arabic }));
+
+            #endregion
+
             services.AddControllersWithViews();
         }
 
@@ -44,6 +70,7 @@ namespace ServiceHost
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
