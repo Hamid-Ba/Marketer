@@ -18,12 +18,14 @@ namespace Marketer.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Role>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Visitor>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Operator>().HasQueryFilter(u => !u.IsDelete);
         }
 
         #region Account
 
         public DbSet<Role> Role { get; set; }
+        public DbSet<Visitor> Visitors { get; set; }
         public DbSet<Operator> Operators { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
