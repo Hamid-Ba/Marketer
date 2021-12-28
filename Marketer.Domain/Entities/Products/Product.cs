@@ -24,6 +24,7 @@ namespace Marketer.Domain.Entities.Products
         public string Slug { get; private set; }
         public string Keywords { get; private set; }
         public string MetaDescription { get; private set; }
+        public bool IsAmazedProduct { get; private set; }
 
         public Category Category { get; private set; }
         public Brand Brand { get; private set; }
@@ -51,6 +52,7 @@ namespace Marketer.Domain.Entities.Products
             Slug = slug;
             Keywords = keywords;
             MetaDescription = metaDescription;
+            IsAmazedProduct = false;
         }
 
         public void Edit(long brandId, long categoryId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count, int eachBoxCount,
@@ -85,5 +87,7 @@ namespace Marketer.Domain.Entities.Products
             ++OrderCount;
             Count -= reduceStock;
         }
+
+        public void AmazedProduct(bool isAmazed) => IsAmazedProduct = isAmazed;
     }
 }
