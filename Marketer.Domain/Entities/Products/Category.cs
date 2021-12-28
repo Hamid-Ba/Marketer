@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using System.Collections.Generic;
 
 namespace Marketer.Domain.Entities.Products
 {
@@ -10,7 +11,7 @@ namespace Marketer.Domain.Entities.Products
         public string MetaDescription { get; private set; }
         public string Slug { get; private set; }
 
-        //public List<Product> Products { get; private set; }
+        public List<Product> Products { get; private set; }
 
         public Category(string name, string description, string keyWords, /*string picture, string pictureAlt, string pictureTitle,*/ string metaDescription, string slug)
         {

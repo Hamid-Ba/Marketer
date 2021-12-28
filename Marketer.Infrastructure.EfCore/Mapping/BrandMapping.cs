@@ -14,6 +14,10 @@ namespace Marketer.Infrastructure.EfCore.Mapping
             builder.Property(c => c.KeyWords).HasMaxLength(100);
             builder.Property(c => c.MetaDescription).HasMaxLength(500);
             builder.Property(c => c.Slug).HasMaxLength(150).IsRequired();
+
+            builder.HasMany(p => p.Products)
+                .WithOne(b => b.Brand)
+                .HasForeignKey(f => f.BrandId);
         }
     }
 }

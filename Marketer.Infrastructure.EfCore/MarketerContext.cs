@@ -21,6 +21,7 @@ namespace Marketer.Infrastructure.EfCore
             modelBuilder.Entity<Role>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Brand>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Market>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Product>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Visitor>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Operator>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
@@ -40,6 +41,7 @@ namespace Marketer.Infrastructure.EfCore
 
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Market> Markets { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         #endregion

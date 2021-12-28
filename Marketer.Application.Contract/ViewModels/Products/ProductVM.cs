@@ -71,7 +71,7 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Display(Name = "وزن")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public int Weight { get; set; }
+        public double Weight { get; set; }
 
         [Display(Name = "قیمت مصرف کننده")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

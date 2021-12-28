@@ -25,6 +25,9 @@ namespace Marketer.Domain.Entities.Products
         public string Keywords { get; private set; }
         public string MetaDescription { get; private set; }
 
+        public Category Category { get; private set; }
+        public Brand Brand { get; private set; }
+
         public Product(long brandId, long categoryId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count, int eachBoxCount,
           double consumerPrice, double purchacePrice, double weight, DateTime expiredDate,
           string slug, string keywords, string metaDescription)

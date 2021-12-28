@@ -41,11 +41,14 @@ namespace Marketer.Infrastructure.Configuration
 
             #region Products
 
+            service.AddTransient<IBrandRepository, BrandRepository>();
+            service.AddTransient<IBrandApplication, BrandApplication>();
+
             service.AddTransient<ICategoryRepository, CategoryRepository>();
             service.AddTransient<ICategoryApplication, CategoryApplication>();
 
-            service.AddTransient<IBrandRepository, BrandRepository>();
-            service.AddTransient<IBrandApplication, BrandApplication>();
+            service.AddTransient<IProductRepository, ProductRepository>();
+            service.AddTransient<IProductApplication, ProductApplication>();
 
             #endregion
         }
