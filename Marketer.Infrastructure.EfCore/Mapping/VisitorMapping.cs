@@ -14,6 +14,10 @@ namespace Marketer.Infrastructure.EfCore.Mapping
             builder.Property(p => p.UniqueCode).HasMaxLength(15).IsRequired();
             builder.Property(p => p.Mobile).HasMaxLength(11).IsRequired();
             builder.Property(p => p.Password).IsRequired();
+
+            builder.HasMany(m => m.Markets)
+                .WithOne(v => v.Visitor)
+                .HasForeignKey(v => v.VisitorId);
         }
     }
 }

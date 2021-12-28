@@ -1,5 +1,7 @@
 ﻿using Framework.Domain;
+using Marketer.Domain.Entities.Products;
 using System;
+using System.Collections.Generic;
 
 namespace Marketer.Domain.Entities.Account
 {
@@ -11,6 +13,8 @@ namespace Marketer.Domain.Entities.Account
         public string Password { get; private set; }
         public bool IsBlock { get; private set; }
         public long PlacedOrderCount { get; private set; }
+
+        public List<Market> Markets { get; private set; }
 
         public Visitor(string uniqueCode, string fullName, string mobile, string password)
         {
