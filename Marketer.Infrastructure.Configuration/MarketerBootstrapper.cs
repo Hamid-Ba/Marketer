@@ -1,6 +1,8 @@
 ﻿using Marketer.Application;
 using Marketer.Application.Contract.AI.Account;
+using Marketer.Application.Contract.AI.Products;
 using Marketer.Domain.RI.Account;
+using Marketer.Domain.RI.Products;
 using Marketer.Infrastructure.EfCore;
 using Marketer.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +36,16 @@ namespace Marketer.Infrastructure.Configuration
 
             service.AddTransient<IRolePermissionRepository, RolePermissionRepository>();
             service.AddTransient<IRolePermissionApplication, RolePermissionApplication>();
+
+            #endregion
+
+            #region Products
+
+            service.AddTransient<ICategoryRepository, CategoryRepository>();
+            service.AddTransient<ICategoryApplication, CategoryApplication>();
+
+            service.AddTransient<IBrandRepository, BrandRepository>();
+            service.AddTransient<IBrandApplication, BrandApplication>();
 
             #endregion
         }

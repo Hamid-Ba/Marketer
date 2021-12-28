@@ -1,4 +1,5 @@
 ﻿using Marketer.Domain.Entities.Account;
+using Marketer.Domain.Entities.Products;
 using Marketer.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -18,8 +19,10 @@ namespace Marketer.Infrastructure.EfCore
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
             modelBuilder.Entity<Role>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Brand>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Visitor>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Operator>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
         }
 
         #region Account
@@ -29,6 +32,13 @@ namespace Marketer.Infrastructure.EfCore
         public DbSet<Operator> Operators { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
+
+        #endregion
+
+        #region Products
+
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
 
         #endregion
     }

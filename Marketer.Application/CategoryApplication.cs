@@ -12,6 +12,11 @@ namespace Marketer.Application
     {
         private readonly ICategoryRepository _categoryRepository;
 
+        public CategoryApplication(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
+
         public async Task<OperationResult> Create(CreateCategoryVM command)
         {
             OperationResult result = new();

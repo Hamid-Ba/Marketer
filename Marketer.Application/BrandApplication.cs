@@ -12,6 +12,10 @@ namespace Marketer.Application
     {
         private readonly IBrandRepository _brandRepository;
 
+        public BrandApplication(IBrandRepository brandRepository)
+        {
+            _brandRepository = brandRepository;
+        }
         public async Task<OperationResult> Create(CreateBrandVM command)
         {
             OperationResult result = new();
