@@ -1,6 +1,8 @@
-﻿namespace Marketer.Domain.Entities.Products
+﻿using Framework.Domain;
+
+namespace Marketer.Domain.Entities.Products
 {
-    public class Category
+    public class Category : EntityBase
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
