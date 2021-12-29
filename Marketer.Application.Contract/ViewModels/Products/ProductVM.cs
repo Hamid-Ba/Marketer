@@ -182,4 +182,10 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [MaxLength(1000, ErrorMessage = "حداکثر کاراکتر {1} می باشد")]
         public string MetaDescription { get; set; }
     }
+
+    public class SelectProductVM
+    {
+        public long Id { get; set; }
+        public string Title { get; set; }
+    }
 }

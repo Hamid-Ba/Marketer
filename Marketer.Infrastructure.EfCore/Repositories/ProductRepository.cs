@@ -43,6 +43,12 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                     Weight = p.Weight
                 }).AsNoTracking().ToListAsync();
 
+        public async Task<IEnumerable<SelectProductVM>> GetAllForSelection() => await _context.Products.Select(p => new SelectProductVM
+        {
+            Id = p.Id,
+            Title = p.Title
+        }).AsNoTracking().ToListAsync();
+
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _context.Products.Select(p => new EditProductVM
         {
             Id = p.Id,

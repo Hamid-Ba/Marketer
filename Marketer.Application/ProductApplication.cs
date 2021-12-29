@@ -12,10 +12,7 @@ namespace Marketer.Application
     {
         private readonly IProductRepository _productRepository;
 
-        public ProductApplication(IProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
+        public ProductApplication(IProductRepository productRepository) => _productRepository = productRepository;
 
         public async Task<OperationResult> Create(CreateProductVM command)
         {
@@ -85,6 +82,8 @@ namespace Marketer.Application
         }
 
         public async Task<IEnumerable<ProductVM>> GetAll() => await _productRepository.GetAll();
+
+        public async Task<IEnumerable<SelectProductVM>> GetAllForSelection() => await _productRepository.GetAllForSelection();
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
         
