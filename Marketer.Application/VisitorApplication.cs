@@ -20,6 +20,21 @@ namespace Marketer.Application
             _visitorRepository = visitorRepository;
         }
 
+        public async Task<OperationResult> BlockProcess(long id)
+        {
+            OperationResult result = new();
+
+            var visitor = await _visitorRepository.GetEntityByIdAsync(id);
+            if (visitor is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            if (visitor.IsBlock) visitor.BlockPrccess(false);
+            else visitor.BlockPrccess(true);
+
+            await _visitorRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Create(CreateVisitorVM command)
         {
             OperationResult result = new();

@@ -12,6 +12,7 @@ namespace Marketer.Application.Contract.ViewModels.Account
         public string Password { get; set; }
         public bool IsBlock { get; set; }
         public long PlacedOrderCount { get; set; }
+        public long MarketCount { get; set; }
     }
 
     public class CreateVisitorVM

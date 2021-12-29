@@ -22,7 +22,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             UniqueCode = v.UniqueCode,
             Mobile = v.Mobile,
             IsBlock = v.IsBlock,
-            PlacedOrderCount = v.PlacedOrderCount
+            PlacedOrderCount = v.PlacedOrderCount,
+            MarketCount = v.Markets.Count
         }).AsNoTracking().ToListAsync();
 
         public async Task<EditVisitorVM> GetDetailForEditBy(long id) => await _context.Visitors.Select(v => new EditVisitorVM
