@@ -20,6 +20,7 @@ namespace Marketer.Application.Contract.ViewModels.Account
         public string Description { get; set; }
 
         [Display(Name = "دسترسی ها")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public long[] PermissionsId { get; set; }
     }
 
