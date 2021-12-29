@@ -12,5 +12,6 @@ namespace Marketer.Application.Contract.AI.Products
         Task<EditCategoryVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditCategoryVM command);
         Task<OperationResult> Create(CreateCategoryVM command);
+        Task<IEnumerable<SelectCategoryVM>> GetAllForSelection();
     }
 }

@@ -38,4 +38,10 @@ namespace Marketer.Application.Contract.ViewModels.Products
     {
         public long Id { get; set; }
     }
+
+    public class SelectCategoryVM
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
 }

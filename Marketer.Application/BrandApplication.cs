@@ -62,6 +62,8 @@ namespace Marketer.Application
 
         public async Task<IEnumerable<BrandVM>> GetAll() => await _brandRepository.GetAll();
 
+        public async Task<IEnumerable<SelectBrandVM>> GetAllForSelection() => await _brandRepository.GetAllForSelection();
+
         public async Task<EditBrandVM> GetDetailForEditBy(long id) => await _brandRepository.GetDetailForEditBy(id);
     }
 }

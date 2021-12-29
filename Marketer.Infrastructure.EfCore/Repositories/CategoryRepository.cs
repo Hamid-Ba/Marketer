@@ -23,6 +23,12 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Slug = c.Slug
         }).AsNoTracking().ToListAsync();
 
+        public async Task<IEnumerable<SelectCategoryVM>> GetAllForSelection() => await _context.Categories.Select(c => new SelectCategoryVM
+        {
+            Id = c.Id,
+            Name = c.Name
+        }).AsNoTracking().ToListAsync();
+
         public async Task<EditCategoryVM> GetDetailForEditBy(long id) => await _context.Categories.Select(c => new EditCategoryVM
         {
             Id = c.Id,

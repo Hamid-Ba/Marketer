@@ -44,7 +44,7 @@ namespace Marketer.Domain.Entities.Products
             EachBoxCount = eachBoxCount;
             ConsumerPrice = consumerPrice;
             PurchacePrice = purchacePrice;
-            Profit = PurchacePrice - ConsumerPrice;
+            Profit = ConsumerPrice - PurchacePrice;
             Weight = weight;
             IsStock = count > 0;
             ExpiredDate = expiredDate;
@@ -73,7 +73,7 @@ namespace Marketer.Domain.Entities.Products
             EachBoxCount = eachBoxCount;
             ConsumerPrice = consumerPrice;
             PurchacePrice = purchacePrice;
-            Profit = PurchacePrice - ConsumerPrice;
+            Profit = ConsumerPrice - PurchacePrice;
             Weight = weight;
             IsStock = count > 0;
             ExpiredDate = expiredDate;

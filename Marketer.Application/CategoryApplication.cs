@@ -64,5 +64,7 @@ namespace Marketer.Application
         }
 
         public async Task<EditCategoryVM> GetDetailForEditBy(long id) => await _categoryRepository.GetDetailForEditBy(id);
+
+        public async Task<IEnumerable<SelectCategoryVM>> GetAllForSelection() => await _categoryRepository.GetAllForSelection();
     }
 }

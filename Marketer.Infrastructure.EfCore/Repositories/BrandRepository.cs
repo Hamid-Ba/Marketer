@@ -25,6 +25,12 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Slug = b.Slug,
         }).AsNoTracking().ToListAsync();
 
+        public async Task<IEnumerable<SelectBrandVM>> GetAllForSelection() => await _context.Brands.Select(b => new SelectBrandVM
+        {
+            Id = b.Id,
+            Name = b.Name
+        }).AsNoTracking().ToListAsync();
+
         public async Task<EditBrandVM> GetDetailForEditBy(long id) => await _context.Brands.Select(b => new EditBrandVM
         {
             Id = b.Id,

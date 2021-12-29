@@ -10,5 +10,6 @@ namespace Marketer.Domain.RI.Products
     {
         Task<IEnumerable<CategoryVM>> GetAll();
         Task<EditCategoryVM> GetDetailForEditBy(long id);
+        Task<IEnumerable<SelectCategoryVM>> GetAllForSelection();
     }
 }
