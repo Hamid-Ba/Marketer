@@ -1,7 +1,7 @@
 ﻿using Framework.Application;
 using Marketer.Application.Contract.AI.Account;
 using Marketer.Domain.Entities.Account;
-using Marketer.Infrastructure.EfCore.Repositories;
+using Marketer.Domain.RI.Account;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,9 +9,9 @@ namespace Marketer.Application
 {
     public class RolePermissionApplication : IRolePermissionApplication
     {
-        private readonly RolePermissionRepository _rolePermissionRepository;
+        private readonly IRolePermissionRepository _rolePermissionRepository;
 
-        public RolePermissionApplication(RolePermissionRepository rolePermissionRepository) => _rolePermissionRepository = rolePermissionRepository;
+        public RolePermissionApplication(IRolePermissionRepository rolePermissionRepository) => _rolePermissionRepository = rolePermissionRepository;
 
         public async Task<OperationResult> AddPermissionsToRole(long roleId, long[] permissionsId)
         {
