@@ -1,9 +1,11 @@
 ﻿using Marketer.Application;
 using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.AI.Discounts;
+using Marketer.Application.Contract.AI.Extera;
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Domain.RI.Account;
 using Marketer.Domain.RI.Discounts;
+using Marketer.Domain.RI.Extera;
 using Marketer.Domain.RI.Products;
 using Marketer.Infrastructure.EfCore;
 using Marketer.Infrastructure.EfCore.Repositories;
@@ -57,7 +59,14 @@ namespace Marketer.Infrastructure.Configuration
             #region Discounts
 
             service.AddTransient<IDiscountRepository, DiscountRepository>();
-            service.AddTransient<IDiscountApplication,DiscountApplication>();
+            service.AddTransient<IDiscountApplication, DiscountApplication>();
+
+            #endregion
+
+            #region Extera
+
+            service.AddTransient<IContactUsRepository, ContactUsRepository>();
+            service.AddTransient<IContactUsApplication, ContactUsApplication>();
 
             #endregion
         }

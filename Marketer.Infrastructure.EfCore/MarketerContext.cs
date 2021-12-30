@@ -1,5 +1,6 @@
 ﻿using Marketer.Domain.Entities.Account;
 using Marketer.Domain.Entities.Discounts;
+using Marketer.Domain.Entities.Extera;
 using Marketer.Domain.Entities.Products;
 using Marketer.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,12 @@ namespace Marketer.Infrastructure.EfCore
         #region Discount
 
         public DbSet<Discount> Discounts { get; set; }
+
+        #endregion
+
+        #region Extera
+
+        public DbSet<ContactUs> ContactUs { get; set; }
 
         #endregion
     }
