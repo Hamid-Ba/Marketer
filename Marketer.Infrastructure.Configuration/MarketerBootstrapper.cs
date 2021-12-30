@@ -65,6 +65,9 @@ namespace Marketer.Infrastructure.Configuration
 
             #region Extera
 
+            service.AddTransient<ISettingRepository, SettingRepository>();
+            service.AddTransient<ISettingApplication, SettingApplication>();
+
             service.AddTransient<IContactUsRepository, ContactUsRepository>();
             service.AddTransient<IContactUsApplication, ContactUsApplication>();
 

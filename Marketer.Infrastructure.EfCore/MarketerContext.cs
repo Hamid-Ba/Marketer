@@ -57,6 +57,7 @@ namespace Marketer.Infrastructure.EfCore
 
         #region Extera
 
+        public DbSet<Setting> Settings { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
 
         #endregion
