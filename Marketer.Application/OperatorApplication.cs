@@ -1,4 +1,5 @@
 ﻿using Framework.Application;
+using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.ViewModels.Account;
@@ -11,11 +12,13 @@ namespace Marketer.Application
 {
     public class OperatorApplication : IOperatorApplication
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IOperatorRepository _operatorRepository;
 
-        public OperatorApplication(IPasswordHasher passwordHasher, IOperatorRepository operatorRepository)
+        public OperatorApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IOperatorRepository operatorRepository)
         {
+            _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _operatorRepository = operatorRepository;
         }
@@ -71,6 +74,28 @@ namespace Marketer.Application
         public async Task<IEnumerable<OperatorVM>> GetAll() => await _operatorRepository.GetAll();
 
         public async Task<EditOperatorVM> GetDetailForEditBy(long id) => await _operatorRepository.GetDetailForEditBy(id);
-        
+
+        public async Task<OperationResult> Login(LoginOperatorVM command)
+        {
+            OperationResult result = new();
+
+            var user = await _operatorRepository.GetBy(command.Mobile);
+
+            if (user is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            if (!_passwordHasher.Check(user.Password, command.Password).Verified) return result.Failed(ApplicationMessage.WrongPassword);
+
+            var userVM = new OperatorAuthViewModel
+            {
+                Id = user.Id,
+                RoleId = user.RoleId,
+                Fullname = user.FullName,
+                Mobile = user.Mobile
+            };
+
+            await _authHelper.SignInAsync(userVM);
+
+            return result.Succeeded();
+        }
     }
 }

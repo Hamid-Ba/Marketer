@@ -20,23 +20,21 @@
         }
     }
 
-    public class AdminUserAuthVM
+    public class OperatorAuthViewModel
     {
         public long Id { get; set; }
-        public long AdminRoleId { get; set; }
+        public long RoleId { get; set; }
         public string Fullname { get; set; }
         public string Mobile { get; set; }
-        public bool KeepMe { get; set; }
 
-        public AdminUserAuthVM() { }
+        public OperatorAuthViewModel() { }
 
-        public AdminUserAuthVM(long id, long adminRoleId, string fullname, string mobile, bool keepMe)
+        public OperatorAuthViewModel(long id, long roleId, string fullname, string mobile)
         {
             Id = id;
-            AdminRoleId = adminRoleId;
+            RoleId = roleId;
             Fullname = fullname;
             Mobile = mobile;
-            KeepMe = keepMe;
         }
     }
 

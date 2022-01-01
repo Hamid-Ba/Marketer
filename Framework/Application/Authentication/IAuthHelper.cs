@@ -6,5 +6,6 @@ namespace Framework.Application.Authentication
     {
         void SignOut();
         Task SignInAsync(VisitorAuthViewModel account);
+        Task SignInAsync(OperatorAuthViewModel account);
     }
 }

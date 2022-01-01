@@ -1,0 +1,73 @@
+﻿@using System.Security.Claims
+
+<!--! menu -->
+<div class="menu" id="menu">
+    <div class="title-menu">
+        <div class="" id="close">
+            <i class="fas fa-times fa-2x text-danger"></i>
+        </div>
+        <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg"></img>
+    </div>
+    <hr>
+    <ul>
+        <li>
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                خانه
+            </a>
+        </li>
+        <li>
+            <a href="">
+                درباره ما
+            </a>
+        </li>
+        <li>
+            <a href="">
+                محصولات
+            </a>
+        </li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>
+                <a asp-area="" asp-controller="Account" asp-action="Logout">
+                    خروج
+                </a>
+            </li>
+
+            <li>
+
+                @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Visitor")
+                {
+                    <a asp-area="Visitor" asp-controller="Dashboard" asp-action="Index">
+                        پنل کاربری
+                    </a>
+                }
+                else if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Operator")
+                {
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                        پنل مدیریت
+                    </a>
+                }
+                <i class="fa fa-user"></i>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a asp-area="" asp-controller="Account" asp-action="VisitorLogin">
+                    ورود
+                </a>
+                <i class="fa fa-user"></i>
+            </li>
+        }
+        <li>
+            <a href="">
+                سبد خرید
+            </a>
+        </li>
+        <li>
+            <a href="">
+                تماس با ما
+            </a>
+        </li>
+    </ul>
+</div>

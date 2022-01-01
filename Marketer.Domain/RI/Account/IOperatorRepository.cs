@@ -8,6 +8,7 @@ namespace Marketer.Domain.RI.Account
 {
     public interface IOperatorRepository : IRepository<Operator>
     {
+        Task<Operator> GetBy(string mobile);
        Task<IEnumerable<OperatorVM>> GetAll();
        Task<EditOperatorVM> GetDetailForEditBy(long id);
     }

@@ -11,6 +11,7 @@ namespace Marketer.Application.Contract.AI.Account
         Task<IEnumerable<OperatorVM>> GetAll();
         Task<EditOperatorVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditOperatorVM command);
+        Task<OperationResult> Login(LoginOperatorVM command);
         Task<OperationResult> Create(CreateOperatorVM command);
     }
 }

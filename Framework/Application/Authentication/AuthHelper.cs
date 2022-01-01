@@ -34,6 +34,26 @@ namespace Framework.Application.Authentication
                 new ClaimsPrincipal(claimsIdentity), authProperties);
         }
 
+        public async Task SignInAsync(OperatorAuthViewModel account)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Role, "Operator"),
+                new Claim("RoleId", account.RoleId.ToString()),
+                new Claim(ClaimTypes.Name, account.Fullname),
+                new Claim(ClaimTypes.MobilePhone, account.Mobile),
+
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties();
+
+
+            await _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity), authProperties);
+        }
         public void SignOut() => _httpContext.HttpContext.SignOutAsync();
     }
 }

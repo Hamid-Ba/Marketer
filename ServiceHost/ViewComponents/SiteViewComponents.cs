@@ -11,4 +11,9 @@ namespace ServiceHost.ViewComponents
     {
         public IViewComponentResult Invoke() => View();
     }
+
+    public class SiteResponsiveMenuViewComponent : ViewComponent
+    {
+        public IViewComponentResult Invoke() => View();
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Marketer.Application.Contract.AI.Account;
+﻿using Framework.Application.Authentication;
+using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -7,9 +8,19 @@ namespace ServiceHost.Controllers
 {
     public class AccountController : BaseController
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IVisitorApplication _visitorApplication;
+        private readonly IOperatorApplication _operatorApplication;
 
-        public AccountController(IVisitorApplication visitorApplication) => _visitorApplication = visitorApplication;
+        public AccountController(IAuthHelper authHelper, IVisitorApplication visitorApplication, IOperatorApplication operatorApplication)
+        {
+            _authHelper = authHelper;
+            _visitorApplication = visitorApplication;
+            _operatorApplication = operatorApplication;
+        }
+
+
+        #region Visitor Login
 
         [HttpGet]
         public IActionResult VisitorLogin() => User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
@@ -33,5 +44,38 @@ namespace ServiceHost.Controllers
             return View(command);
         }
 
+        #endregion
+
+        #region Operator Login
+
+        [HttpGet("adminlogin")]
+        public IActionResult OperatorLogin() => User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+
+        [HttpPost("adminlogin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OperatorLogin(LoginOperatorVM command)
+        {
+            if (ModelState.IsValid && !User.Identity.IsAuthenticated)
+            {
+                var result = await _operatorApplication.Login(command);
+
+                if (result.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = result.Message;
+                    return RedirectToAction("Index", "Home");
+                }
+                else TempData[ErrorMessage] = result.Message;
+            }
+
+            return View(command);
+        }
+
+        #endregion
+
+        public IActionResult Logout()
+        {
+            _authHelper.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
