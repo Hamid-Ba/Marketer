@@ -18,7 +18,7 @@ namespace ServiceHost.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> VisitorLogin(LoginVisitorVM command)
         {
-            if (ModelState.IsValid && User.Identity.IsAuthenticated)
+            if (ModelState.IsValid && !User.Identity.IsAuthenticated)
             {
                 var result = await _visitorApplication.Login(command);
 

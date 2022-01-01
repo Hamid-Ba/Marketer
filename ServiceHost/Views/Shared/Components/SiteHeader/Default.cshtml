@@ -1,7 +1,9 @@
-﻿<header>
+﻿@using System.Security.Claims
+
+<header>
     <div class="desktop">
         <div class="desktop-logo">
-            <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg"></img>
+            <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg" />
             <div class="search" dir="rtl">
                 <a htef class="fas fa-search"></a>
                 <input type="text" placeholder="جست و جو بین محصولات">
@@ -11,7 +13,7 @@
             <a asp-area="" asp-controller="Account" asp-action="VisitorLogin">
                 <i class="fas fa-user text-danger fa-1x"></i>
             </a>
-            
+
             <i class="fas fa-shopping-cart text-danger fa-1x"></i>
         </div>
     </div>
@@ -31,6 +33,20 @@
                 </a>
                 <i class="fas fa-address-book"></i>
             </li>
+
+            <li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Visitor")
+                    {
+                        <a asp-area="Visitor" asp-controller="Dashboard" asp-action="Index">
+                            پنل کاربری
+                        </a>
+                    }
+                }
+                <i class="fa fa-user"></i>
+            </li>
+
             <li>
                 <a href="">
                     تماس با ما

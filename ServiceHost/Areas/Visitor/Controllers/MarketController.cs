@@ -1,4 +1,5 @@
-﻿using Marketer.Application.Contract.AI.Products;
+﻿using Framework.Application.Authentication;
+using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -19,8 +20,7 @@ namespace ServiceHost.Areas.Visitor.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateMarketVM command)
         {
-            //Get Visitor Id
-            command.VisitorId = 0;
+            command.VisitorId = User.GetVisitorId();
             var result = await _marketApplication.Create(command);
 
             if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
@@ -31,7 +31,7 @@ namespace ServiceHost.Areas.Visitor.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(long id)
         {
-            var result = await _marketApplication.DoesMarketBelongToVisitor(id, 0);
+            var result = await _marketApplication.DoesMarketBelongToVisitor(id, User.GetVisitorId());
 
             if (!result.IsSucceeded)
             {
