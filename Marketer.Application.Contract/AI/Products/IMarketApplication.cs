@@ -12,5 +12,6 @@ namespace Marketer.Application.Contract.AI.Products
         Task<EditMarketVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditMarketVM command);
         Task<OperationResult> Create(CreateMarketVM command);
+        Task<OperationResult> DoesMarketBelongToVisitor(long id, long visitorId);
     }
 }

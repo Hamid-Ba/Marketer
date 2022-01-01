@@ -45,6 +45,18 @@ namespace Marketer.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> DoesMarketBelongToVisitor(long id, long visitorId)
+        {
+            OperationResult result = new();
+
+            var market = await _marketRepository.GetEntityByIdAsync(id);
+            if (market is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (market.VisitorId != visitorId) return result.Failed("این فروشگاه به شما تعلق ندارد");
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> Edit(EditMarketVM command)
         {
             OperationResult result = new();
