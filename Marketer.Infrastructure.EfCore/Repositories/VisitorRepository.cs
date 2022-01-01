@@ -26,6 +26,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             MarketCount = v.Markets.Count
         }).AsNoTracking().ToListAsync();
 
+        public async Task<Visitor> GetBy(string mobile) => await _context.Visitors.FirstOrDefaultAsync(v => v.Mobile == mobile);
+
         public async Task<EditVisitorVM> GetDetailForEditBy(long id) => await _context.Visitors.Select(v => new EditVisitorVM
         {
             Id = v.Id,

@@ -12,6 +12,7 @@ namespace Marketer.Application.Contract.AI.Account
         Task<OperationResult> BlockProcess(long id);
         Task<EditVisitorVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditVisitorVM command);
+        Task<OperationResult> Login(LoginVisitorVM command);
         Task<OperationResult> Create(CreateVisitorVM command);
     }
 }

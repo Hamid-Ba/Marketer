@@ -13,9 +13,17 @@
 
 <body>
 
+    <!-- ! header -->
+    @await Component.InvokeAsync("SiteHeader")
+
     @RenderBody()
-   
+
+    <!-- ! footer -->
+    @await Component.InvokeAsync("SiteFooter")
+
     <partial name="_FooterReferencePV" />
+    <partial name="_ValidationScriptsPartial" />
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

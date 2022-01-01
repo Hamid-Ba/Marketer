@@ -2,47 +2,6 @@
     ViewData["Title"] = "صفحه اصلی";
 }
 
-<!-- ! header -->
-@await Component.InvokeAsync("SiteHeader")
-
-<!-- ? main page -->
-<div class="main-header">
-    <div class="main-links">
-        <p class="h6">
-            پخش مواد غذایی و پروتئینی مهرداد
-        </p>
-        <ul class="nav-desktop">
-            <li>
-                <a href="">
-                    محصولات
-                </a>
-                <i class="fas fa-address-book"></i>
-            </li>
-            <li>
-                <a href="">
-                    تماس با ما
-                </a>
-                <i class="fas fa-address-book"></i>
-            </li>
-            <li>
-                <a href="">
-                    درباره ما
-                </a>
-                <i class="fas fa-address-card"></i>
-            </li>
-            <li>
-                <a href="">
-                    خانه
-                </a>
-                <i class="fas fa-home"></i>
-            </li>
-        </ul>
-        <div class="nav-mobile" id="open">
-            <i class="fas fa-bars"></i>
-        </div>
-    </div>
-</div>
-<!-- ? main page -->
 <!-- ? title page -->
 <div class="title my-5">
     <div class="owl-carousel owl-theme m-auto" id="title">
@@ -218,6 +177,3 @@
     </div>
 </div>
 <!-- ! desc-company -->
-
-<!-- ! footer -->
-@await Component.InvokeAsync("SiteFooter")

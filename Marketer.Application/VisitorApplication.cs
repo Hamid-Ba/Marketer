@@ -1,4 +1,5 @@
 ﻿using Framework.Application;
+using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.ViewModels.Account;
@@ -11,11 +12,13 @@ namespace Marketer.Application
 {
     public class VisitorApplication : IVisitorApplication
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IVisitorRepository _visitorRepository;
 
-        public VisitorApplication(IPasswordHasher passwordHasher, IVisitorRepository visitorRepository)
+        public VisitorApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IVisitorRepository visitorRepository)
         {
+            _authHelper = authHelper;
             _passwordHasher = passwordHasher;
             _visitorRepository = visitorRepository;
         }
@@ -70,7 +73,7 @@ namespace Marketer.Application
             OperationResult result = new();
 
             var visitor = await _visitorRepository.GetEntityByIdAsync(command.Id);
-            
+
             if (visitor is null) return result.Failed(ApplicationMessage.UserNotExist);
             if (_visitorRepository.Exists(v => (v.Mobile == command.Mobile || v.UniqueCode == command.UniqueCode) && v.Id != command.Id))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
@@ -89,5 +92,28 @@ namespace Marketer.Application
         public async Task<IEnumerable<VisitorVM>> GetAll() => await _visitorRepository.GetAll();
 
         public async Task<EditVisitorVM> GetDetailForEditBy(long id) => await _visitorRepository.GetDetailForEditBy(id);
+
+        public async Task<OperationResult> Login(LoginVisitorVM command)
+        {
+            OperationResult result = new();
+
+            var visitor = await _visitorRepository.GetBy(command.Mobile);
+
+            if (visitor is null) return result.Failed(ApplicationMessage.UserNotExist);
+
+            if (!_passwordHasher.Check(visitor.Password, command.Password).Verified) return result.Failed(ApplicationMessage.WrongPassword);
+
+            var authVM = new VisitorAuthViewModel
+            {
+                Id = visitor.Id,
+                Fullname = visitor.FullName,
+                Code = visitor.UniqueCode,
+                Mobile = visitor.Mobile
+            };
+
+            _authHelper.SignInAsync(authVM);
+
+            return result.Succeeded();
+        }
     }
 }

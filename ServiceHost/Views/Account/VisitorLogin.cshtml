@@ -1,0 +1,24 @@
+﻿@model Marketer.Application.Contract.ViewModels.Account.LoginVisitorVM
+
+@{
+    ViewData["Title"] = "ورود بازاریاب";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-area="" asp-controller="Account" asp-action="VisitorLogin" method="post">
+    <div class="container my-5 user-form">
+        <div class="text-center">
+            <div class="form bg-light">
+                <p class="h4 fw-bolder mt-3">ورود</p>
+                <div class="user-form-input">
+                    <input type="text" asp-for="Mobile" placeholder="شماره تماس">
+                    <span asp-validation-for="Mobile" class="text text-danger"></span>
+                    <input type="text" asp-for="Password" placeholder="کلمه عبور">
+                    <span asp-validation-for="Password" class="text text-danger"></span>
+                </div>
+                <input type="submit" class="btn btn-secondary w-25 my-3" value="ورود" />
+                @*<a href="" class="btn btn-secondary w-25 my-3">ورود</a>*@
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,3 +1,4 @@
+using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using Framework.Application.SMS;
 using Marketer.Infrastructure.Configuration;
@@ -24,7 +25,7 @@ namespace ServiceHost
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-            //services.AddTransient<IAuthHelper, AuthHelper>();
+            services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
