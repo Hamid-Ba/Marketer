@@ -74,7 +74,10 @@ namespace ServiceHost.Controllers
 
         public IActionResult Logout()
         {
+            if(!User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
+
             _authHelper.SignOut();
+            TempData[SuccessMessage] = "شما با موفقیت خارج شدید";
             return RedirectToAction("Index", "Home");
         }
     }
