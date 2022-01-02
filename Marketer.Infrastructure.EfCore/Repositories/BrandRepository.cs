@@ -18,6 +18,9 @@ namespace Marketer.Infrastructure.EfCore.Repositories
         public async Task<IEnumerable<BrandVM>> GetAll() => await _context.Brands.Select(b => new BrandVM
         {
             Id = b.Id,
+            Picture = b.Picture,
+            PictureAlt = b.PictureAlt,
+            PictureTitle = b.PictureTitle,
             KeyWords = b.KeyWords,
             MetaDescription = b.MetaDescription,
             Name = b.Name,
@@ -34,6 +37,9 @@ namespace Marketer.Infrastructure.EfCore.Repositories
         public async Task<EditBrandVM> GetDetailForEditBy(long id) => await _context.Brands.Select(b => new EditBrandVM
         {
             Id = b.Id,
+            PictureName = b.Picture,
+            PictureAlt = b.PictureAlt,
+            PictureTitle = b.PictureTitle,
             KeyWords = b.KeyWords,
             MetaDescription = b.MetaDescription,
             Name = b.Name,

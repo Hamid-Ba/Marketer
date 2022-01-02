@@ -23,7 +23,9 @@ namespace Marketer.Application
             if (_brandRepository.Exists(b => b.Name == command.Name))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
-            var brand = new Brand(command.Name,command.KeyWords,command.MetaDescription,command.Slug.Slugify());
+            var picture = Uploader.ImageUploader(command.Picture, "Brands", null!);
+
+            var brand = new Brand(command.Name, picture, command.PictureAlt, command.PictureTitle, command.KeyWords, command.MetaDescription, command.Slug.Slugify());
 
             await _brandRepository.AddEntityAsync(brand);
             await _brandRepository.SaveChangesAsync();
@@ -54,7 +56,9 @@ namespace Marketer.Application
             if (_brandRepository.Exists(b => b.Name == command.Name && b.Id != command.Id))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
-            brand.Edit(command.Name,command.KeyWords,command.MetaDescription,command.Slug.Slugify());
+            var picture = Uploader.ImageUploader(command.Picture, "Brands", brand.Picture);
+
+            brand.Edit(command.Name, picture, command.PictureAlt, command.PictureTitle, command.KeyWords, command.MetaDescription, command.Slug.Slugify());
             await _brandRepository.SaveChangesAsync();
 
             return result.Succeeded();
