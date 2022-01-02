@@ -6,9 +6,11 @@ namespace Marketer.Application.Contract.ViewModels.Products
     public class MarketVM
     {
         public long Id { get; set; }
+        public long CityId { get; set; }
         public long VisitorId { get; set; }
         public string VisitorName { get; set; }
         public string Name { get; set; }
+        public string CityName { get; set; }
         public string Owner { get; set; }
         public string MobilePhone { get; set; }
     }
@@ -16,6 +18,11 @@ namespace Marketer.Application.Contract.ViewModels.Products
     public class CreateMarketVM
     {
         public long VisitorId { get; set; }
+
+        [Display(Name = "شهر")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long CityId { get; set; }
 
         [Display(Name = "نام مارکت")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

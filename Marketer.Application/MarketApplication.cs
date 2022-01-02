@@ -24,7 +24,7 @@ namespace Marketer.Application
             if (_marketRepository.Exists(m => m.MobilePhone == command.MobilePhone))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
-            var market = new Market(command.VisitorId, command.Name, command.Owner, command.MobilePhone);
+            var market = new Market(command.CityId,command.VisitorId, command.Name, command.Owner, command.MobilePhone);
 
             await _marketRepository.AddEntityAsync(market);
             await _marketRepository.SaveChangesAsync();
@@ -67,7 +67,7 @@ namespace Marketer.Application
             if (_marketRepository.Exists(m => m.MobilePhone == command.MobilePhone && m.Id != command.Id))
                 return result.Failed(ApplicationMessage.DuplicatedModel);
 
-            market.Edit(command.Name, command.Owner, command.MobilePhone);
+            market.Edit(command.CityId,command.Name, command.Owner, command.MobilePhone);
             await _marketRepository.SaveChangesAsync();
 
             return result.Succeeded();

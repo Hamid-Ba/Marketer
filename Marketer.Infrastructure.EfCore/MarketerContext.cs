@@ -20,6 +20,7 @@ namespace Marketer.Infrastructure.EfCore
             var assembly = typeof(OperatorMapping).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
 
+            modelBuilder.Entity<City>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Role>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Brand>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Market>().HasQueryFilter(u => !u.IsDelete);
@@ -42,6 +43,7 @@ namespace Marketer.Infrastructure.EfCore
 
         #region Products
 
+        public DbSet<City> Cities { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Market> Markets { get; set; }
         public DbSet<Product> Products { get; set; }

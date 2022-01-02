@@ -19,11 +19,13 @@ namespace Marketer.Infrastructure.EfCore.Repositories
         {
             var visitor = await _context.Visitors.Select(v => new { Id = v.Id, Name = v.FullName }).ToListAsync();
 
-            var markets = await _context.Markets.Select(m => new MarketVM
+            var markets = await _context.Markets.Include(c => c.City).Select(m => new MarketVM
             {
                 Id = m.Id,
+                CityId = m.CityId,
                 VisitorId = m.VisitorId,
                 Name = m.Name,
+                CityName = m.City.Name,
                 Owner = m.Owner,
                 MobilePhone = m.MobilePhone
             }).AsNoTracking().ToListAsync();
@@ -36,6 +38,7 @@ namespace Marketer.Infrastructure.EfCore.Repositories
         public async Task<EditMarketVM> GetDetailForEditBy(long id) => await _context.Markets.Select(m => new EditMarketVM
         {
             Id = m.Id,
+            CityId = m.CityId,
             Name = m.Name,
             MobilePhone = m.MobilePhone,
             Owner = m.Owner,

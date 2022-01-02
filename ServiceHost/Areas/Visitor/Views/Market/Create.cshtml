@@ -32,11 +32,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Name" class="control-label">نام مارکت</label>
                     <input type="text" class="form-control" asp-for="Name">
                     <span asp-validation-for="Name" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CityId" class="control-label">نام مارکت</label>
+                    <select asp-for="CityId" asp-items="ViewBag.Cities" class="form-control">
+                        <option value="0">انتخاب کنید...</option>
+                    </select>
+                    <span asp-validation-for="CityId" class="error"></span>
                 </div>
             </div>
         </div>

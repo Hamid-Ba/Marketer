@@ -45,6 +45,9 @@ namespace Marketer.Infrastructure.Configuration
 
             #region Products
 
+            service.AddTransient<ICityRepository, CityRepository>();
+            service.AddTransient<ICityApplication, CityApplication>();
+
             service.AddTransient<IBrandRepository, BrandRepository>();
             service.AddTransient<IBrandApplication, BrandApplication>();
 

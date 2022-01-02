@@ -17,6 +17,10 @@ namespace Marketer.Infrastructure.EfCore.Mapping
             builder.HasOne(v => v.Visitor)
                 .WithMany(m => m.Markets)
                 .HasForeignKey(v => v.VisitorId);
+
+            builder.HasOne(c => c.City)
+                .WithMany(m => m.Markets)
+                .HasForeignKey(f => f.CityId);
         }
     }
 }
