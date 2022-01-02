@@ -32,6 +32,33 @@
         </div>
 
         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Picture" class="control-label">تصویر</label>
+                    <input type="file" class="form-control" asp-for="Picture" accept="image/*">
+                    <span asp-validation-for="Picture" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PictureAlt" class="control-label">جایگزین تصویر</label>
+                    <input type="text" class="form-control" asp-for="PictureAlt">
+                    <span asp-validation-for="PictureAlt" class="error"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="PictureTitle" class="control-label">عنوان تصویر</label>
+                    <input type="text" class="form-control" asp-for="PictureTitle">
+                    <span asp-validation-for="PictureTitle" class="error"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="KeyWords" class="control-label">کلمات کلیدی</label>
@@ -55,6 +82,7 @@
     </div>
     <div class="modal-footer">
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="PictureName" />
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
         <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
     </div>

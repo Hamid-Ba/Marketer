@@ -16,7 +16,7 @@ namespace Marketer.Domain.Entities.Products
 
         public List<Product> Products { get; private set; }
 
-        public Brand(string name,string picture,string pictureAlt,string pictureTitle, string keyWords, string metaDescription, string slug)
+        public Brand(string name, string picture, string pictureAlt, string pictureTitle, string keyWords, string metaDescription, string slug)
         {
             Name = name;
             Picture = picture;
@@ -30,7 +30,10 @@ namespace Marketer.Domain.Entities.Products
         public void Edit(string name, string picture, string pictureAlt, string pictureTitle, string keyWords, string metaDescription, string slug)
         {
             Name = name;
-            Picture = picture;
+
+            if (!string.IsNullOrWhiteSpace(picture))
+                Picture = picture;
+
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             KeyWords = keyWords;
