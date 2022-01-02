@@ -2,25 +2,38 @@
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Visitor.Controllers
 {
     public class MarketController : VisitorBaseController
     {
+        private readonly ICityApplication _cityApplication;
         private readonly IMarketApplication _marketApplication;
 
-        public MarketController(IMarketApplication marketApplication) => _marketApplication = marketApplication;
+        public MarketController(ICityApplication cityApplication, IMarketApplication marketApplication)
+        {
+            _cityApplication = cityApplication;
+            _marketApplication = marketApplication;
+        }
 
         public async Task<IActionResult> Index() => View(await _marketApplication.GetAll());
 
         [HttpGet]
-        public IActionResult Create() => PartialView();
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Cities = new SelectList(await _cityApplication.GetAll(), "Id", "Name");
+            return PartialView();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateMarketVM command)
         {
             command.VisitorId = User.GetVisitorId();
+            
+            if(!ModelState.IsValid) ViewBag.Cities = new SelectList(await _cityApplication.GetAll(), "Id", "Name");
+
             var result = await _marketApplication.Create(command);
 
             if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
@@ -31,6 +44,7 @@ namespace ServiceHost.Areas.Visitor.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(long id)
         {
+            ViewBag.Cities = new SelectList(await _cityApplication.GetAll(), "Id", "Name");
             var result = await _marketApplication.DoesMarketBelongToVisitor(id, User.GetVisitorId());
 
             if (!result.IsSucceeded)
@@ -46,6 +60,8 @@ namespace ServiceHost.Areas.Visitor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditMarketVM command)
         {
+            if (!ModelState.IsValid) ViewBag.Cities = new SelectList(await _cityApplication.GetAll(), "Id", "Name");
+
             var checkVisitor = await _marketApplication.DoesMarketBelongToVisitor(command.Id, command.VisitorId);
 
             if (!checkVisitor.IsSucceeded)
