@@ -12,17 +12,14 @@ namespace Marketer.Application
     {
         private readonly IMarketRepository _marketRepository;
 
-        public MarketApplication(IMarketRepository marketRepository)
-        {
-            _marketRepository = marketRepository;
-        }
+        public MarketApplication(IMarketRepository marketRepository) => _marketRepository = marketRepository;
 
         public async Task<OperationResult> Create(CreateMarketVM command)
         {
             OperationResult result = new();
 
             if (_marketRepository.Exists(m => m.MobilePhone == command.MobilePhone))
-                return result.Failed(ApplicationMessage.DuplicatedModel);
+                return result.Failed("این فروشگاه وجود دارد");
 
             var market = new Market(command.CityId,command.VisitorId, command.Name, command.Owner, command.MobilePhone);
 
@@ -65,7 +62,7 @@ namespace Marketer.Application
            
             if (market is null) return result.Failed(ApplicationMessage.NotExist);
             if (_marketRepository.Exists(m => m.MobilePhone == command.MobilePhone && m.Id != command.Id))
-                return result.Failed(ApplicationMessage.DuplicatedModel);
+                return result.Failed("این فروشگاه وجود دارد");
 
             market.Edit(command.CityId,command.Name, command.Owner, command.MobilePhone);
             await _marketRepository.SaveChangesAsync();
@@ -74,6 +71,9 @@ namespace Marketer.Application
         }
 
         public async Task<IEnumerable<MarketVM>> GetAll() => await _marketRepository.GetAll();
+
+        public async Task<IEnumerable<MarketVM>> GetAll(long visitorId) => await _marketRepository.GetAll(visitorId);
+
 
         public async Task<EditMarketVM> GetDetailForEditBy(long id) => await _marketRepository.GetDetailForEditBy(id);
     }

@@ -57,6 +57,9 @@ namespace Marketer.Infrastructure.Configuration
             service.AddTransient<IProductRepository, ProductRepository>();
             service.AddTransient<IProductApplication, ProductApplication>();
 
+            service.AddTransient<IMarketRepository, MarketRepository>();
+            service.AddTransient<IMarketApplication, MarketApplication>();
+
             #endregion
 
             #region Discounts

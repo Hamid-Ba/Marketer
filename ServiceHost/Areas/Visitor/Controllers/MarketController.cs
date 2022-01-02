@@ -18,7 +18,7 @@ namespace ServiceHost.Areas.Visitor.Controllers
             _marketApplication = marketApplication;
         }
 
-        public async Task<IActionResult> Index() => View(await _marketApplication.GetAll());
+        public async Task<IActionResult> Index() => View(await _marketApplication.GetAll(User.GetVisitorId()));
 
         [HttpGet]
         public async Task<IActionResult> Create()
