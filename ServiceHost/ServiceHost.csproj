@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Marketer.Infrastructure.Configuration\Marketer.Infrastructure.Configuration.csproj" />
+	  <ProjectReference Include="..\Marketer.Query\Marketer.Query.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

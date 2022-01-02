@@ -9,6 +9,8 @@ using Marketer.Domain.RI.Extera;
 using Marketer.Domain.RI.Products;
 using Marketer.Infrastructure.EfCore;
 using Marketer.Infrastructure.EfCore.Repositories;
+using Marketer.Query.Commands;
+using Marketer.Query.Queries.Brands;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -76,6 +78,12 @@ namespace Marketer.Infrastructure.Configuration
 
             service.AddTransient<IContactUsRepository, ContactUsRepository>();
             service.AddTransient<IContactUsApplication, ContactUsApplication>();
+
+            #endregion
+
+            #region Queries
+
+            service.AddTransient<IBrandQuery, BrandQuery>();
 
             #endregion
         }

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Marketer.Query.Queries.Brands.BrandQueryVM>
+
+<!-- ? title page -->
+<div class="title my-5">
+    <div class="owl-carousel owl-theme m-auto" id="title">
+
+        @foreach (var brand in Model)
+        {
+            <div class="item">
+                <div class="cart-brands">
+                    <a asp-area="" asp-controller="Brand" asp-action="Products" asp-route-slug="@brand.Slug">
+                        <img src="~/Pictures/@brand.Picture" alt="@brand.PictureAlt" title="@brand.PictureTitle">
+                        <hr>
+                        <div class="desc-cart-brands">
+                            <p class="h6">@brand.Name</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- ? title page -->

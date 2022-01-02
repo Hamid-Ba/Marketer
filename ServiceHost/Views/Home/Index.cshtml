@@ -2,75 +2,7 @@
     ViewData["Title"] = "صفحه اصلی";
 }
 
-<!-- ? title page -->
-<div class="title my-5">
-    <div class="owl-carousel owl-theme m-auto" id="title">
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/logo.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/p.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/logo.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/p.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/p.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/logo.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="cart-brands">
-                <img src="~/SiteTheme/assets/images/logo.png" alt="">
-                <hr>
-                <div class="desc-cart-brands">
-                    <p class="h6">شام شام</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ? title page -->
+@await Component.InvokeAsync("Brand")
 <!-- ! categories -->
 <section class="mt-5">
     <div class="brands owl-carousel owl-theme" id="categories">
