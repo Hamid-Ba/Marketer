@@ -11,6 +11,7 @@ using Marketer.Infrastructure.EfCore;
 using Marketer.Infrastructure.EfCore.Repositories;
 using Marketer.Query.Commands;
 using Marketer.Query.Queries.Brands;
+using Marketer.Query.Queries.Categories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -84,6 +85,7 @@ namespace Marketer.Infrastructure.Configuration
             #region Queries
 
             service.AddTransient<IBrandQuery, BrandQuery>();
+            service.AddTransient<ICategoryQuery, CategoryQuery>();
 
             #endregion
         }

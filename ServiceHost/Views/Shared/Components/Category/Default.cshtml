@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Marketer.Query.Queries.Categories.CategoryQueryVM>
+@using Framework.Peresentation
+
+<!-- ! categories -->
+<section class="mt-5">
+    <div class="brands owl-carousel owl-theme" id="categories">
+
+        @foreach (var category in Model)
+        {
+            <a asp-area="" asp-controller="Category" asp-action="Products" asp-route-slug="@category.Slug">
+                <div class="brand" style="background-color: @(ColorGenerator.ColorProducer());">
+                    <p class="h4">@category.Name</p>
+                </div>
+            </a>
+        }
+
+    </div>
+</section>
+<!-- ! categories -->
