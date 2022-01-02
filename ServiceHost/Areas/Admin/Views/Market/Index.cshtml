@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Marketer.Application.Contract.ViewModels.Products.MarketVM>
+
+@{
+    ViewData["Title"] = "فروشگاه ها";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title pull-right">@ViewData["title"]</h4>
+    </div>
+</div>
+
+<div class="row" id="ProductCategoriesDiv">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">@ViewData["Title"]</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 makeTableResponsive">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>نام</th>
+                                    <th>صاحب</th>
+                                    <th>بازاریاب</th>
+                                    <th>شهر</th>
+                                    <th>شماره موبایل</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @foreach (var entity in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td>@entity.Id</td>
+                                        <td>@entity.Name</td>
+                                        <td>@entity.Owner</td>
+                                        <td>@entity.VisitorName</td>
+                                        <td>@entity.CityName</td>
+                                        <td>@entity.MobilePhone</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+<script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+    });
+</script>
+}
+
