@@ -13,6 +13,7 @@ using Marketer.Query.Commands;
 using Marketer.Query.Queries.Brands;
 using Marketer.Query.Queries.Categories;
 using Marketer.Query.Queries.Products;
+using Marketer.Query.Queries.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -87,6 +88,7 @@ namespace Marketer.Infrastructure.Configuration
 
             service.AddTransient<IBrandQuery, BrandQuery>();
             service.AddTransient<IProductQuery, ProductQuery>();
+            service.AddTransient<ISettingQuery, SettingQuery>();
             service.AddTransient<ICategoryQuery, CategoryQuery>();
 
             #endregion

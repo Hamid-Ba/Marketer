@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Marketer.Query.Queries.Settings;
+using Microsoft.AspNetCore.Mvc;
 using ServiceHost.Models;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ISettingQuery _settingQuery;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        public HomeController(ISettingQuery settingQuery) => _settingQuery = settingQuery;
 
-        public IActionResult Index()
+        public async Task<IActionResult>  Index()
         {
+            ViewBag.Text = await _settingQuery.GetSummaryText();
             return View();
         }
 
