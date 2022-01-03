@@ -10,7 +10,6 @@ namespace Marketer.Infrastructure.EfCore.Mapping
         {
             builder.Property(p => p.Emails).HasMaxLength(500);
             builder.Property(p => p.Mobiles).HasMaxLength(47);
-            builder.Property(p => p.Text).HasMaxLength(1000);
         }
     }
 }

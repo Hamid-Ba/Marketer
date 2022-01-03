@@ -1,0 +1,60 @@
+﻿@model Marketer.Application.Contract.ViewModels.Extera.SettingVM
+@{
+    ViewData["Title"] = "تنظیمات";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="card">
+
+        <div class="card-header">
+            <h4 class="title">تنظیمات</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-area = "Admin" asp-controller="Setting" asp-action="Modify" method="post" enctype="multipart/form-data">
+                <div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label asp-for="Mobiles" class="control-label">شماره تماس</label>
+                                <input asp-for="Mobiles" class="form-control"/>
+                                <span asp-validation-for="Mobiles" class="error"></span>
+                                <p class="alert alert-info">لطفا شماره تماس ها را با "," جدا نمایید</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label asp-for="Emails" class="control-label">ایمیل</label>
+                                <input asp-for="Emails" class="form-control" />
+                                <span asp-validation-for="Emails" class="error"></span>
+                                <p class="alert alert-info">لطفا شماره ایمیل ها را با "," جدا نمایید</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label asp-for="Text" class="control-label">متن درباره ما</label>
+                                <textarea id="TinyArea" class="form-control autogrow" asp-for="Text"
+                                          style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                <span asp-validation-for="Text" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        @*<a asp-page="Index" type="button" class="btn btn-default waves-effect">بازگشت</a>*@
+                        <button type="submit" class="btn btn-info waves-effect waves-light">اعمال</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
