@@ -23,10 +23,10 @@ namespace Marketer.Application
 
             if (setting is null)
             {
-                var baseSetting = new Setting(command.Mobiles, command.Emails, command.Text);
+                var baseSetting = new Setting(command.Mobiles, command.Emails, command.Text, command.SummaryText);
                 await _settingRepository.AddEntityAsync(baseSetting);
             }
-            else setting.Edit(command.Mobiles, command.Emails, command.Text);
+            else setting.Edit(command.Mobiles, command.Emails, command.Text, command.SummaryText);
 
             await _settingRepository.SaveChangesAsync();
             return result.Succeeded();

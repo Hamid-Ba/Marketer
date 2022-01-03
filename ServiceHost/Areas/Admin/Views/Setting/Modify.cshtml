@@ -4,6 +4,16 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
+@section Scripts{
+<script>
+    tinymce.init({
+        selector: '#TinyArea1',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+    });
+</script>
+}
+
 <div class="container">
     <div class="card">
 
@@ -12,20 +22,20 @@
         </div>
 
         <div class="card-body">
-            <form asp-area = "Admin" asp-controller="Setting" asp-action="Modify" method="post" enctype="multipart/form-data">
+            <form asp-area="Admin" asp-controller="Setting" asp-action="Modify" method="post" enctype="multipart/form-data">
                 <div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group no-margin">
                                 <label asp-for="Mobiles" class="control-label">شماره تماس</label>
-                                <input asp-for="Mobiles" class="form-control"/>
+                                <input asp-for="Mobiles" class="form-control" />
                                 <span asp-validation-for="Mobiles" class="error"></span>
                                 <p class="alert alert-info">لطفا شماره تماس ها را با "," جدا نمایید</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group no-margin">
@@ -33,6 +43,17 @@
                                 <input asp-for="Emails" class="form-control" />
                                 <span asp-validation-for="Emails" class="error"></span>
                                 <p class="alert alert-info">لطفا شماره ایمیل ها را با "," جدا نمایید</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label asp-for="SummaryText" class="control-label">متن صفحه اصلی</label>
+                                <textarea id="TinyArea1" class="form-control autogrow" asp-for="SummaryText"
+                                          style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                <span asp-validation-for="SummaryText" class="error"></span>
                             </div>
                         </div>
                     </div>

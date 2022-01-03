@@ -21,7 +21,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             {
                 Text = s.Text,
                 Emails = s.Emails,
-                Mobiles = s.Mobiles
+                Mobiles = s.Mobiles,
+                SummaryText = s.SummaryText
             }).FirstOrDefaultAsync();
 
     }
