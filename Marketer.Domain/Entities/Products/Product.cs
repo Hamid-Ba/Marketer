@@ -18,6 +18,7 @@ namespace Marketer.Domain.Entities.Products
         public double PurchacePrice { get; private set; }
         public double Profit { get; private set; }
         public double Weight { get; private set; }
+        public string Description { get; private set; }
         public bool IsStock { get; private set; }
         public DateTime ExpiredDate { get; private set; }
         public long OrderCount { get; private set; }
@@ -30,7 +31,7 @@ namespace Marketer.Domain.Entities.Products
         public Brand Brand { get; private set; }
 
         public Product(long brandId, long categoryId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count, int eachBoxCount,
-          double consumerPrice, double purchacePrice, double weight, DateTime expiredDate,
+          double consumerPrice, double purchacePrice, double weight,string description, DateTime expiredDate,
           string slug, string keywords, string metaDescription)
         {
             BrandId = brandId;
@@ -46,6 +47,7 @@ namespace Marketer.Domain.Entities.Products
             PurchacePrice = purchacePrice;
             Profit = ConsumerPrice - PurchacePrice;
             Weight = weight;
+            Description = description;
             IsStock = count > 0;
             ExpiredDate = expiredDate;
             OrderCount = 0;
@@ -56,7 +58,7 @@ namespace Marketer.Domain.Entities.Products
         }
 
         public void Edit(long brandId, long categoryId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count, int eachBoxCount,
-            double consumerPrice, double purchacePrice, double weight, DateTime expiredDate,
+            double consumerPrice, double purchacePrice, double weight,string description, DateTime expiredDate,
             string slug, string keywords, string metaDescription)
         {
             BrandId = brandId;
@@ -75,6 +77,7 @@ namespace Marketer.Domain.Entities.Products
             PurchacePrice = purchacePrice;
             Profit = ConsumerPrice - PurchacePrice;
             Weight = weight;
+            Description = description;
             IsStock = count > 0;
             ExpiredDate = expiredDate;
             Slug = slug;

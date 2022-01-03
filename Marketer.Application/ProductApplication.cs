@@ -31,7 +31,7 @@ namespace Marketer.Application
 
             var product = new Product(command.BrandId, command.CategoryId, command.Code, command.Title, picture, command.PictureAlt,
                 command.PictureTitle, command.Count, command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Weight,
-                command.ExpiredDate.ToGeorgianDateTime(), command.Slug.Slugify(), command.Keywords, command.MetaDescription);
+                command.Description, command.ExpiredDate.ToGeorgianDateTime(), command.Slug.Slugify(), command.Keywords, command.MetaDescription);
 
             await _productRepository.AddEntityAsync(product);
             await _productRepository.SaveChangesAsync();
@@ -73,8 +73,8 @@ namespace Marketer.Application
             var picture = Uploader.ImageUploader(command.Picture, $"{product.Slug.Slugify()}", product.Picture);
 
             product.Edit(command.BrandId, command.CategoryId, command.Code, command.Title, picture, command.PictureAlt,
-                command.PictureTitle, command.Count ,command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Weight,
-                command.ExpiredDate.ToGeorgianDateTime(),command.Slug.Slugify(), command.Keywords, command.MetaDescription);
+                command.PictureTitle, command.Count, command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Weight,
+                command.Description, command.ExpiredDate.ToGeorgianDateTime(), command.Slug.Slugify(), command.Keywords, command.MetaDescription);
 
             await _productRepository.SaveChangesAsync();
 
@@ -86,6 +86,6 @@ namespace Marketer.Application
         public async Task<IEnumerable<SelectProductVM>> GetAllForSelection() => await _productRepository.GetAllForSelection();
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
-        
+
     }
 }

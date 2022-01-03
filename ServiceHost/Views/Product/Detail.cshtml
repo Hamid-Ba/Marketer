@@ -1,0 +1,49 @@
+﻿@model Marketer.Query.Queries.Products.ProductQueryVM
+@using Framework.Application
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Keyword"] = Model.Keywords;
+    ViewData["Meta"] = Model.MetaDescription;
+}
+
+<div class="my-5 sinle-product-page ">
+    <div class="image-product">
+        <img src="~/Pictures/@Model.Picture" alt="@Model.PictureAlt" title="@Model.PictureTitle">
+    </div>
+    <div class="desc-product">
+        <h1>@Model.Title</h1>
+        <hr>
+        <p>
+            دسته بندی : <span>@Model.CategoryName</span>
+        </p>
+        <p>
+            برند : <span>@Model.BrandName</span>
+        </p>
+        <p>
+            قیمت خریدار : <span>@Model.PurchasePrice.ToMoney() تومان</span>
+        </p>
+        <p>
+            قیمت مصرف کننده : <span>@Model.ConsumerPrice.ToMoney() تومان</span>
+        </p>
+        <p>
+            تعداد در هربسته : <span>@Model.EachBoxCount</span>
+        </p>
+        <p>
+            وزن : <span>@Model.Weight کیلوگرم</span>
+        </p>
+        <p>
+            تاریخ انقضاء : <span>@Model.ExpiredDate</span>
+        </p>
+        <hr>
+        <p>
+            @Model.Description
+        </p>
+        <hr>
+        <a href="">ثبت در سبد خرید</a>
+    </div>
+</div>
+
+<div class="mobile-add">
+    <a href="">ثبت در سبد خرید</a>
+</div>

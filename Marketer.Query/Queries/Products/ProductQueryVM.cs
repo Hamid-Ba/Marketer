@@ -16,6 +16,7 @@ namespace Marketer.Query.Queries.Products
         public string PictureTitle { get; set; }
         public int EachBoxCount { get; set; }
         public double Weight { get; set; }
+        public string Description { get; set; }
         public double ConsumerPrice { get; set; }
         public double PurchasePrice { get; set; }
         public double Profit { get; set; }

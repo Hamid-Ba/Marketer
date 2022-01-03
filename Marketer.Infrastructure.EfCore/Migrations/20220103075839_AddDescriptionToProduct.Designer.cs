@@ -4,14 +4,16 @@ using Marketer.Infrastructure.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Marketer.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(MarketerContext))]
-    partial class MarketerContextModelSnapshot : ModelSnapshot
+    [Migration("20220103075839_AddDescriptionToProduct")]
+    partial class AddDescriptionToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

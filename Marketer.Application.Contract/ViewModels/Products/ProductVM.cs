@@ -19,6 +19,7 @@ namespace Marketer.Application.Contract.ViewModels.Products
         public string PictureTitle { get;  set; }
         public int EachBoxCount { get; set; }
         public double Weight { get; set; }
+        public string Description { get; set; }
         public double ConsumerPrice { get; set; }
         public double PurchasePrice { get; set; }
         public double Profit { get; set; }
@@ -72,6 +73,10 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public double Weight { get; set; }
+
+        [Display(Name = "توضیحات")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Description { get; set; }
 
         [Display(Name = "قیمت مصرف کننده")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
@@ -149,6 +154,10 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public double Weight { get; set; }
+
+        [Display(Name = "توضیحات")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Description { get; set; }
 
         [Display(Name = "قیمت مصرف کننده")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
