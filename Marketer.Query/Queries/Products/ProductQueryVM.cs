@@ -27,6 +27,7 @@ namespace Marketer.Query.Queries.Products
         public string Slug { get; set; }
         public string Keywords { get; set; }
         public string MetaDescription { get; set; }
+        public int? DiscountRate { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }

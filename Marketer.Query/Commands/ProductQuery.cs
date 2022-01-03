@@ -2,6 +2,7 @@
 using Marketer.Infrastructure.EfCore;
 using Marketer.Query.Queries.Products;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,7 +43,16 @@ namespace Marketer.Query.Commands
 
         public async Task<IEnumerable<ProductQueryVM>> GetAll(int take = 0)
         {
-            var products = _context.Products.Select(p => new ProductQueryVM
+            var discounts = await _context.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
+              Select(d => new
+              {
+                  Id = d.Id,
+                  ProductId = d.ProductId,
+                  Rate = d.DiscountRate
+              }).ToListAsync();
+
+
+            var products =await _context.Products.Select(p => new ProductQueryVM
             {
                 Id = p.Id,
                 Title = p.Title,
@@ -53,12 +63,13 @@ namespace Marketer.Query.Commands
                 PictureAlt = p.PictureAlt,
                 PictureTitle = p.PictureTitle,
                 CreationDate = p.CreationDate
-            }).AsNoTracking().OrderByDescending(p => p.CreationDate).AsQueryable();
+            }).AsNoTracking().OrderByDescending(p => p.CreationDate).ToListAsync();
 
+            products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
 
-            if (take > 0) return await products.Take(take).ToListAsync();
+            if (take > 0) return products.Take(take);
 
-            return await products.ToListAsync();
+            return products;
         }
 
     }

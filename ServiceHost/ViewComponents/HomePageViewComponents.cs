@@ -26,11 +26,11 @@ namespace ServiceHost.ViewComponents
 
     }
 
-    public class ProductViewComponent : ViewComponent
+    public class ProductsViewComponent : ViewComponent
     {
         private readonly IProductQuery _productQuery;
 
-        public ProductViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
+        public ProductsViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
 
         public async Task<IViewComponentResult> InvokeAsync() => View(await _productQuery.GetAll(6));
     }
