@@ -21,7 +21,7 @@
             </a>
         </li>
         <li>
-            <a href="">
+            <a asp-area="" asp-controller="Products" asp-action="Index">
                 محصولات
             </a>
         </li>
@@ -48,6 +48,15 @@
                     خروج
                 </a>
             </li>
+
+            @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Visitor")
+            {
+                <li>
+                    <a href="">
+                        سبد خرید
+                    </a>
+                </li>
+            }
         }
         else
         {
@@ -57,11 +66,7 @@
                 </a>
             </li>
         }
-        <li>
-            <a href="">
-                سبد خرید
-            </a>
-        </li>
+        
         <li>
             <a asp-area="" asp-controller="Home" asp-action="ContactUs">
                 تماس با ما

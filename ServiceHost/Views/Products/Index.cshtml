@@ -1,9 +1,14 @@
 ﻿@using Framework.Application
+@using Marketer.Query.Queries.Categories
+@using Marketer.Query.Queries.Brands
+
 @model ReflectionIT.Mvc.Paging.PagingList<Marketer.Query.Queries.Products.ProductQueryVM>
 @addTagHelper *, ReflectionIT.Mvc.Paging
 
 @{
     ViewData["Title"] = "محصولات";
+    List<BrandQueryVM> brands = ViewBag.Brands;
+    List<CategoryQueryVM> categories = ViewBag.Categories;
 }
 
 <!-- ! filters -->
@@ -17,11 +22,12 @@
                 <option value="@ProductSort.Cheapest">ارزان ترین</option>
                 <option value="@ProductSort.Expencive">گران ترین</option>
             </select>
-            <select class="form-select categories-filter" aria-label="Default select example">
-                <option selected>سوسیس کالباس</option>
-                <option selected>سوسیس کالباس</option>
-                <option selected>سوسیس کالباس</option>
-                <option selected>سوسیس کالباس</option>
+            <select class="form-select categories-filter" aria-label="Default select example" name ="cat">
+                <option value="0">دسته بندی</option>
+                @foreach (var cat in categories)
+                {
+                    <option value="@cat.Slug">@cat.Name</option>
+                }
             </select>
             <div class="search">
                 <input type="text" name="search" id="">
@@ -34,11 +40,11 @@
 </form>
 
 @section Scripts{
-    <script>
-        function SubmitSearch(){
-            document.getElementById("myform").submit()
-        }
-    </script>
+<script>
+    function SubmitSearch(){
+        document.getElementById("myform").submit()
+    }
+</script>
 }
 <!-- ! filters -->
 <!-- ! products -->
@@ -92,10 +98,10 @@
             </div>
             <div class="catgories">
                 <ul class="catgories-menu">
-                    <li><a href="">نوشیدنی</a></li>
-                    <li><a href="">لینیات</a></li>
-                    <li><a href="">سوسیس کالباس</a></li>
-                    <li><a href="">تنقلات</a></li>
+                    @foreach (var cat in categories)
+                    {
+                        <li><a href="">@cat.Name</a></li>
+                    }
                 </ul>
             </div>
             <hr>
@@ -107,8 +113,10 @@
             </div>
             <div class="catgories">
                 <ul class="catgories-menu">
-                    <li><a href="">شام شما</a></li>
-                    <li><a href="">تست</a></li>
+                    @foreach (var brand in brands)
+                    {
+                        <li><a href="">@brand.Name</a></li>
+                    }
                 </ul>
             </div>
         </div>

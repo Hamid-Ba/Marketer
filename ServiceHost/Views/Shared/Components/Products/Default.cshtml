@@ -3,7 +3,9 @@
         <div class="offers-desc item text-center">
             <p class="h4 text-white">آخرین محصولات اضافه شده</p>
             <img src="~/SiteTheme/assets/images/icons8-discount-100 (1).png" class="img-fluid" alt="">
-            <a href="" class=""> همه محصولات</a>
+            <a asp-area="" asp-controller="Products" asp-action="Index">
+                 همه محصولات
+            </a>
         </div>
 
         @await Component.InvokeAsync("Product",new{take = 6})
