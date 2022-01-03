@@ -18,6 +18,9 @@ namespace ServiceHost.Controllers
             return View();
         }
 
+        [Route("about-us")]
+        public async Task<IActionResult> AboutUs() => View("AboutUs",await _settingQuery.GetAboutUsTextAsync());
+
         public IActionResult Privacy()
         {
             return View();

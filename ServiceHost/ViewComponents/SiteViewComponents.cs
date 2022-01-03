@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Marketer.Query.Queries.Settings;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ServiceHost.ViewComponents
 {
@@ -9,7 +11,11 @@ namespace ServiceHost.ViewComponents
 
     public class SiteFooterViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke() => View();
+        private readonly ISettingQuery _settingQuery;
+
+        public SiteFooterViewComponent(ISettingQuery settingQuery) => _settingQuery = settingQuery;
+
+        public async Task<IViewComponentResult>  InvokeAsync() => View(await _settingQuery.Get());
     }
 
     public class SiteResponsiveMenuViewComponent : ViewComponent

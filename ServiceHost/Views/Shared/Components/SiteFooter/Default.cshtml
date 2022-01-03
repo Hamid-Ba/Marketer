@@ -1,18 +1,27 @@
-﻿<footer class="mt-5">
-    <div class="footer-title">
-        <p class="h6">تلفن همراه</p>
-        <p>
-            09332839526 / 054-332565
-        </p>
-    </div>
-    <hr>
+﻿@model Marketer.Query.Queries.Settings.SettingQueryVM
+
+<footer class="mt-5">
+    @if (Model?.Mobiles != null)
+    {
+        <div class="footer-title">
+            <p class="h6">تلفن همراه</p>
+            <p>
+                @foreach (var mobile in Model.Mobiles)
+                {
+                    @mobile
+                }
+            </p>
+        </div>
+        <hr>
+    }
+
     <div class="footer-details">
         <div class="foooter-lists">
             <div class="lists text-center services">
                 <a href="" class="fw-bolder text-dark">صفحات</a>
                 <ul>
                     <li><a href="">خانه</a></li>
-                    <li><a href="">درباره ما</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="AboutUs">درباره ما</a></li>
                     <li><a href="">تماس با ما</a></li>
                 </ul>
             </div>
@@ -28,23 +37,24 @@
                 <a href="" class="fw-bolder text-dark ">صفحات</a>
                 <ul>
                     <li><a href="">خانه</a></li>
-                    <li><a href="">درباره ما</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="AboutUs">درباره ما</a></li>
                     <li><a href="">تماس با ما</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-logo">
-            <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg"></img>
+            <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg"/>
         </div>
     </div>
     <hr>
-    <div class="footer-desc">
-        <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و
-            متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و
-            کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و الخصوص
-            طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام
-        </p>
-    </div>
+    @if (!string.IsNullOrWhiteSpace(Model?.SummaryText))
+    {
+        <div class="footer-desc">
+            <p>
+                @Html.Raw(Model.SummaryText)
+            </p>
+        </div>
+    }
+
 </footer>
 <!-- ! footer -->
