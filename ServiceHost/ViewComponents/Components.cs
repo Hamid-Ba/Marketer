@@ -10,6 +10,6 @@ namespace ServiceHost.ViewComponents
 
         public ProductViewComponent(IProductQuery productQuery) => _productQuery = productQuery;
 
-        public async Task<IViewComponentResult> InvokeAsync(int take) => View(await _productQuery.GetAll(Framework.Application.ProductSort.Newest,null,null,take));
+        public async Task<IViewComponentResult> InvokeAsync(int take) => View(await _productQuery.GetAll(Framework.Application.ProductSort.Newest,null,null,null,take));
     }
 }

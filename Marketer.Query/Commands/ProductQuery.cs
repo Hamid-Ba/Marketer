@@ -42,7 +42,7 @@ namespace Marketer.Query.Commands
                 Description = p.Description,
             }).FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort, string search, string catSlug, int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort, string search, string catSlug,string brandSlug, int take = 0)
         {
             var discounts = await _context.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
               Select(d => new
@@ -53,11 +53,12 @@ namespace Marketer.Query.Commands
               }).ToListAsync();
 
 
-            var products = await _context.Products.Include(c => c.Category).Select(p => new ProductQueryVM
+            var products = await _context.Products.Include(c => c.Category).Include(b => b.Brand).Select(p => new ProductQueryVM
             {
                 Id = p.Id,
                 Title = p.Title,
                 Slug = p.Slug,
+                BrandSlug = p.Brand.Slug,
                 CategorySlug = p.Category.Slug,
                 ConsumerPrice = p.ConsumerPrice,
                 PurchasePrice = p.PurchacePrice,
@@ -74,6 +75,9 @@ namespace Marketer.Query.Commands
 
             if (!string.IsNullOrWhiteSpace(catSlug) && catSlug != 0.ToString())
                 products = products.Where(p => p.CategorySlug == catSlug).ToList();
+
+            if (!string.IsNullOrWhiteSpace(brandSlug) && brandSlug != 0.ToString())
+                products = products.Where(p => p.BrandSlug == brandSlug).ToList();
 
             switch (sort)
             {

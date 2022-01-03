@@ -7,7 +7,7 @@
 
         @foreach (var category in Model)
         {
-            <a asp-area="" asp-controller="Category" asp-action="Products" asp-route-slug="@category.Slug">
+            <a asp-area="" asp-controller="Products" asp-action="Index" asp-route-catSlug="@category.Slug">
                 <div class="brand" style="background-color: @(ColorGenerator.ColorProducer());">
                     <p class="h4">@category.Name</p>
                 </div>

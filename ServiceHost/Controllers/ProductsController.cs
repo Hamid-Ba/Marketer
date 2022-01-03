@@ -22,9 +22,11 @@ namespace ServiceHost.Controllers
             _categoryQuery = categoryQuery;
         }
 
+        [HttpGet("Products")]
+        [HttpGet("Products/{catSlug}")]
         public async Task<IActionResult> Index(ProductSort sortExp, string search, string catSlug, int pageIndex = 1)
         {
-            var products = await _productQuery.GetAll(sortExp, search, catSlug);
+            var products = await _productQuery.GetAll(sortExp, search, catSlug,null);
 
             ViewBag.Brands = await _brandQuery.GetAll();
             ViewBag.Categories = await _categoryQuery.GetAll();
@@ -39,6 +41,26 @@ namespace ServiceHost.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet("Brand/{brandSlug}")]
+        public async Task<IActionResult> Brand(ProductSort sortExp, string search,string brandSlug, string catSlug, int pageIndex = 1)
+        {
+            var products = await _productQuery.GetAll(sortExp, search, catSlug, brandSlug);
+
+            ViewBag.Brands = await _brandQuery.GetAll();
+            ViewBag.Categories = await _categoryQuery.GetAll();
+
+            var model = PagingList.Create(products, 6, pageIndex);
+
+            model.RouteValue = new RouteValueDictionary
+            {
+                { "sortExp", sortExp },
+                { "search",  search } ,
+                { "catSlug",  catSlug }
+            };
+
+            return View("Index",model);
         }
     }
 }

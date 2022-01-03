@@ -8,7 +8,7 @@
         {
             <div class="item">
                 <div class="cart-brands">
-                    <a asp-area="" asp-controller="Brand" asp-action="Products" asp-route-slug="@brand.Slug">
+                    <a asp-area="" asp-controller="Products" asp-action="Brand" asp-route-brandSlug="@brand.Slug">
                         <img src="~/Pictures/@brand.Picture" alt="@brand.PictureAlt" title="@brand.PictureTitle">
                         <hr>
                         <div class="desc-cart-brands">
