@@ -1,33 +1,12 @@
-﻿@model IEnumerable<Marketer.Query.Queries.Products.ProductQueryVM>
-@using Framework.Application
-
-<section class="mt-5">
+﻿<section class="mt-5">
     <div class="offers owl-carousel owl-theme" id="products">
         <div class="offers-desc item text-center">
             <p class="h4 text-white">آخرین محصولات اضافه شده</p>
             <img src="~/SiteTheme/assets/images/icons8-discount-100 (1).png" class="img-fluid" alt="">
             <a href="" class=""> همه محصولات</a>
         </div>
-        @foreach (var product in Model)
-        {
-            <div class="cart item">
-                <div class="cart-image">
-                    <img src="~/Pictures/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.Title" />
-                </div>
-                <div class="cart-desc mt-5">
-                    <p class="h6">@product.Title</p>
-                    <p class="">قیمت مصرف کننده : <span class="fw-bold">@product.ConsumerPrice.ToMoney() تومان</span></p>
-                    <p class="">قیمت خریدار : <span class="fw-bold">@product.PurchasePrice.ToMoney() تومان</span></p>
-                    <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" class="cart-desc-btn"> بیشتر... </a>
-                </div>
-                @if (product.DiscountRate > 0)
-                {
-                    <div class="discount">
-                        <p>تخفیف</p>
-                    </div>
-                }
-            </div>
-        }
+
+        @await Component.InvokeAsync("Product",new{take = 6})
 
     </div>
 </section>

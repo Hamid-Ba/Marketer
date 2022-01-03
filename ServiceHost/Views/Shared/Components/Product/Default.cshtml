@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Marketer.Query.Queries.Products.ProductQueryVM>
+@using Framework.Application
+
+@foreach (var product in Model)
+{
+    <div class="cart item">
+        <div class="cart-image">
+            <img src="~/Pictures/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.Title" />
+        </div>
+        <div class="cart-desc mt-5">
+            <p class="h6">@product.Title</p>
+            <p class="">قیمت مصرف کننده : <span class="fw-bold">@product.ConsumerPrice.ToMoney() تومان</span></p>
+            <p class="">قیمت خریدار : <span class="fw-bold">@product.PurchasePrice.ToMoney() تومان</span></p>
+            <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" class="cart-desc-btn"> بیشتر... </a>
+        </div>
+        @if (product.DiscountRate > 0)
+        {
+            <div class="discount">
+                <p>تخفیف</p>
+            </div>
+        }
+    </div>
+}
