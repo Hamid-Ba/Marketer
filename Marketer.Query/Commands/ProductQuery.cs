@@ -23,6 +23,7 @@ namespace Marketer.Query.Commands
                 BrandName = p.Brand.Name,
                 CategoryId = p.CategoryId,
                 CategoryName = p.Category.Name,
+                CategorySlug = p.Category.Slug,
                 Code = p.Code,
                 Slug = p.Slug,
                 Title = p.Title,
@@ -41,7 +42,7 @@ namespace Marketer.Query.Commands
                 Description = p.Description,
             }).FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort, string search, int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort, string search, string catSlug, int take = 0)
         {
             var discounts = await _context.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
               Select(d => new
@@ -52,11 +53,12 @@ namespace Marketer.Query.Commands
               }).ToListAsync();
 
 
-            var products = await _context.Products.Select(p => new ProductQueryVM
+            var products = await _context.Products.Include(c => c.Category).Select(p => new ProductQueryVM
             {
                 Id = p.Id,
                 Title = p.Title,
                 Slug = p.Slug,
+                CategorySlug = p.Category.Slug,
                 ConsumerPrice = p.ConsumerPrice,
                 PurchasePrice = p.PurchacePrice,
                 Picture = p.Picture,
@@ -69,6 +71,9 @@ namespace Marketer.Query.Commands
 
             if (!string.IsNullOrWhiteSpace(search))
                 products = products.Where(p => p.Title.Contains(search)).ToList();
+
+            if (!string.IsNullOrWhiteSpace(catSlug) && catSlug != 0.ToString())
+                products = products.Where(p => p.CategorySlug == catSlug).ToList();
 
             switch (sort)
             {

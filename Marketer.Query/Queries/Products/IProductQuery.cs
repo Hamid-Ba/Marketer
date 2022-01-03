@@ -7,6 +7,6 @@ namespace Marketer.Query.Queries.Products
     public interface IProductQuery
     {
         Task<ProductQueryVM> GetBy(string slug);
-        Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort,string search, int take = 0);
+        Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort,string search,string catSlug, int take = 0);
     }
 }

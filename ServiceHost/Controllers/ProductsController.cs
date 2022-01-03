@@ -22,9 +22,9 @@ namespace ServiceHost.Controllers
             _categoryQuery = categoryQuery;
         }
 
-        public async Task<IActionResult> Index(ProductSort sortExp, string search, int pageIndex = 1)
+        public async Task<IActionResult> Index(ProductSort sortExp, string search, string catSlug, int pageIndex = 1)
         {
-            var products = await _productQuery.GetAll(sortExp,search);
+            var products = await _productQuery.GetAll(sortExp, search, catSlug);
 
             ViewBag.Brands = await _brandQuery.GetAll();
             ViewBag.Categories = await _categoryQuery.GetAll();
@@ -34,7 +34,8 @@ namespace ServiceHost.Controllers
             model.RouteValue = new RouteValueDictionary
             {
                 { "sortExp", sortExp },
-                { "search",  search }
+                { "search",  search } ,
+                { "catSlug",  catSlug }
             };
 
             return View(model);

@@ -22,13 +22,15 @@
                 <option value="@ProductSort.Cheapest">ارزان ترین</option>
                 <option value="@ProductSort.Expencive">گران ترین</option>
             </select>
-            <select class="form-select categories-filter" aria-label="Default select example" name ="cat">
+
+            <select class="form-select categories-filter" aria-label="Default select example" name ="catSlug" onchange="SubmitSearch()">
                 <option value="0">دسته بندی</option>
                 @foreach (var cat in categories)
                 {
                     <option value="@cat.Slug">@cat.Name</option>
                 }
             </select>
+
             <div class="search">
                 <input type="text" name="search" id="">
                 <a role="button" onclick="SubmitSearch()">

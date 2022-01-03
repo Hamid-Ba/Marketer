@@ -9,6 +9,7 @@ namespace Marketer.Query.Queries.Products
         public string BrandName { get; set; }
         public long CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string CategorySlug { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
         public string Picture { get; set; }
