@@ -10,10 +10,9 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         public ContactUsController(IContactUsApplication contactUsApplication) => _contactUsApplication = contactUsApplication;
 
-        public async Task<IActionResult>  Index() => View(await _contactUsApplication.GetAll());
+        public async Task<IActionResult> Index() => View(await _contactUsApplication.GetAll());
 
         [HttpGet]
-        public async Task<IActionResult> Detail(long id) => PartialView(await _contactUsApplication.GetMessageBy(id));
-        
+        public async Task<IActionResult> Detail(long id) => PartialView("Detail", await _contactUsApplication.GetMessageBy(id));
     }
 }
