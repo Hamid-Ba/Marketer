@@ -40,7 +40,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                     Count = p.Count,
                     ExpiredDate = p.ExpiredDate.ToFarsi(),
                     IsStock = p.IsStock,
-                    Weight = p.Weight
+                    Weight = p.Weight,
+                    Description = p.Description
                 }).AsNoTracking().ToListAsync();
 
         public async Task<IEnumerable<SelectProductVM>> GetAllForSelection() => await _context.Products.Select(p => new SelectProductVM
@@ -67,7 +68,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             PictureTitle = p.PictureTitle,
             Count = p.Count,
             ExpiredDate = p.ExpiredDate.ToFarsi(),
-            Weight = p.Weight
+            Weight = p.Weight,
+            Description = p.Description
         }).FirstOrDefaultAsync(p => p.Id == id);
     }
 }
