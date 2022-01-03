@@ -41,7 +41,7 @@ namespace Marketer.Query.Commands
                 Description = p.Description,
             }).FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<ProductQueryVM>> GetAll(int take = 0)
+        public async Task<IEnumerable<ProductQueryVM>> GetAll(ProductSort sort, string search, int take = 0)
         {
             var discounts = await _context.Discounts.Where(d => d.StartDate <= DateTime.Now && d.EndDate >= DateTime.Now).
               Select(d => new
@@ -52,7 +52,7 @@ namespace Marketer.Query.Commands
               }).ToListAsync();
 
 
-            var products =await _context.Products.Select(p => new ProductQueryVM
+            var products = await _context.Products.Select(p => new ProductQueryVM
             {
                 Id = p.Id,
                 Title = p.Title,
@@ -66,6 +66,25 @@ namespace Marketer.Query.Commands
             }).AsNoTracking().OrderByDescending(p => p.CreationDate).ToListAsync();
 
             products.ForEach(d => d.DiscountRate = discounts.FirstOrDefault(q => q.ProductId == d.Id)?.Rate);
+
+            if (!string.IsNullOrWhiteSpace(search))
+                products = products.Where(p => p.Title.Contains(search)).ToList();
+
+            switch (sort)
+            {
+                case ProductSort.Newest:
+                    products = products.OrderBy(p => p.CreationDate).ToList();
+                    break;
+                case ProductSort.Oldest:
+                    products = products.OrderByDescending(p => p.CreationDate).ToList();
+                    break;
+                case ProductSort.Cheapest:
+                    products = products.OrderByDescending(p => p.PurchasePrice).ToList();
+                    break;
+                case ProductSort.Expencive:
+                    products = products.OrderBy(p => p.PurchasePrice).ToList();
+                    break;
+            }
 
             if (take > 0) return products.Take(take);
 

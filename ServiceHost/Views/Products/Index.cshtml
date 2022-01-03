@@ -1,0 +1,117 @@
+﻿@using Framework.Application
+@model ReflectionIT.Mvc.Paging.PagingList<Marketer.Query.Queries.Products.ProductQueryVM>
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "محصولات";
+}
+
+<!-- ! filters -->
+<form method="get" id="myform">
+    <div class="container my-3">
+        <div class="filter-products">
+            <select class="form-select" aria-label="Default select example" name="sortExp" onchange="SubmitSearch()">
+                <option value="0">مرتب سازی</option>
+                <option value="@ProductSort.Newest">جدیدترین</option>
+                <option value="@ProductSort.Oldest">قدیمی ترین</option>
+                <option value="@ProductSort.Cheapest">ارزان ترین</option>
+                <option value="@ProductSort.Expencive">گران ترین</option>
+            </select>
+            <select class="form-select categories-filter" aria-label="Default select example">
+                <option selected>سوسیس کالباس</option>
+                <option selected>سوسیس کالباس</option>
+                <option selected>سوسیس کالباس</option>
+                <option selected>سوسیس کالباس</option>
+            </select>
+            <div class="search">
+                <input type="text" name="search" id="">
+                <a role="button" onclick="SubmitSearch()">
+                    <i class="fas fa-search"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        function SubmitSearch(){
+            document.getElementById("myform").submit()
+        }
+    </script>
+}
+<!-- ! filters -->
+<!-- ! products -->
+<div class="container my-4 products">
+    <div class="row">
+        <div class="col-10 products-products rounded p-3">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-sm-12 col-md-5 col-lg-4 my-3">
+                        <div class="cart item">
+                            <div class="cart-image">
+                                <img src="~/Pictures/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.Title" />
+                            </div>
+                            <div class="cart-desc mt-5">
+                                <p class="h6">@product.Title</p>
+                                <p class="">قیمت مصرف کننده : <span class="fw-bold">@product.ConsumerPrice.ToMoney() تومان</span></p>
+                                <p class="">قیمت خریدار : <span class="fw-bold">@product.PurchasePrice.ToMoney() تومان</span></p>
+                                <a asp-area="" asp-controller="Product" asp-action="Detail" asp-route-slug="@product.Slug" class="cart-desc-btn"> بیشتر... </a>
+                            </div>
+                            @if (product.DiscountRate > 0)
+                            {
+                                <div class="discount">
+                                    <p>تخفیف</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Paginate -->
+            @if (Model.PageCount > 1)
+            {
+                <div class="mt-5">
+                    <nav aria-label="Page navigation example">
+                        <vc:pager paging-list="@Model" />
+                    </nav>
+                </div>
+            }
+            <!-- Paginate -->
+
+
+        </div>
+        <div class="categories-products col-2  p-3">
+            <div class="title-categories">
+                <p class="h6">دسته بندی ها</p>
+                <div class="" id="category">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+            </div>
+            <div class="catgories">
+                <ul class="catgories-menu">
+                    <li><a href="">نوشیدنی</a></li>
+                    <li><a href="">لینیات</a></li>
+                    <li><a href="">سوسیس کالباس</a></li>
+                    <li><a href="">تنقلات</a></li>
+                </ul>
+            </div>
+            <hr>
+            <div class="title-categories">
+                <p class="h6">برند ها</p>
+                <div class="" id="category">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+            </div>
+            <div class="catgories">
+                <ul class="catgories-menu">
+                    <li><a href="">شام شما</a></li>
+                    <li><a href="">تست</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ! products -->

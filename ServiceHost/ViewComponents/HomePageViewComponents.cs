@@ -1,6 +1,5 @@
 ﻿using Marketer.Query.Queries.Brands;
 using Marketer.Query.Queries.Categories;
-using Marketer.Query.Queries.Products;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
