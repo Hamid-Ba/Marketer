@@ -547,3 +547,113 @@ footer .footer-desc p {
 }
 
 /* ! single Product */
+
+
+/* ! about us */
+.aboutus-title {
+    width: 100%;
+    text-align: center;
+}
+
+.aboutus-title img {
+    border-radius: 10px;
+    height: 30rem;
+}
+
+.desc-aboutus {
+    background-color: var(--blue);
+    width: 90%;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.desc-aboutus h3 {
+    color: var(--white);
+}
+
+.desc-aboutus p {
+    color: var(--white);
+}
+
+/* ! about us */
+
+/* ! basket */
+.basket {
+    background-color: var(--white);
+    padding: 2rem;
+}
+
+.basket .basket-title {
+    text-align: right;
+}
+
+.basket-details {
+    background-color: var(--gray);
+    padding: 1rem;
+    border: 1px dotted var(--dark);
+}
+
+.basket-details .basket-details-title {
+    text-align: right;
+}
+
+.image-table img {
+    width: 6rem;
+    height: 6rem;
+}
+
+/* ! basket */
+
+/* ! 404 page */
+.notfound-page {
+    background: var(--white);
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.notfound-page-image img {
+    width: 40rem;
+    height: 30rem;
+}
+
+.notfound-page-desc a {
+    background-color: var(--gray);
+    color: var(--dark);
+    border-radius: 10px;
+    padding: .5rem;
+}
+
+/* ! 404 page */
+
+/* ! finallBasket */
+.table-finallBasket {
+    background-color: var(--white);
+    padding: 1rem;
+}
+
+.table-finallBasket table {
+    width: 100%;
+    direction: rtl;
+}
+
+.table-finallBasket table tr {
+    background-color: var(--gray);
+}
+
+.table-finallBasket table select {
+    width: 10rem;
+}
+
+.table-finallBasket a {
+    background-color: var(--gray);
+    padding: .3rem 3rem;
+    border-radius: 5px;
+    color: var(--dark);
+}
+
+/* ! finallBasket */

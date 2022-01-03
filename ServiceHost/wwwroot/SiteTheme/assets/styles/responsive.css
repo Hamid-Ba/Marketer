@@ -201,6 +201,21 @@
         color: var(--white);
         display: block;
     }
+
+    .aboutus-title img {
+        border-radius: 10px;
+        height: 20rem;
+    }
+
+    .table {
+        margin-top: 2rem;
+    }
+
+    .notfound-page-image img {
+        width: 30rem;
+        height: 20rem;
+    }
+     
 }
 
 @media only screen and (max-width: 400px) {

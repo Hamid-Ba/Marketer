@@ -25,4 +25,17 @@
 	  <Folder Include="Areas\Visitor\Models\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Include="wwwroot\SiteTheme\assets\fonts\Material-Design-Iconic-Font.svg" />
+	  <None Include="wwwroot\SiteTheme\assets\fonts\Material-Design-Iconic-Font.woff2" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\all.min.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\aos.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\bootstrap.min.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\jquery3.6.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\my-js.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\owl.carousel.min.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\particles.min.js" />
+	  <None Include="wwwroot\SiteTheme\assets\scripts\popper.min.js" />
+	</ItemGroup>
+
 </Project>
