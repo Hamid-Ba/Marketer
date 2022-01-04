@@ -4,10 +4,10 @@
     <div class="desktop">
         <div class="desktop-logo">
             <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg" />
-            <div class="search" dir="rtl">
-                <a htef class="fas fa-search"></a>
-                <input type="text" placeholder="جست و جو بین محصولات">
-            </div>
+            <form class="search" dir="rtl" asp-controller="Products" asp-action="Index" method="get" id="homeForm">
+                <a id="btnSearch" role="button" class="fas fa-search" onclick="document.getElementById('homeForm').submit()"></a>
+                <input type="text" name="search" placeholder="جست و جو بین محصولات">
+            </form>
         </div>
         <div class="desktop-acc d-none d-sm-block">
             @if (!User.Identity.IsAuthenticated)
@@ -26,6 +26,18 @@
     </div>
     <div class="mobile"></div>
 </header>
+
+@*@section Scripts
+{
+    <script>
+            
+        const btn = document.getElementById("btnSearch");
+
+        btn.addEventListener("click" , () => {
+            document.getElementById("myform").submit()
+        })
+    </script>
+}*@
 
 <!-- ? main page -->
 <div class="main-header">
