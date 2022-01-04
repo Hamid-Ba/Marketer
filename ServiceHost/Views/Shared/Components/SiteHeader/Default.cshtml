@@ -19,7 +19,9 @@
 
             else if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Visitor")
             {
-                <i class="fas fa-shopping-cart text-danger fa-1x"></i>
+                <a asp-area="" asp-controller="Order" asp-action="GetBasket">
+                    <i class="fas fa-shopping-cart text-danger fa-1x"></i>
+                </a>
             }
 
         </div>
@@ -28,16 +30,16 @@
 </header>
 
 @*@section Scripts
-{
+    {
     <script>
-            
-        const btn = document.getElementById("btnSearch");
 
-        btn.addEventListener("click" , () => {
-            document.getElementById("myform").submit()
-        })
+    const btn = document.getElementById("btnSearch");
+
+    btn.addEventListener("click" , () => {
+    document.getElementById("myform").submit()
+    })
     </script>
-}*@
+    }*@
 
 <!-- ? main page -->
 <div class="main-header">

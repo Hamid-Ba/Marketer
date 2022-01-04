@@ -29,6 +29,10 @@ namespace Marketer.Query.Commands
                         Items = MapItems(o.OrderItems)
                     }).FirstOrDefaultAsync();
 
+                order.TotalPrice = order.Items.Sum(o => o.Product.PurchasePrice * o.Count);
+                order.ItemsCount = order.Items.Count;
+                order.Items.ForEach(o => o.PayAmount = o.Product.PurchasePrice * o.Count);
+
                 return order;
             }
 
@@ -54,6 +58,7 @@ namespace Marketer.Query.Commands
             Picture = product.Picture,
             PictureAlt = product.PictureAlt,
             PictureTitle = product.PictureTitle,
+            PurchasePrice = product.PurchacePrice
         };
         
     }

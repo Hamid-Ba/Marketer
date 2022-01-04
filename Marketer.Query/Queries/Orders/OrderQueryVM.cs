@@ -14,6 +14,7 @@ namespace Marketer.Query.Queries.Orders
         public double PayAmount { get; set; }
         public long RefId { get; set; }
         public bool IsPayed { get; set; }
+        public int ItemsCount { get; set; }
         public DateTime PlaceOrderDate { get; set; }
         public OrderStatus Status { get; set; }
         public List<OrderItemQuertVM> Items { get; set; }

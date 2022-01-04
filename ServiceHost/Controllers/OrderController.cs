@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Authentication;
 using Marketer.Application.Contract.AI.Orders;
 using Marketer.Application.Contract.AI.Products;
+using Marketer.Query.Queries.Orders;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,11 +9,13 @@ namespace ServiceHost.Controllers
 {
     public class OrderController : BaseController
     {
+        private readonly IOrderQuery _orderQuery;
         private readonly IOrderApplication _orderApplication;
         private readonly IProductApplication _productApplication;
 
-        public OrderController(IOrderApplication orderApplication, IProductApplication productApplication)
+        public OrderController(IOrderQuery orderQuery, IOrderApplication orderApplication, IProductApplication productApplication)
         {
+            _orderQuery = orderQuery;
             _orderApplication = orderApplication;
             _productApplication = productApplication;
         }
@@ -39,7 +42,22 @@ namespace ServiceHost.Controllers
             if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
             else TempData[ErrorMessage] = result.Message;
 
-            return View();
+            var items = await _orderQuery.GetOpenOrder(User.GetVisitorId());
+
+            return View(items);
+        }
+
+        [HttpGet("Basket")]
+        public async Task<IActionResult> GetBasket()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData[WarningMessage] = "ابتدا وارد حساب خود شوید";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var items = await _orderQuery.GetOpenOrder(User.GetVisitorId());
+            return View("Basket", items);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿@{
+﻿@model Marketer.Query.Queries.Orders.OrderQueryVM
+@using Framework.Application
+
+@{
     ViewData["Title"] = "سبد خرید";
 }
 
@@ -12,11 +15,11 @@
         <div class="col-sm-12 col-md-3">
             <div class="basket-details">
                 <div class="basket-details-title">
-                    <p class="h6">جمع سبد خرید : <span>5000</span></p>
+                    <p class="h6">جمع سبد خرید : <span>@Model.TotalPrice.ToMoney() تومان</span></p>
                 </div>
                 <hr>
                 <div class="basket-details-title">
-                    <p>تعداد محصولات : <span>3</span></p>
+                    <p>تعداد محصولات : <span>@Model.ItemsCount</span></p>
                 </div>
                 <hr>
                 <a href="" class="btn btn-secondary w-100">ثبت</a>
@@ -27,49 +30,28 @@
                 <tr>
                     <th>#</th>
                     <th>عکس</th>
-                    <th>قیمت</th>
+                    <th>(تومان)قیمت</th>
                     <th>تعداد</th>
                     <th>مجموع</th>
                 </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-times text-danger"></i>
-                    </td>
-                    <td class="image-table">
-                        <img src="./assets/images/210.png" alt="">
-                    </td>
-                    <td>2000</td>
-                    <td>
-                        <input type="number" id="quantity" name="quantity" style="width: 3rem;">
-                    </td>
-                    <td>4000</td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-times text-danger"></i>
-                    </td>
-                    <td class="image-table">
-                        <img src="./assets/images/210.png" alt="">
-                    </td>
-                    <td>2000</td>
-                    <td>
-                        <input type="number" id="quantity" name="quantity" style="width: 3rem;">
-                    </td>
-                    <td>4000</td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="fa fa-times text-danger"></i>
-                    </td>
-                    <td class="image-table">
-                        <img src="./assets/images/210.png" alt="">
-                    </td>
-                    <td>2000</td>
-                    <td>
-                        <input type="number" id="quantity" name="quantity" style="width: 3rem;">
-                    </td>
-                    <td>4000</td>
-                </tr>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            <i class="fa fa-times text-danger"></i>
+                        </td>
+                        <td class="image-table">
+                            <img src="~/Pictures/@item.Product.Picture" alt="@item.Product.PictureAlt" title="@item.Product.PictureTitle">
+                        </td>
+                        <td>@item.Product.PurchasePrice.ToMoney()</td>
+                        <td>
+                            <input type="number" value="@item.Count" id="quantity" name="quantity" style="width: 3rem;">
+                        </td>
+                        <td>@item.PayAmount.ToMoney() تومان</td>
+                    </tr>
+                }
+
+
             </table>
         </div>
 
