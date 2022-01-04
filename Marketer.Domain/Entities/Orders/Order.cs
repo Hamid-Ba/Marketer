@@ -24,6 +24,7 @@ namespace Marketer.Domain.Entities.Orders
 
         public Order(long visitorId)
         {
+            IsPayed = false;
             VisitorId = visitorId;
             OrderItems = new List<OrderItem>();
         }
@@ -40,5 +41,7 @@ namespace Marketer.Domain.Entities.Orders
             PlaceOrderDate = placeOrderDate;
             Status = status;
         }
+
+        public void AddItem(OrderItem item) => OrderItems.Add(item);
     }
 }

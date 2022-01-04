@@ -1,6 +1,7 @@
 ﻿using Marketer.Domain.Entities.Account;
 using Marketer.Domain.Entities.Discounts;
 using Marketer.Domain.Entities.Extera;
+using Marketer.Domain.Entities.Orders;
 using Marketer.Domain.Entities.Products;
 using Marketer.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +62,13 @@ namespace Marketer.Infrastructure.EfCore
 
         public DbSet<Setting> Settings { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
+
+        #endregion
+
+        #region Orders
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         #endregion
     }

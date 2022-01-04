@@ -20,5 +20,7 @@ namespace Marketer.Domain.Entities.Orders
             ProductId = productId;
             Count = count;
         }
+
+        public void AddCount(int count) => Count += count;
     }
 }

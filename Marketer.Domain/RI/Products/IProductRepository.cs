@@ -8,6 +8,7 @@ namespace Marketer.Domain.RI.Products
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Task<Product> GetBy(string slug);
         Task<IEnumerable<ProductVM>> GetAll();
         Task<EditProductVM> GetDetailForEditBy(long id);
         Task<IEnumerable<SelectProductVM>> GetAllForSelection();

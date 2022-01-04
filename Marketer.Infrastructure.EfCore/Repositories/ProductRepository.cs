@@ -50,6 +50,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Title = p.Title
         }).AsNoTracking().ToListAsync();
 
+        public async Task<Product> GetBy(string slug) => await _context.Products.FirstOrDefaultAsync(p => p.Slug == slug);
+
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _context.Products.Select(p => new EditProductVM
         {
             Id = p.Id,
