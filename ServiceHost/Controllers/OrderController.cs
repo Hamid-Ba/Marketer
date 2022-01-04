@@ -1,14 +1,19 @@
-﻿using Marketer.Application.Contract.AI.Products;
+﻿using Framework.Application.Authentication;
+using Marketer.Application.Contract.AI.Orders;
+using Marketer.Application.Contract.AI.Products;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
     public class OrderController : BaseController
     {
-        private readonly IProductApplication _productApplication;
+        private readonly IOrderApplication _orderApplication;
+
+        public OrderController(IOrderApplication orderApplication) => _orderApplication = orderApplication;
 
         [HttpGet("Basket/{slug}")]
-        public IActionResult Basket(string slug)
+        public async Task<IActionResult> Basket(string slug)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -16,9 +21,12 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            //var product = await _productApplication.get
+            var result = await _orderApplication.AddProductToOpenOrder(User.GetVisitorId(), slug);
 
-            return View();
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            else TempData[ErrorMessage] = result.Message;
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
