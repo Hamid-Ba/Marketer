@@ -92,5 +92,12 @@ namespace Marketer.Domain.Entities.Products
         }
 
         public void AmazedProduct(bool isAmazed) => IsAmazedProduct = isAmazed;
+
+        public bool IsInStock()
+        {
+            if (Count <= 0) return false;
+            return true;
+        }
+            
     }
 }

@@ -11,7 +11,9 @@ namespace Marketer.Application.Contract.AI.Products
         Task<OperationResult> Delete(long id);
         Task<EditProductVM> GetDetailForEditBy(long id);
         Task<OperationResult> Edit(EditProductVM command);
+        Task<OperationResult> IsProductExistInStock(long id);
         Task<OperationResult> Create(CreateProductVM command);
         Task<IEnumerable<SelectProductVM>> GetAllForSelection();
+        Task<OperationResult> IsProductExistInStock(string slug);
     }
 }

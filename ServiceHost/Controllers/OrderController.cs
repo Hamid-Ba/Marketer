@@ -9,8 +9,13 @@ namespace ServiceHost.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderApplication _orderApplication;
+        private readonly IProductApplication _productApplication;
 
-        public OrderController(IOrderApplication orderApplication) => _orderApplication = orderApplication;
+        public OrderController(IOrderApplication orderApplication, IProductApplication productApplication)
+        {
+            _orderApplication = orderApplication;
+            _productApplication = productApplication;
+        }
 
         [HttpGet("Basket/{slug}")]
         public async Task<IActionResult> Basket(string slug)
@@ -21,12 +26,20 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            var isInStock = await _productApplication.IsProductExistInStock(slug);
+
+            if (!isInStock.IsSucceeded)
+            {
+                TempData[WarningMessage] = isInStock.Message;
+                return RedirectToAction("Detail", "Product", new { slug });
+            }
+
             var result = await _orderApplication.AddProductToOpenOrder(User.GetVisitorId(), slug);
 
             if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
             else TempData[ErrorMessage] = result.Message;
 
-            return RedirectToAction("Index", "Home");
+            return View();
         }
     }
 }

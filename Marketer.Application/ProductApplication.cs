@@ -87,5 +87,30 @@ namespace Marketer.Application
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
 
+        public async Task<OperationResult> IsProductExistInStock(long id)
+        {
+            OperationResult result = new();
+
+            var product = await _productRepository.GetEntityByIdAsync(id);
+
+            if (product is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (!product.IsInStock()) return result.Failed("محصول در انبار موجود نمی باشد");
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> IsProductExistInStock(string slug)
+        {
+            OperationResult result = new();
+
+            var product = await _productRepository.GetBy(slug);
+
+            if (product is null) return result.Failed(ApplicationMessage.NotExist);
+
+            if (!product.IsInStock()) return result.Failed("محصول در انبار موجود نمی باشد");
+
+            return result.Succeeded();
+        }
     }
 }
