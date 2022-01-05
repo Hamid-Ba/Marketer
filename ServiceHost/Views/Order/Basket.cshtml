@@ -15,7 +15,7 @@
         <div class="col-sm-12 col-md-3">
             <div class="basket-details">
                 <div class="basket-details-title">
-                    <p class="h6">جمع سبد خرید : <span>@Model.TotalPrice.ToMoney() تومان</span></p>
+                    <p class="h6">جمع سبد خرید : <span>@Model.PayAmount.ToMoney() تومان</span></p>
                 </div>
                 <hr>
                 <div class="basket-details-title">
@@ -30,9 +30,9 @@
                 <tr>
                     <th>#</th>
                     <th>عکس</th>
-                    <th>(تومان)قیمت</th>
+                    <th>قیمت(تومان)</th>
+                    <th>تخفیف</th>
                     <th>تعداد</th>
-                    <th>مجموع</th>
                 </tr>
                 @foreach (var item in Model.Items)
                 {
@@ -44,10 +44,10 @@
                             <img src="~/Pictures/@item.Product.Picture" alt="@item.Product.PictureAlt" title="@item.Product.PictureTitle">
                         </td>
                         <td>@item.Product.PurchasePrice.ToMoney()</td>
+                        <td>@item.DiscountPrice.ToMoney() تومان</td>
                         <td>
                             <input type="number" value="@item.Count" id="quantity" name="quantity" style="width: 3rem;">
                         </td>
-                        <td>@item.PayAmount.ToMoney() تومان</td>
                     </tr>
                 }
 

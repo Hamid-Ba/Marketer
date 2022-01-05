@@ -34,7 +34,7 @@ namespace ServiceHost.Controllers
             if (!isInStock.IsSucceeded)
             {
                 TempData[WarningMessage] = isInStock.Message;
-                return RedirectToAction("Detail", "Product", new { slug });
+                return RedirectToAction("Index", "Home");
             }
 
             var result = await _orderApplication.AddProductToOpenOrder(User.GetVisitorId(), slug);
@@ -57,6 +57,12 @@ namespace ServiceHost.Controllers
             }
 
             var items = await _orderQuery.GetOpenOrder(User.GetVisitorId());
+
+            if(items is null)
+            {
+                TempData[WarningMessage] = "سبد خرید شما خالی است";
+                return RedirectToAction("Index", "Home");
+            }
             return View("Basket", items);
         }
     }
