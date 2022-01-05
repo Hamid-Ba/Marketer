@@ -31,7 +31,7 @@
                     <th>#</th>
                     <th>عکس</th>
                     <th>قیمت(تومان)</th>
-                    <th>تخفیف</th>
+                    <th>تخفیف(تومان)</th>
                     <th>تعداد</th>
                 </tr>
                 @foreach (var item in Model.Items)
@@ -41,10 +41,12 @@
                             <i class="fa fa-times text-danger"></i>
                         </td>
                         <td class="image-table">
+                            <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Product.Slug">
                             <img src="~/Pictures/@item.Product.Picture" alt="@item.Product.PictureAlt" title="@item.Product.PictureTitle">
+                            </a>
                         </td>
                         <td>@item.Product.PurchasePrice.ToMoney()</td>
-                        <td>@item.DiscountPrice.ToMoney() تومان</td>
+                        <td>@item.DiscountPrice.ToMoney()</td>
                         <td>
                             <input type="number" value="@item.Count" id="quantity" name="quantity" style="width: 3rem;">
                         </td>
