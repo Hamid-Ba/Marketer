@@ -58,7 +58,7 @@ namespace ServiceHost.Controllers
 
             var items = await _orderQuery.GetOpenOrder(User.GetVisitorId());
 
-            if(items is null)
+            if (items is null)
             {
                 TempData[WarningMessage] = "سبد خرید شما خالی است";
                 return RedirectToAction("Index", "Home");
@@ -67,7 +67,7 @@ namespace ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult>  Delete(long id)
+        public async Task<IActionResult> Delete(long id, long productId)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -75,9 +75,9 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var result = await _orderApplication.DeleteOrderItemBy(User.GetVisitorId(),id);
+            var result = await _orderApplication.DeleteOrderItemBy(User.GetVisitorId(), id);
 
-            if(result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            if (result.IsSucceeded) TempData[SuccessMessage] = result.Message;
             else
             {
                 TempData[ErrorMessage] = result.Message;

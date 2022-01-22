@@ -98,6 +98,8 @@ namespace Marketer.Domain.Entities.Products
             if (Count <= 0) return false;
             return true;
         }
+
+        public int AddCount(int count) => Count += count;
             
     }
 }

@@ -85,6 +85,19 @@ namespace Marketer.Application
 
         public async Task<IEnumerable<SelectProductVM>> GetAllForSelection() => await _productRepository.GetAllForSelection();
 
+        public async Task<OperationResult> GetBackProductCount(long id, int count)
+        {
+            OperationResult result = new();
+
+            var product = await _productRepository.GetEntityByIdAsync(id);
+            if (product is null) return result.Failed(ApplicationMessage.NotExist);
+
+            product.AddCount(count);
+            await _productRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
 
         public async Task<OperationResult> IsProductExistInStock(long id)

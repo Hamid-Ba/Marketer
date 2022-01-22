@@ -59,6 +59,13 @@ namespace Marketer.Application
             return result.Succeeded();
         }
 
+        public async Task<int> CountOfProductInItem(long orderItemId)
+        {
+            var item = await _itemRepository.GetEntityByIdAsync(orderItemId);
+            return item.Count;
+        }
+        
+
         public async Task<OperationResult> CreateOrder(long visitorId)
         {
             OperationResult result = new();
