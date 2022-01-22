@@ -65,5 +65,26 @@ namespace ServiceHost.Controllers
             }
             return View("Basket", items);
         }
+
+        [HttpGet]
+        public async Task<IActionResult>  Delete(long id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData[WarningMessage] = "ابتدا وارد حساب خود شوید";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var result = await _orderApplication.DeleteOrderItemBy(User.GetVisitorId(),id);
+
+            if(result.IsSucceeded) TempData[SuccessMessage] = result.Message;
+            else
+            {
+                TempData[ErrorMessage] = result.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("GetBasket");
+        }
     }
 }

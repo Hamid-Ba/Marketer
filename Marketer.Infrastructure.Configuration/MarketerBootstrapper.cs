@@ -92,6 +92,7 @@ namespace Marketer.Infrastructure.Configuration
             service.AddTransient<IOrderRepository, OrderRepository>();
             service.AddTransient<IOrderApplication, OrderApplication>();
 
+            service.AddTransient<IOrderItemRepository, OrderItemRepository>();
             #endregion
 
             #region Queries

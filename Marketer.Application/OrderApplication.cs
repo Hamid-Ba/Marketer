@@ -11,11 +11,13 @@ namespace Marketer.Application
     public class OrderApplication : IOrderApplication
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderItemRepository _itemRepository;
         private readonly IProductRepository _productRepository;
 
-        public OrderApplication(IOrderRepository orderRepository, IProductRepository productRepository)
+        public OrderApplication(IOrderRepository orderRepository, IOrderItemRepository itemRepository, IProductRepository productRepository)
         {
             _orderRepository = orderRepository;
+            _itemRepository = itemRepository;
             _productRepository = productRepository;
         }
 
@@ -65,6 +67,21 @@ namespace Marketer.Application
 
             await _orderRepository.AddEntityAsync(order);
             await _orderRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
+        public async Task<OperationResult> DeleteOrderItemBy(long visitorId, long orderItemId)
+        {
+            OperationResult result = new();
+
+            var item = await _itemRepository.GetBy(orderItemId);
+
+            if (item is null) return result.Failed(ApplicationMessage.NotExist);
+            if (item.Order.VisitorId != visitorId) return result.Failed("این سفارش متعلق به شما نمی باشد");
+
+            _itemRepository.DeleteEntity(item);
+            await _itemRepository.SaveChangesAsync();
 
             return result.Succeeded();
         }
