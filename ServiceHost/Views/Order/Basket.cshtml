@@ -18,10 +18,10 @@
 
         <from class="col-sm-12 col-md-3">
             <div class="basket-details">
-                <div class="basket-details-title">
-                    <p class="h6">جمع سبد خرید : <span>@Model.PayAmount.ToMoney() تومان</span></p>
-                </div>
-                <hr>
+                @*<div class="basket-details-title">
+                    <p class="h6">جمع سبد خرید : <span id="totalPrice">@Model.PayAmount.ToMoney() تومان</span></p>
+                    </div>
+                    <hr>*@
                 <div class="basket-details-title">
                     <p>تعداد محصولات : <span>@Model.ItemsCount</span></p>
                 </div>
@@ -35,8 +35,8 @@
                 <tr>
                     <th>#</th>
                     <th>عکس</th>
-                    <th>قیمت(تومان)</th>
-                    <th>تخفیف(تومان)</th>
+                    <th>قیمت محصول(تومان)</th>
+                    <th>تخفیف محصول(تومان)</th>
                     <th>تعداد</th>
                 </tr>
                 @foreach (var item in Model.Items)
@@ -53,10 +53,10 @@
                                 <img src="~/Pictures/@item.Product.Picture" alt="@item.Product.PictureAlt" title="@item.Product.PictureTitle">
                             </a>
                         </td>
-                        <td>@item.Product.PurchasePrice.ToMoney()</td>
+                        <td id="price-@item.Product.Id">@item.Product.PurchasePrice.ToMoney()</td>
                         <td>@item.DiscountPrice.ToMoney()</td>
                         <td>
-                            <input type="number" value="@item.Count" onchange="checkStockWhenAddingHappen('@item.Product.Id', this.value)" id="quantity" min="1" name="quantity" style="width: 3rem;">
+                            <input type="number" value="@item.Count" onchange="checkStockWhenAddingHappen('@item.Product.Id', this.value)" id="quantity-@item.Product.Id" min="1" name="quantity" style="width: 3rem;">
                         </td>
                     </tr>
                 }
@@ -99,6 +99,10 @@
             }
         }
     });
+
+    var counter = document.getElementById('quantity-'+ id)
+    if(count > 0)
+        counter.setAttribute('value' , count)
        }
 </script>
 }
