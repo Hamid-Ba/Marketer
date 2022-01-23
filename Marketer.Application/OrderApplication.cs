@@ -33,9 +33,15 @@ namespace Marketer.Application
             {
                 var openOrder = await _orderRepository.GetOpenOrder(visitorId);
 
-                if(openOrder.OrderItems.Any(o => o.ProductId == product.Id))
+                if (openOrder.OrderItems.Any(o => o.ProductId == product.Id))
                 {
                     var item = openOrder.OrderItems.FirstOrDefault(o => o.ProductId == product.Id);
+
+                    //Check Stock
+                    if (item.Count + 1 > product.Count)
+                        return result.Failed("این تعداد محصول در انبار موجود نمی باشد");
+
+
                     item.AddCount(1);
                 }
                 else
@@ -49,7 +55,7 @@ namespace Marketer.Application
             {
                 await CreateOrder(visitorId);
                 var openOrder = await _orderRepository.GetOpenOrder(visitorId);
-                
+
                 var item = new OrderItem(openOrder.Id, product.Id, 1);
                 openOrder.AddItem(item);
             }
@@ -64,7 +70,7 @@ namespace Marketer.Application
             var item = await _itemRepository.GetEntityByIdAsync(orderItemId);
             return item.Count;
         }
-        
+
 
         public async Task<OperationResult> CreateOrder(long visitorId)
         {

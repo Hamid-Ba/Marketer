@@ -10,9 +10,12 @@
         <p class="h6">محصولات اضافه شده</p>
     </div>
     <hr>
+    <div class="text-center">
+        <p class="alert alert-warning">سلام</p>
+    </div>
 
     <div class="row">
-        
+
         <from class="col-sm-12 col-md-3">
             <div class="basket-details">
                 <div class="basket-details-title">
@@ -26,7 +29,7 @@
                 <a href="" class="btn btn-secondary w-100">ثبت</a>
             </div>
         </from>
-        
+
         <div class="col-sm-12 col-md-8">
             <table class="table w-100" style="text-align: center;" dir="rtl">
                 <tr>
@@ -40,20 +43,20 @@
                 {
                     <tr>
                         <td>
-                            <a asp-area="" asp-action = "Delete" asp-route-id="@item.Id" asp-route-productId="@item.ProductId">
+                            <a asp-area="" asp-action="Delete" asp-route-id="@item.Id" asp-route-productId="@item.ProductId">
                                 <i class="fa fa-times text-danger"></i>
                             </a>
-                            
+
                         </td>
                         <td class="image-table">
                             <a asp-controller="Product" asp-action="Detail" asp-route-slug="@item.Product.Slug">
-                            <img src="~/Pictures/@item.Product.Picture" alt="@item.Product.PictureAlt" title="@item.Product.PictureTitle">
+                                <img src="~/Pictures/@item.Product.Picture" alt="@item.Product.PictureAlt" title="@item.Product.PictureTitle">
                             </a>
                         </td>
                         <td>@item.Product.PurchasePrice.ToMoney()</td>
                         <td>@item.DiscountPrice.ToMoney()</td>
                         <td>
-                            <input type="number" value="@item.Count" id="quantity" name="quantity" style="width: 3rem;">
+                            <input type="number"  value="@item.Count" id="quantity" min="1" name="quantity" style="width: 3rem;">
                         </td>
                     </tr>
                 }
@@ -62,6 +65,6 @@
             </table>
         </div>
 
-        
+
     </div>
 </div>

@@ -3,6 +3,8 @@ using Marketer.Application.Contract.AI.Orders;
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Query.Queries.Orders;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
@@ -26,6 +28,12 @@ namespace ServiceHost.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 TempData[WarningMessage] = "برای ثبت سفارش باید ابتدا وارد حساب خود شوید";
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            {
+                TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -56,9 +64,15 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            if(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            {
+                TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
+                return RedirectToAction("Index", "Home");
+            }
+
             var items = await _orderQuery.GetOpenOrder(User.GetVisitorId());
 
-            if (items is null)
+            if (items is null || items.Items.Count == 0)
             {
                 TempData[WarningMessage] = "سبد خرید شما خالی است";
                 return RedirectToAction("Index", "Home");
@@ -72,6 +86,12 @@ namespace ServiceHost.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 TempData[WarningMessage] = "ابتدا وارد حساب خود شوید";
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            {
+                TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
                 return RedirectToAction("Index", "Home");
             }
 
