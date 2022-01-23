@@ -1,8 +1,10 @@
 ﻿using Framework.Application.Authentication;
 using Marketer.Application.Contract.AI.Orders;
 using Marketer.Application.Contract.AI.Products;
+using Marketer.Application.Contract.ViewModels.Products;
 using Marketer.Query.Queries.Orders;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,12 +14,14 @@ namespace ServiceHost.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderQuery _orderQuery;
+        private readonly IConfiguration _configuration;
         private readonly IOrderApplication _orderApplication;
         private readonly IProductApplication _productApplication;
 
-        public OrderController(IOrderQuery orderQuery, IOrderApplication orderApplication, IProductApplication productApplication)
+        public OrderController(IOrderQuery orderQuery, IConfiguration configuration, IOrderApplication orderApplication, IProductApplication productApplication)
         {
             _orderQuery = orderQuery;
+            _configuration = configuration;
             _orderApplication = orderApplication;
             _productApplication = productApplication;
         }
@@ -52,6 +56,7 @@ namespace ServiceHost.Controllers
 
             var items = await _orderQuery.GetOpenOrder(User.GetVisitorId());
 
+            ViewBag.Url = _configuration.GetSection("Url").Value;
             return View(items);
         }
 
@@ -77,6 +82,8 @@ namespace ServiceHost.Controllers
                 TempData[WarningMessage] = "سبد خرید شما خالی است";
                 return RedirectToAction("Index", "Home");
             }
+            
+            ViewBag.Url = _configuration.GetSection("Url").Value;
             return View("Basket", items);
         }
 
@@ -106,5 +113,8 @@ namespace ServiceHost.Controllers
 
             return RedirectToAction("GetBasket");
         }
+
+        [HttpPost]
+        public StatusCheckVM CheckStock([FromBody] CheckCartItemCountVM command) => _productApplication.CheckStock(command);
     }
 }

@@ -13,6 +13,7 @@ namespace Marketer.Application.Contract.AI.Products
         Task<OperationResult> Edit(EditProductVM command);
         Task<OperationResult> IsProductExistInStock(long id);
         Task<OperationResult> Create(CreateProductVM command);
+        StatusCheckVM CheckStock(CheckCartItemCountVM command);
         Task<IEnumerable<SelectProductVM>> GetAllForSelection();
         Task<OperationResult> IsProductExistInStock(string slug);
         Task<OperationResult> GetBackProductCount(long id, int count);

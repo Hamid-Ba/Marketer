@@ -12,5 +12,6 @@ namespace Marketer.Domain.RI.Products
         Task<IEnumerable<ProductVM>> GetAll();
         Task<EditProductVM> GetDetailForEditBy(long id);
         Task<IEnumerable<SelectProductVM>> GetAllForSelection();
+        StatusCheckVM CheckStock(CheckCartItemCountVM command);
     }
 }

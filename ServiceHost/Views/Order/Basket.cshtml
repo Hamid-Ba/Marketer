@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "سبد خرید";
+    var url = ViewBag.Url;
 }
 
 <div class="container basket my-5">
@@ -10,8 +11,7 @@
         <p class="h6">محصولات اضافه شده</p>
     </div>
     <hr>
-    <div class="text-center">
-        <p class="alert alert-warning">سلام</p>
+    <div id="productStockWarnings" class="text-center">
     </div>
 
     <div class="row">
@@ -56,7 +56,7 @@
                         <td>@item.Product.PurchasePrice.ToMoney()</td>
                         <td>@item.DiscountPrice.ToMoney()</td>
                         <td>
-                            <input type="number"  value="@item.Count" id="quantity" min="1" name="quantity" style="width: 3rem;">
+                            <input type="number" value="@item.Count" onchange="checkStockWhenAddingHappen('@item.Product.Id', this.value)" id="quantity" min="1" name="quantity" style="width: 3rem;">
                         </td>
                     </tr>
                 }
@@ -68,3 +68,37 @@
 
     </div>
 </div>
+
+@section Scripts{
+<script>
+       function checkStockWhenAddingHappen(id , count) {
+          var settings = {
+        "url": "@url/Order/CheckStock",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({ "productId": id, "count": count }),
+    };
+    $.ajax(settings).done(function (data) {
+        if (data.isInStock == false) {
+            const warningsDiv = $('#productStockWarnings');
+            if ($(`#${id}`).length == 0) {
+                warningsDiv.append(`
+                    <p class="alert alert-warning" id="${id}">
+                         کالای
+                        <strong>${data.productName}</strong>
+                        در انبار کمتر از تعداد درخواستی موجود است <i class="fa fa-times"></i>
+                    </p>
+                `);
+            }
+        } else {
+            if ($(`#${id}`).length > 0) {
+                $(`#${id}`).remove();
+            }
+        }
+    });
+       }
+</script>
+}

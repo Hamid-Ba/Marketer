@@ -197,4 +197,16 @@ namespace Marketer.Application.Contract.ViewModels.Products
         public long Id { get; set; }
         public string Title { get; set; }
     }
+
+    public class CheckCartItemCountVM
+    {
+        public long ProductId { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class StatusCheckVM
+    {
+        public bool IsInStock { get; set; }
+        public string ProductName { get; set; }
+    }
 }

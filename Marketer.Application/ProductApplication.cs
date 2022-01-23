@@ -14,6 +14,8 @@ namespace Marketer.Application
 
         public ProductApplication(IProductRepository productRepository) => _productRepository = productRepository;
 
+        public StatusCheckVM CheckStock(CheckCartItemCountVM command) => _productRepository.CheckStock(command);
+
         public async Task<OperationResult> Create(CreateProductVM command)
         {
             OperationResult result = new();

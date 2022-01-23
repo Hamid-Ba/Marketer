@@ -16,6 +16,22 @@ namespace Marketer.Infrastructure.EfCore.Repositories
 
         public ProductRepository(MarketerContext context) : base(context) => _context = context;
 
+        public StatusCheckVM CheckStock(CheckCartItemCountVM command)
+        {
+            var product = _context.Products.FirstOrDefault(i => i.Id == command.ProductId);
+
+            if (product is null || product.Count < command.Count)
+            {
+                return new StatusCheckVM
+                {
+                    IsInStock = false,
+                    ProductName = product.Title
+                };
+            }
+
+            return new StatusCheckVM { IsInStock = true };
+        }
+
         public async Task<IEnumerable<ProductVM>> GetAll() => await _context.Products.Include(s => s.Brand).Include(c => c.Category).Select(
                 p => new ProductVM()
                 {
