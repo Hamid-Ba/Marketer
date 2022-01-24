@@ -3,14 +3,17 @@ using Marketer.Application.Contract.AI.Orders;
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
 using Marketer.Query.Queries.Orders;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Controllers
 {
+    [Authorize]
     public class OrderController : BaseController
     {
         private readonly IOrderQuery _orderQuery;
@@ -29,12 +32,6 @@ namespace ServiceHost.Controllers
         [HttpGet("Basket/{slug}")]
         public async Task<IActionResult> Basket(string slug)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                TempData[WarningMessage] = "برای ثبت سفارش باید ابتدا وارد حساب خود شوید";
-                return RedirectToAction("Index", "Home");
-            }
-
             if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
             {
                 TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
@@ -63,13 +60,7 @@ namespace ServiceHost.Controllers
         [HttpGet("Basket")]
         public async Task<IActionResult> GetBasket()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                TempData[WarningMessage] = "ابتدا وارد حساب خود شوید";
-                return RedirectToAction("Index", "Home");
-            }
-
-            if(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
             {
                 TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
                 return RedirectToAction("Index", "Home");
@@ -82,7 +73,7 @@ namespace ServiceHost.Controllers
                 TempData[WarningMessage] = "سبد خرید شما خالی است";
                 return RedirectToAction("Index", "Home");
             }
-            
+
             ViewBag.Url = _configuration.GetSection("Url").Value;
             return View("Basket", items);
         }
@@ -90,12 +81,6 @@ namespace ServiceHost.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(long id, long productId)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                TempData[WarningMessage] = "ابتدا وارد حساب خود شوید";
-                return RedirectToAction("Index", "Home");
-            }
-
             if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
             {
                 TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
@@ -116,5 +101,50 @@ namespace ServiceHost.Controllers
 
         [HttpPost]
         public StatusCheckVM CheckStock([FromBody] CheckCartItemCountVM command) => _productApplication.CheckStock(command);
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateBasket(long[] itemsId, int[] quantity, long[] productsId)
+        {
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            {
+                TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var isStockOk = await _productApplication.IsCountSatisfyStock(productsId, quantity);
+
+            if (isStockOk.IsSucceeded)
+            {
+                var updateItemStock = await _orderApplication.UpdateCountOfItems(itemsId, quantity);
+
+                if (updateItemStock.IsSucceeded)
+                {
+                    TempData[SuccessMessage] = updateItemStock.Message;
+                    return RedirectToAction("FinalBasket");
+                }
+
+                TempData[ErrorMessage] = updateItemStock.Message;
+            }
+
+            else TempData[ErrorMessage] = isStockOk.Message;
+
+            return RedirectToAction("GetBasket");
+        }
+
+        #region Checkout
+
+        [HttpGet]
+        public async Task<IActionResult> FinalBasket()
+        {
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            {
+                TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(await _orderQuery.CalculateOrder(User.GetVisitorId()));
+        }
+
+        #endregion
     }
 }

@@ -1,0 +1,39 @@
+﻿@model Marketer.Query.Queries.Orders.FinalBasketVM
+@using Framework.Application
+
+@{
+    ViewData["Title"] = "فاکتور نهایی";
+}
+
+<div class="container my-5">
+    <div class="table-finallBasket" style="overflow: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">مبلغ کل(تومان)</th>
+                    <th scope="col">مبلغ تخفیف(تومان)</th>
+                    <th scope="col">مبلغ پرداختی(تومان)</th>
+                    <th scope="col">مارکت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>@Model.TotalPrice.ToMoney()</td>
+                    <td>@Model.TotalDiscount.ToMoney()</td>
+                    <td>@Model.PayAmount.ToMoney()</td>
+                    <td>
+                        <select class="form-select" aria-label="مارکت را انتخاب کنید">
+                            <option selected></option>
+                            <option value="1">تست</option>
+                            <option value="2">تست</option>
+                            <option value="3">تست</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="" class="w-50">ثبت</a>
+    </div>
+</div>

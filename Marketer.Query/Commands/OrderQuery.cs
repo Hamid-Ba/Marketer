@@ -84,5 +84,22 @@ namespace Marketer.Query.Commands
             PurchasePrice = product.PurchacePrice
         };
 
+        public async Task<FinalBasketVM> CalculateOrder(long visitorId)
+        {
+            var openOrder = await GetOpenOrder(visitorId);
+
+            if(openOrder != null)
+            {
+                return new FinalBasketVM
+                {
+                    OrderId = openOrder.Id,
+                    PayAmount = openOrder.PayAmount,
+                    TotalDiscount = openOrder.TotalDiscount,
+                    TotalPrice = openOrder.TotalPrice
+                };
+            }
+
+            return null;
+        }
     }
 }

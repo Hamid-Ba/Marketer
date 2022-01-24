@@ -17,5 +17,6 @@ namespace Marketer.Application.Contract.AI.Products
         Task<IEnumerable<SelectProductVM>> GetAllForSelection();
         Task<OperationResult> IsProductExistInStock(string slug);
         Task<OperationResult> GetBackProductCount(long id, int count);
+        Task<OperationResult> IsCountSatisfyStock(long[] ids, int[] count);
     }
 }

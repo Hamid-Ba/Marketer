@@ -22,5 +22,7 @@ namespace Marketer.Domain.Entities.Orders
         }
 
         public void AddCount(int count) => Count += count;
+
+        public void ChangeCount(int count) => Count = count;
     }
 }

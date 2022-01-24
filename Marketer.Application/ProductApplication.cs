@@ -102,6 +102,21 @@ namespace Marketer.Application
 
         public async Task<EditProductVM> GetDetailForEditBy(long id) => await _productRepository.GetDetailForEditBy(id);
 
+        public async Task<OperationResult> IsCountSatisfyStock(long[] ids, int[] count)
+        {
+            OperationResult result = new();
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                var product = await _productRepository.GetEntityByIdAsync(ids[i]);
+                if (product is null) return result.Failed(ApplicationMessage.GoesWrong);
+
+                if (product.Count < count[i]) return result.Failed($"محصول {product.Title} کمتر از تعداد درخواستی در انبار هست");
+            }
+
+            return result.Succeeded();
+        }
+
         public async Task<OperationResult> IsProductExistInStock(long id)
         {
             OperationResult result = new();

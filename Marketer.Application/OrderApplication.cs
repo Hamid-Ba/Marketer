@@ -71,7 +71,6 @@ namespace Marketer.Application
             return item.Count;
         }
 
-
         public async Task<OperationResult> CreateOrder(long visitorId)
         {
             OperationResult result = new();
@@ -101,5 +100,21 @@ namespace Marketer.Application
 
         public async Task<bool> IsThereOpenOrder(long visitorId) => await _orderRepository.IsThereOpenOrder(visitorId);
 
+        public async Task<OperationResult> UpdateCountOfItems(long[] itemsId, int[] quantity)
+        {
+            OperationResult result = new();
+
+            for (int i = 0; i < itemsId.Length; i++)
+            {
+                var item = await _itemRepository.GetEntityByIdAsync(itemsId[i]);
+                if (item is null) return result.Failed(ApplicationMessage.GoesWrong);
+
+                item.ChangeCount(quantity[i]);
+            }
+
+            await _itemRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
     }
 }

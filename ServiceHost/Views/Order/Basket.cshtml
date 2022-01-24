@@ -6,7 +6,7 @@
     var url = ViewBag.Url;
 }
 
-<div class="container basket my-5">
+<form class="container basket my-5" asp-action="UpdateBasket" method="post">
     <div class="basket-title">
         <p class="h6">محصولات اضافه شده</p>
     </div>
@@ -16,7 +16,7 @@
 
     <div class="row">
 
-        <from class="col-sm-12 col-md-3">
+        <div class="col-sm-12 col-md-3">
             <div class="basket-details">
                 @*<div class="basket-details-title">
                     <p class="h6">جمع سبد خرید : <span id="totalPrice">@Model.PayAmount.ToMoney() تومان</span></p>
@@ -26,9 +26,9 @@
                     <p>تعداد محصولات : <span>@Model.ItemsCount</span></p>
                 </div>
                 <hr>
-                <a href="" class="btn btn-secondary w-100">ثبت</a>
+                <button type="submit" class="btn btn-secondary w-100">ثبت</button>
             </div>
-        </from>
+        </div>
 
         <div class="col-sm-12 col-md-8">
             <table class="table w-100" style="text-align: center;" dir="rtl">
@@ -56,6 +56,8 @@
                         <td id="price-@item.Product.Id">@item.Product.PurchasePrice.ToMoney()</td>
                         <td>@item.DiscountPrice.ToMoney()</td>
                         <td>
+                            <input name="itemsId" value="@item.Id" type="hidden">
+                            <input name="productsId" value="@item.ProductId" type="hidden">
                             <input type="number" value="@item.Count" onchange="checkStockWhenAddingHappen('@item.Product.Id', this.value)" id="quantity-@item.Product.Id" min="1" name="quantity" style="width: 3rem;">
                         </td>
                     </tr>
@@ -67,11 +69,14 @@
 
 
     </div>
-</div>
+</form>
 
 @section Scripts{
 <script>
+    const cookieName = "cart-items";
+
        function checkStockWhenAddingHappen(id , count) {
+
           var settings = {
         "url": "@url/Order/CheckStock",
         "method": "POST",
