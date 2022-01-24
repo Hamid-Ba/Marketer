@@ -92,10 +92,11 @@ namespace Marketer.Query.Commands
             {
                 return new FinalBasketVM
                 {
+                    VisitorId = openOrder.VisitorId,
                     OrderId = openOrder.Id,
                     PayAmount = openOrder.PayAmount,
                     TotalDiscount = openOrder.TotalDiscount,
-                    TotalPrice = openOrder.TotalPrice
+                    TotalPrice = openOrder.TotalPrice,
                 };
             }
 

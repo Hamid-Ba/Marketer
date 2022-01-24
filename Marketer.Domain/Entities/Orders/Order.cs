@@ -43,5 +43,16 @@ namespace Marketer.Domain.Entities.Orders
         }
 
         public void AddItem(OrderItem item) => OrderItems.Add(item);
+
+        public void PlaceOrder(long marketId, double totalPrice, double totalDiscount, double payAmount)
+        {
+            MarketId = marketId;
+            TotalPrice = totalPrice;
+            TotalDiscount = totalDiscount;
+            PayAmount = payAmount;
+            IsPayed = true;
+            PlaceOrderDate = DateTime.Now;
+            Status = OrderStatus.OrderCreated;
+        }
     }
 }

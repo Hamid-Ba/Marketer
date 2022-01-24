@@ -1,10 +1,13 @@
 ﻿using Framework.Application.Authentication;
 using Marketer.Application.Contract.AI.Orders;
 using Marketer.Application.Contract.AI.Products;
+using Marketer.Application.Contract.ViewModels.Orders;
 using Marketer.Application.Contract.ViewModels.Products;
+using Marketer.Query.Queries.Markets;
 using Marketer.Query.Queries.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +20,22 @@ namespace ServiceHost.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderQuery _orderQuery;
+        private readonly IMarketQuery _marketQuery;
         private readonly IConfiguration _configuration;
         private readonly IOrderApplication _orderApplication;
         private readonly IProductApplication _productApplication;
 
-        public OrderController(IOrderQuery orderQuery, IConfiguration configuration, IOrderApplication orderApplication, IProductApplication productApplication)
+        public OrderController(IOrderQuery orderQuery, IMarketQuery marketQuery,
+            IConfiguration configuration, IOrderApplication orderApplication, IProductApplication productApplication)
         {
             _orderQuery = orderQuery;
+            _marketQuery = marketQuery;
             _configuration = configuration;
             _orderApplication = orderApplication;
             _productApplication = productApplication;
         }
+
+        #region Basket
 
         [HttpGet("Basket/{slug}")]
         public async Task<IActionResult> Basket(string slug)
@@ -103,7 +111,7 @@ namespace ServiceHost.Controllers
         public StatusCheckVM CheckStock([FromBody] CheckCartItemCountVM command) => _productApplication.CheckStock(command);
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBasket(long[] itemsId, int[] quantity, long[] productsId)
+        public async Task<IActionResult> UpdateBasket(UpdateBasketVM basket)
         {
             if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
             {
@@ -111,11 +119,11 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var isStockOk = await _productApplication.IsCountSatisfyStock(productsId, quantity);
+            var isStockOk = await _productApplication.IsCountSatisfyStock(basket.ProductsId, basket.Quantity);
 
             if (isStockOk.IsSucceeded)
             {
-                var updateItemStock = await _orderApplication.UpdateCountOfItems(itemsId, quantity);
+                var updateItemStock = await _orderApplication.UpdateCountOfItems(basket.ItemsId, basket.Quantity);
 
                 if (updateItemStock.IsSucceeded)
                 {
@@ -131,6 +139,8 @@ namespace ServiceHost.Controllers
             return RedirectToAction("GetBasket");
         }
 
+        #endregion
+
         #region Checkout
 
         [HttpGet]
@@ -142,7 +152,55 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(await _orderQuery.CalculateOrder(User.GetVisitorId()));
+            var finalBasketVM = await _orderQuery.CalculateOrder(User.GetVisitorId());
+
+            if(finalBasketVM is null)
+            {
+                TempData[WarningMessage] = "سبد خرید شما خالیست";
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.Markets = new SelectList(await _marketQuery.GetAllBy(User.GetVisitorId()), "Id", "MarketWithCity");
+            return View(finalBasketVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FinalBasket(FinalBasketVM command)
+        {
+            if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value != "Visitor")
+            {
+                TempData[WarningMessage] = "فقط بازاریاب می تواند سفارش ایجاد کند";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var finalBasketVM = await _orderQuery.CalculateOrder(User.GetVisitorId());
+
+            if (finalBasketVM is null)
+            {
+                TempData[WarningMessage] = "سبد خرید شما خالیست";
+                return RedirectToAction("Index", "Home");
+            }
+
+            OrderVM order = new()
+            {
+                Id = finalBasketVM.OrderId,
+                MarketId = finalBasketVM.MarketId,
+                PayAmount = finalBasketVM.PayAmount,
+                TotalDiscount = finalBasketVM.TotalDiscount,
+                TotalPrice = finalBasketVM.TotalPrice,
+                VisitorId = finalBasketVM.VisitorId
+            };
+
+            var result = await _orderApplication.PlaceOrder(order);
+
+            if (result.IsSucceeded)
+            {
+                TempData[SuccessMessage] = result.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.Markets = new SelectList(await _marketQuery.GetAllBy(User.GetVisitorId()), "Id", "MarketWithCity");
+            return View(command);
         }
 
         #endregion

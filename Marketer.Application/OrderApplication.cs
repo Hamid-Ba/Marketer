@@ -5,6 +5,8 @@ using Marketer.Domain.RI.Products;
 using System.Linq;
 using System.Threading.Tasks;
 using Marketer.Domain.Entities.Orders;
+using Marketer.Application.Contract.ViewModels.Orders;
+using Marketer.Domain.RI.Discounts;
 
 namespace Marketer.Application
 {
@@ -13,12 +15,14 @@ namespace Marketer.Application
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderItemRepository _itemRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IDiscountRepository _discountRepository;
 
-        public OrderApplication(IOrderRepository orderRepository, IOrderItemRepository itemRepository, IProductRepository productRepository)
+        public OrderApplication(IOrderRepository orderRepository, IOrderItemRepository itemRepository, IProductRepository productRepository, IDiscountRepository discountRepository)
         {
             _orderRepository = orderRepository;
             _itemRepository = itemRepository;
             _productRepository = productRepository;
+            _discountRepository = discountRepository;
         }
 
         public async Task<OperationResult> AddProductToOpenOrder(long visitorId, string productSlug)
@@ -99,6 +103,35 @@ namespace Marketer.Application
         }
 
         public async Task<bool> IsThereOpenOrder(long visitorId) => await _orderRepository.IsThereOpenOrder(visitorId);
+
+        public async Task<OperationResult> PlaceOrder(OrderVM command)
+        {
+            OperationResult result = new();
+
+            var order = await _orderRepository.GetOpenOrder(command.VisitorId);
+
+            if (order is null) return result.Failed(ApplicationMessage.NotExist);
+            if (order.VisitorId != command.VisitorId) return result.Failed("این سبد خرید به شما تعلق ندارد");
+
+            foreach (var item in order.OrderItems)
+            {
+                var product = await _productRepository.GetEntityByIdAsync(item.ProductId);
+
+                if (product is null) return result.Failed("چنین محصولی وجود ندارد");
+                if (product.Count <= 0) return result.Failed($"محصول {product.Title} کمتر از تعداد درخواستی در انبار هست");
+                if (product.Count - item.Count <= 0) return result.Failed($"محصول {product.Title} کمتر از تعداد درخواستی در انبار هست");
+
+                product.ReduceCount(item.Count);
+                var discount = await _discountRepository.GetBy(product.Id);
+
+                item.PlaceOrder(product.PurchacePrice, discount.DiscountRate * product.PurchacePrice);
+            }
+
+            order.PlaceOrder(command.MarketId, command.TotalPrice, command.TotalDiscount, command.PayAmount);
+            await _orderRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
 
         public async Task<OperationResult> UpdateCountOfItems(long[] itemsId, int[] quantity)
         {

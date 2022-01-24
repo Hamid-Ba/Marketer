@@ -21,6 +21,12 @@ namespace Marketer.Domain.Entities.Orders
             Count = count;
         }
 
+        public void PlaceOrder(double payAmount, double discountPrice)
+        {
+            PayAmount = payAmount;
+            DiscountPrice = discountPrice;
+        }
+
         public void AddCount(int count) => Count += count;
 
         public void ChangeCount(int count) => Count = count;

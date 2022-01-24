@@ -4,6 +4,7 @@ using Marketer.Application.Contract.ViewModels.Discounts;
 using Marketer.Domain.Entities.Discounts;
 using Marketer.Domain.RI.Discounts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +39,10 @@ namespace Marketer.Infrastructure.EfCore.Repositories
 
             return result;
         }
+
+        public async Task<Discount> GetBy(long productId) => await _context.Discounts
+            .Where(d => d.ProductId == productId && DateTime.Now >= d.StartDate && DateTime.Now <= d.EndDate)
+            .FirstOrDefaultAsync();
 
         public async Task<EditDiscountVM> GetDetailForEditBy(long id) => await _context.Discounts.Select(d => new EditDiscountVM
         {

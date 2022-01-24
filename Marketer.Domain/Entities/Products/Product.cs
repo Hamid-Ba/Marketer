@@ -100,6 +100,8 @@ namespace Marketer.Domain.Entities.Products
         }
 
         public int AddCount(int count) => Count += count;
+
+        public void ReduceCount(int count) => Count -= count;
             
     }
 }

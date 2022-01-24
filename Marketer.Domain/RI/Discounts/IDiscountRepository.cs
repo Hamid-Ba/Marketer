@@ -8,6 +8,7 @@ namespace Marketer.Domain.RI.Discounts
 {
     public interface IDiscountRepository : IRepository<Discount>
     {
+        Task<Discount> GetBy(long productId);
         Task<IEnumerable<DiscountVM>> GetAll();
         Task<EditDiscountVM> GetDetailForEditBy(long id);
     }

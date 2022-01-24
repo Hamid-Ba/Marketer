@@ -5,7 +5,7 @@
     ViewData["Title"] = "فاکتور نهایی";
 }
 
-<div class="container my-5">
+<form class="container my-5" method="post">
     <div class="table-finallBasket" style="overflow: auto;">
         <table class="table">
             <thead>
@@ -24,16 +24,14 @@
                     <td>@Model.TotalDiscount.ToMoney()</td>
                     <td>@Model.PayAmount.ToMoney()</td>
                     <td>
-                        <select class="form-select" aria-label="مارکت را انتخاب کنید">
+                        <select class="form-select" asp-for="MarketId" asp-items="@ViewBag.Markets" aria-label="مارکت را انتخاب کنید">
                             <option selected></option>
-                            <option value="1">تست</option>
-                            <option value="2">تست</option>
-                            <option value="3">تست</option>
+                            <option value="0">انتخاب کنید...</option>
                         </select>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a href="" class="w-50">ثبت</a>
+        <button type="submit" class="w-50">ثبت</button>
     </div>
-</div>
+</form>
