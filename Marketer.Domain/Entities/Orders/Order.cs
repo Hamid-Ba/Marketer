@@ -13,7 +13,7 @@ namespace Marketer.Domain.Entities.Orders
         public double TotalPrice { get; private set; }
         public double TotalDiscount { get; private set; }
         public double PayAmount { get; private set; }
-        public long RefId { get; private set; }
+        public string RefId { get; private set; }
         public bool IsPayed { get; private set; }
         public DateTime PlaceOrderDate { get; private set; }
         public OrderStatus Status { get; private set; }
@@ -29,19 +29,6 @@ namespace Marketer.Domain.Entities.Orders
             OrderItems = new List<OrderItem>();
         }
 
-        public Order(long visitorId, long marketId, double totalPrice, double totalDiscount, double payAmount, long refId, bool isPayed, DateTime placeOrderDate, OrderStatus status)
-        {
-            VisitorId = visitorId;
-            MarketId = marketId;
-            TotalPrice = totalPrice;
-            TotalDiscount = totalDiscount;
-            PayAmount = payAmount;
-            RefId = refId;
-            IsPayed = isPayed;
-            PlaceOrderDate = placeOrderDate;
-            Status = status;
-        }
-
         public void AddItem(OrderItem item) => OrderItems.Add(item);
 
         public void PlaceOrder(long marketId, double totalPrice, double totalDiscount, double payAmount)
@@ -52,7 +39,8 @@ namespace Marketer.Domain.Entities.Orders
             PayAmount = payAmount;
             IsPayed = true;
             PlaceOrderDate = DateTime.Now;
-            Status = OrderStatus.OrderCreated;
+            Status = OrderStatus.Prepreing;
+            RefId = "O" + Guid.NewGuid().ToString().Substring(0, 7);
         }
     }
 }

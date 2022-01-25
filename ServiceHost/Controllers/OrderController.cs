@@ -154,7 +154,7 @@ namespace ServiceHost.Controllers
 
             var finalBasketVM = await _orderQuery.CalculateOrder(User.GetVisitorId());
 
-            if(finalBasketVM is null)
+            if (finalBasketVM is null)
             {
                 TempData[WarningMessage] = "سبد خرید شما خالیست";
                 return RedirectToAction("Index", "Home");
@@ -184,7 +184,7 @@ namespace ServiceHost.Controllers
             OrderVM order = new()
             {
                 Id = finalBasketVM.OrderId,
-                MarketId = finalBasketVM.MarketId,
+                MarketId = command.MarketId,
                 PayAmount = finalBasketVM.PayAmount,
                 TotalDiscount = finalBasketVM.TotalDiscount,
                 TotalPrice = finalBasketVM.TotalPrice,
@@ -199,8 +199,10 @@ namespace ServiceHost.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            TempData[ErrorMessage] = result.Message;
+
             ViewBag.Markets = new SelectList(await _marketQuery.GetAllBy(User.GetVisitorId()), "Id", "MarketWithCity");
-            return View(command);
+            return View(finalBasketVM);
         }
 
         #endregion

@@ -108,6 +108,8 @@ namespace Marketer.Application
         {
             OperationResult result = new();
 
+            if (command.MarketId <= 0) return result.Failed("مارکت را انتخاب کنید");
+
             var order = await _orderRepository.GetOpenOrder(command.VisitorId);
 
             if (order is null) return result.Failed(ApplicationMessage.NotExist);
@@ -119,18 +121,21 @@ namespace Marketer.Application
 
                 if (product is null) return result.Failed("چنین محصولی وجود ندارد");
                 if (product.Count <= 0) return result.Failed($"محصول {product.Title} کمتر از تعداد درخواستی در انبار هست");
-                if (product.Count - item.Count <= 0) return result.Failed($"محصول {product.Title} کمتر از تعداد درخواستی در انبار هست");
+                if (product.Count - item.Count < 0) return result.Failed($"محصول {product.Title} کمتر از تعداد درخواستی در انبار هست");
 
                 product.ReduceCount(item.Count);
                 var discount = await _discountRepository.GetBy(product.Id);
 
-                item.PlaceOrder(product.PurchacePrice, discount.DiscountRate * product.PurchacePrice);
+                if (discount is null)
+                    item.PlaceOrder(product.PurchacePrice, 0);
+                else
+                    item.PlaceOrder(product.PurchacePrice, (discount.DiscountRate * product.PurchacePrice) / 100);
             }
 
             order.PlaceOrder(command.MarketId, command.TotalPrice, command.TotalDiscount, command.PayAmount);
             await _orderRepository.SaveChangesAsync();
 
-            return result.Succeeded();
+            return result.Succeeded($"سفارش شما با موفقیت ثبت گردید. کد سفارش شما {order.RefId} می باشد.");
         }
 
         public async Task<OperationResult> UpdateCountOfItems(long[] itemsId, int[] quantity)
