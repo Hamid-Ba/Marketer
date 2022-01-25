@@ -100,6 +100,7 @@ namespace Marketer.Application
             var visitor = await _visitorRepository.GetBy(command.Mobile);
 
             if (visitor is null) return result.Failed(ApplicationMessage.UserNotExist);
+            if (visitor.IsBlock) return result.Failed("حساب شما غیر فعال هست");
 
             if (!_passwordHasher.Check(visitor.Password, command.Password).Verified) return result.Failed(ApplicationMessage.WrongPassword);
 
@@ -111,7 +112,7 @@ namespace Marketer.Application
                 Mobile = visitor.Mobile
             };
 
-            _authHelper.SignInAsync(authVM);
+            await _authHelper.SignInAsync(authVM);
 
             return result.Succeeded();
         }
