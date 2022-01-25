@@ -29,6 +29,7 @@ namespace ServiceHost
             services.AddTransient<IAuthHelper, AuthHelper>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddProgressiveWebApp();
 
             MarketerBootstrapper.Configuration(services, Configuration.GetConnectionString("MarketerConnection"));
 
