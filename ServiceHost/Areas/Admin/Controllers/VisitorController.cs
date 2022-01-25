@@ -1,10 +1,13 @@
 ﻿using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.ViewModels.Account;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.MarketerManagement)]
     public class VisitorController : AdminBaseController
     {
         private readonly IVisitorApplication _visitorApplication;
@@ -14,6 +17,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _visitorApplication.GetAll());
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.CreateMarketer)]
         public IActionResult Create() => PartialView();
 
         [HttpPost]
@@ -27,6 +31,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.EditMarketer)]
         public async Task<IActionResult> Edit(long id) => PartialView(await _visitorApplication.GetDetailForEditBy(id));
 
         [HttpPost]
@@ -41,6 +46,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.DeleteMarketer)]
         public IActionResult Delete(long id) => PartialView(id);
 
         [ActionName("Delete")]

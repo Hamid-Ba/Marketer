@@ -21,9 +21,9 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Description = r.Description,
         }).AsNoTracking().ToListAsync();
 
-        public Role GetBy(long roleId) => _context.Role.Find(roleId);
+        public Role GetBy(long roleId) => _context.Role.Include(p => p.Permissions).FirstOrDefault(r => r.Id == roleId);
 
-        public async Task<EditRoleVM> GetDetailForEditBy(long id) 
+        public async Task<EditRoleVM> GetDetailForEditBy(long id)
         {
             var result = await _context.Role.Select(r => new EditRoleVM
             {
@@ -35,7 +35,7 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             result.PermissionsId = await _context.RolePermissions.Where(r => r.RoleId == id).Select(r => r.PermissionId).ToArrayAsync();
 
             return result;
-        } 
-        
+        }
+
     }
 }

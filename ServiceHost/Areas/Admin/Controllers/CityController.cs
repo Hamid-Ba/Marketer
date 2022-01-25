@@ -1,10 +1,13 @@
 ﻿using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.CityManagement)]
     public class CityController : AdminBaseController
     {
         private readonly ICityApplication _cityApplication;

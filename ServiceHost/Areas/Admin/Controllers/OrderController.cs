@@ -1,11 +1,14 @@
 ﻿using Marketer.Application.Contract.AI.Orders;
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Orders;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.OrderManagement)]
     public class OrderController : AdminBaseController
     {
         private readonly IOrderApplication _orderApplication;

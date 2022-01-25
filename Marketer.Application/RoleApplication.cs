@@ -3,10 +3,8 @@ using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.ViewModels.Account;
 using Marketer.Domain.Entities.Account;
 using Marketer.Domain.RI.Account;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Marketer.Application

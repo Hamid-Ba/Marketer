@@ -1,12 +1,15 @@
 ﻿using Marketer.Application.Contract.AI.Discounts;
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Discounts;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.DiscountManagement)]
     public class DiscountController : AdminBaseController
     {
         private readonly IProductApplication _productApplication;

@@ -13,5 +13,6 @@ namespace Marketer.Application.Contract.AI.Account
         Task<OperationResult> Edit(EditOperatorVM command);
         Task<OperationResult> Login(LoginOperatorVM command);
         Task<OperationResult> Create(CreateOperatorVM command);
+        bool IsOperatorHasPermissions(long permissionId, long operatorId);
     }
 }

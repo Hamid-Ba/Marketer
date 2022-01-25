@@ -1,10 +1,13 @@
 ﻿using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.CategoryManagement)]
     public class CategoryController : AdminBaseController
     {
         private readonly ICategoryApplication _categoryApplication;
@@ -14,6 +17,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _categoryApplication.GetAll());
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.CreateCategory)]
         public IActionResult Create() => PartialView();
 
         [HttpPost]
@@ -27,6 +31,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.EditCategory)]
         public async Task<IActionResult> Edit(long id) => PartialView(await _categoryApplication.GetDetailForEditBy(id));
 
         [HttpPost]
@@ -41,6 +46,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.DeleteCategory)]
         public IActionResult Delete(long id) => PartialView(id);
 
         [ActionName("Delete")]

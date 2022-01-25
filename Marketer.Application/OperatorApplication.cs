@@ -14,12 +14,14 @@ namespace Marketer.Application
     {
         private readonly IAuthHelper _authHelper;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IRoleApplication _roleApplication;
         private readonly IOperatorRepository _operatorRepository;
 
-        public OperatorApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IOperatorRepository operatorRepository)
+        public OperatorApplication(IAuthHelper authHelper, IPasswordHasher passwordHasher, IRoleApplication roleRepository, IOperatorRepository operatorRepository)
         {
             _authHelper = authHelper;
             _passwordHasher = passwordHasher;
+            _roleApplication = roleRepository;
             _operatorRepository = operatorRepository;
         }
 
@@ -74,6 +76,15 @@ namespace Marketer.Application
         public async Task<IEnumerable<OperatorVM>> GetAll() => await _operatorRepository.GetAll();
 
         public async Task<EditOperatorVM> GetDetailForEditBy(long id) => await _operatorRepository.GetDetailForEditBy(id);
+
+        public bool IsOperatorHasPermissions(long permissionId, long operatorId)
+        {
+            var user = _operatorRepository.GetEntityById(operatorId);
+
+            if (_roleApplication.IsRoleHasThePermission(user.RoleId, permissionId)) return true;
+
+            return false;
+        }
 
         public async Task<OperationResult> Login(LoginOperatorVM command)
         {

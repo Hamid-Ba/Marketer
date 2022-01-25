@@ -1,11 +1,14 @@
 ﻿using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.ProductManagement)]
     public class ProductController : AdminBaseController
     {
         private readonly IBrandApplication _brandApplication;
@@ -22,6 +25,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _productApplication.GetAll());
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.CreateProduct)]
         public async Task<IActionResult> Create()
         {
             ViewBag.Brands = new SelectList(await _brandApplication.GetAllForSelection(), "Id", "Name");
@@ -46,6 +50,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.EditProduct)]
         public async Task<IActionResult> Edit(long id)
         {
             ViewBag.Brands = new SelectList(await _brandApplication.GetAllForSelection(), "Id", "Name");
@@ -72,6 +77,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.DeleteProduct)]
         public IActionResult Delete(long id) => PartialView(id);
 
         [ActionName("Delete")]

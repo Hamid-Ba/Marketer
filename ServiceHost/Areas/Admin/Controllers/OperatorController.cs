@@ -1,11 +1,14 @@
 ﻿using Marketer.Application.Contract.AI.Account;
 using Marketer.Application.Contract.ViewModels.Account;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.OperatorManagement)]
     public class OperatorController : AdminBaseController
     {
         private readonly IRoleApplication _roleApplication;
@@ -20,6 +23,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _operatorApplication.GetAll());
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.CreateOperator)]
         public async Task<IActionResult> Create()
         {
             ViewBag.Roles = new SelectList(await _roleApplication.GetAll(), "Id", "Name");
@@ -39,6 +43,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.EditOperator)]
         public async Task<IActionResult> Edit(long id)
         {
             ViewBag.Roles = new SelectList(await _roleApplication.GetAll(), "Id", "Name");
@@ -59,6 +64,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(MarketerPermissions.DeleteOperator)]
         public IActionResult Delete(long id) => PartialView(id);
 
         [ActionName("Delete")]

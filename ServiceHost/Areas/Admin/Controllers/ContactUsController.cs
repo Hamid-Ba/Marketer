@@ -1,9 +1,12 @@
 ﻿using Marketer.Application.Contract.AI.Extera;
+using Marketer.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using ServiceHost.Tools;
 using System.Threading.Tasks;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
+    [PermissionChecker(MarketerPermissions.SettingManagement)]
     public class ContactUsController : AdminBaseController
     {
         private readonly IContactUsApplication _contactUsApplication;
