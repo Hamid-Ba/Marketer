@@ -1,4 +1,6 @@
-﻿<div class="left side-menu">
+﻿@using Framework.Application.Authentication
+
+<div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
         <div class="user-details">
             <div class="pull-left">
@@ -13,7 +15,7 @@
                     </ul>
                 </div>
 
-                <p class="text-muted m-0">Administrator</p>
+                <p class="text-muted m-0">@User.GetRoleName()</p>
             </div>
         </div>
         <!--- Divider -->

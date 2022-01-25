@@ -11,7 +11,7 @@
         {
         }
 
-        public VisitorAuthViewModel(long id,string code, string fullname, string mobile)
+        public VisitorAuthViewModel(long id, string code, string fullname, string mobile)
         {
             Id = id;
             Code = code;
@@ -24,15 +24,17 @@
     {
         public long Id { get; set; }
         public long RoleId { get; set; }
+        public string RoleName { get; set; }
         public string Fullname { get; set; }
         public string Mobile { get; set; }
 
         public OperatorAuthViewModel() { }
 
-        public OperatorAuthViewModel(long id, long roleId, string fullname, string mobile)
+        public OperatorAuthViewModel(long id, long roleId,string roleName, string fullname, string mobile)
         {
             Id = id;
             RoleId = roleId;
+            RoleName = roleName;
             Fullname = fullname;
             Mobile = mobile;
         }
@@ -51,7 +53,7 @@
         public string Address { get; set; }
         public bool KeepMe { get; set; }
 
-        public StoreUserAuthVM(long id, long storeId, string storeCode,long roleId, string fullname, string mobile, string city, string province, string address, bool keepMe)
+        public StoreUserAuthVM(long id, long storeId, string storeCode, long roleId, string fullname, string mobile, string city, string province, string address, bool keepMe)
         {
             Id = id;
             StoreId = storeId;

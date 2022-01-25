@@ -100,6 +100,7 @@ namespace Marketer.Application
             {
                 Id = user.Id,
                 RoleId = user.RoleId,
+                RoleName = user.Role.Name,
                 Fullname = user.FullName,
                 Mobile = user.Mobile
             };

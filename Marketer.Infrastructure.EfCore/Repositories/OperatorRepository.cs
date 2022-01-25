@@ -24,7 +24,7 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             RoleName = o.Role.Name
         }).AsNoTracking().ToListAsync();
 
-        public async Task<Operator> GetBy(string mobile) => await _context.Operators.FirstOrDefaultAsync(o => o.Mobile == mobile);
+        public async Task<Operator> GetBy(string mobile) => await _context.Operators.Include(r => r.Role).FirstOrDefaultAsync(o => o.Mobile == mobile);
 
         public async Task<EditOperatorVM> GetDetailForEditBy(long id) => await _context.Operators.Select(o => new EditOperatorVM
         {

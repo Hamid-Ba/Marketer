@@ -41,6 +41,7 @@ namespace Framework.Application.Authentication
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 new Claim(ClaimTypes.Role, "Operator"),
                 new Claim("RoleId", account.RoleId.ToString()),
+                new Claim("RoleName", account.RoleName.ToString()),
                 new Claim(ClaimTypes.Name, account.Fullname),
                 new Claim(ClaimTypes.MobilePhone, account.Mobile),
 
