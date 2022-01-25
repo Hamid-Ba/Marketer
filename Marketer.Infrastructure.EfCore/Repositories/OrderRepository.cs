@@ -1,7 +1,9 @@
 ﻿using Framework.Infrastructure;
+using Marketer.Application.Contract.ViewModels.Orders;
 using Marketer.Domain.Entities.Orders;
 using Marketer.Domain.RI.Orders;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,31 @@ namespace Marketer.Infrastructure.EfCore.Repositories
         private readonly MarketerContext _context;
 
         public OrderRepository(MarketerContext context) : base(context) => _context = context;
+
+        public async Task<IEnumerable<OrderVM>> GetAll() => await _context.Orders
+            .Include(v => v.Visitor)
+            .Include(m => m.Market)
+            .Where(p => p.IsPayed)
+            .Select(o => new OrderVM
+            {
+                Id = o.Id,
+                MarketId = o.MarketId,
+                MarketName = o.Market.Name,
+                VisitorId = o.VisitorId,
+                VisitorName = o.Visitor.FullName,
+                PayAmount = o.PayAmount,
+                TotalPrice = o.TotalPrice,
+                TotalDiscount = o.TotalDiscount,
+                RefId = o.RefId,
+                PlaceOrderDate = o.PlaceOrderDate,
+                Status = o.Status
+            }).AsNoTracking().ToListAsync();
+
+        public async Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id) => await _context.Orders.Select(o => new ChangeStatusOrderVM
+        {
+            Id = o.Id,
+            Status = o.Status
+        }).FirstOrDefaultAsync(o => o.Id == id);
 
         public async Task<Order> GetOpenOrder(long visitorId) => await _context.Orders.Include(o => o.OrderItems).ThenInclude(p => p.Product)
             .Where(o => !o.IsPayed).FirstOrDefaultAsync(o => o.VisitorId == visitorId);

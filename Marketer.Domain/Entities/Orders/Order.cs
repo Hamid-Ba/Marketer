@@ -42,5 +42,7 @@ namespace Marketer.Domain.Entities.Orders
             Status = OrderStatus.Prepreing;
             RefId = "O" + Guid.NewGuid().ToString().Substring(0, 7);
         }
+
+        public void ChangeStatus(OrderStatus status) => Status = status;
     }
 }

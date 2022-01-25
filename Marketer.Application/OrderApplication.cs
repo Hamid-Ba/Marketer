@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Marketer.Domain.Entities.Orders;
 using Marketer.Application.Contract.ViewModels.Orders;
 using Marketer.Domain.RI.Discounts;
+using System.Collections.Generic;
 
 namespace Marketer.Application
 {
@@ -69,6 +70,19 @@ namespace Marketer.Application
             return result.Succeeded();
         }
 
+        public async Task<OperationResult> ChangeStatus(ChangeStatusOrderVM command)
+        {
+            OperationResult result = new();
+
+            var order = await _orderRepository.GetEntityByIdAsync(command.Id);
+            if (order is null) return result.Failed(ApplicationMessage.NotExist);
+
+            order.ChangeStatus(command.Status);
+            await _orderRepository.SaveChangesAsync();
+
+            return result.Succeeded();
+        }
+
         public async Task<int> CountOfProductInItem(long orderItemId)
         {
             var item = await _itemRepository.GetEntityByIdAsync(orderItemId);
@@ -101,6 +115,12 @@ namespace Marketer.Application
 
             return result.Succeeded();
         }
+
+        public async Task<IEnumerable<OrderVM>> GetAll() => await _orderRepository.GetAll();
+
+        public async Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id) => await _orderRepository.GetDetailForChangeStatusBy(id);
+
+        public async Task<IEnumerable<OrderItemVM>> GetOrderDetails(long orderId) => await _itemRepository.GetOrderDetails(orderId);
 
         public async Task<bool> IsThereOpenOrder(long visitorId) => await _orderRepository.IsThereOpenOrder(visitorId);
 

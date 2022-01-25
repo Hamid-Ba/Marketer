@@ -74,6 +74,7 @@ namespace Marketer.Application
 
         public async Task<IEnumerable<MarketVM>> GetAll(long visitorId) => await _marketRepository.GetAll(visitorId);
 
+        public async Task<MarketVM> GetBy(long id) => await _marketRepository.GetBy(id);
 
         public async Task<EditMarketVM> GetDetailForEditBy(long id) => await _marketRepository.GetDetailForEditBy(id);
     }

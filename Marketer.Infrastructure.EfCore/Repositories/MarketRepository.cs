@@ -55,6 +55,18 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             return markets;
         }
 
+        public async Task<MarketVM> GetBy(long id) => await _context.Markets.Select(m => new MarketVM
+        {
+            Id = m.Id,
+            VisitorId = m.VisitorId,
+            VisitorName = m.Visitor.FullName,
+            CityId = m.CityId,
+            CityName = m.City.Name,
+            Name = m.Name,
+            MobilePhone = m.MobilePhone,
+            Owner = m.Owner
+        }).FirstOrDefaultAsync(m => m.Id == id);
+
         public async Task<EditMarketVM> GetDetailForEditBy(long id) => await _context.Markets.Select(m => new EditMarketVM
         {
             Id = m.Id,

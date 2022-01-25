@@ -5,7 +5,7 @@ namespace Framework.Domain
     public enum OrderStatus
     {
         [Display(Name = "سفارش ایجاد گشت")]
-        OrderCreated,
+        OrderCreated = 1,
 
         [Display(Name = "در حال آماده سازی سفارش")]
         Prepreing,
