@@ -32,7 +32,26 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                 RefId = o.RefId,
                 PlaceOrderDate = o.PlaceOrderDate,
                 Status = o.Status
-            }).AsNoTracking().ToListAsync();
+            }).OrderByDescending(o => o.Id).AsNoTracking().ToListAsync();
+
+        public async Task<IEnumerable<OrderVM>> GetAllBy(long visitorId) => await _context.Orders
+            .Include(v => v.Visitor)
+            .Include(m => m.Market)
+            .Where(p => p.IsPayed && p.VisitorId == visitorId)
+            .Select(o => new OrderVM
+            {
+                Id = o.Id,
+                MarketId = o.MarketId,
+                MarketName = o.Market.Name,
+                VisitorId = o.VisitorId,
+                VisitorName = o.Visitor.FullName,
+                PayAmount = o.PayAmount,
+                TotalPrice = o.TotalPrice,
+                TotalDiscount = o.TotalDiscount,
+                RefId = o.RefId,
+                PlaceOrderDate = o.PlaceOrderDate,
+                Status = o.Status
+            }).OrderByDescending(o => o.Id).ToListAsync();
 
         public async Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id) => await _context.Orders.Select(o => new ChangeStatusOrderVM
         {

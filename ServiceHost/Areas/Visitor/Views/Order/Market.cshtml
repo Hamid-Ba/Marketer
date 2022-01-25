@@ -1,0 +1,37 @@
+﻿@model Marketer.Application.Contract.ViewModels.Products.MarketVM
+
+@{
+    ViewData["Title"] = "مارکت";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">مشخصات مارکت</h4>
+</div>
+
+<div class="modal-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>نام</th>
+                <th>صاحب</th>
+                <th>شهر</th>
+                <th>شماره موبایل</th>
+        </thead>
+        <tbody>
+            
+                <tr class="text-center">
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.Owner</td>
+                    <td>@Model.CityName</td>
+                    <td>@Model.MobilePhone</td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+</div>

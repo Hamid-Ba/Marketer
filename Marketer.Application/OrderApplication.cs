@@ -118,9 +118,13 @@ namespace Marketer.Application
 
         public async Task<IEnumerable<OrderVM>> GetAll() => await _orderRepository.GetAll();
 
+        public async Task<IEnumerable<OrderVM>> GetAllBy(long visitorId) => await _orderRepository.GetAllBy(visitorId);
+
         public async Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id) => await _orderRepository.GetDetailForChangeStatusBy(id);
 
         public async Task<IEnumerable<OrderItemVM>> GetOrderDetails(long orderId) => await _itemRepository.GetOrderDetails(orderId);
+
+        public async Task<IEnumerable<OrderItemVM>> GetOrderDetailsBy(long orderId, long visitorId) => await _itemRepository.GetOrderDetails(orderId,visitorId);
 
         public async Task<bool> IsThereOpenOrder(long visitorId) => await _orderRepository.IsThereOpenOrder(visitorId);
 

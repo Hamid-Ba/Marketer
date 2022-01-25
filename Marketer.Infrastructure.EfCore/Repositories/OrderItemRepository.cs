@@ -30,5 +30,20 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                 DiscountPrice = o.DiscountPrice,
                 Count = o.Count
             }).AsNoTracking().ToListAsync();
+
+        public async Task<IEnumerable<OrderItemVM>> GetOrderDetails(long orderId, long visitorId) => await _context.OrderItems
+            .Include(o => o.Order)
+            .Where(o => o.OrderId == orderId && o.Order.VisitorId == visitorId)
+            .Include(o => o.Product)
+            .Select(o => new OrderItemVM
+            {
+                Id = o.Id,
+                OrderId = o.OrderId,
+                ProductId = o.ProductId,
+                ProductTitle = o.Product.Title,
+                PayAmount = o.PayAmount,
+                DiscountPrice = o.DiscountPrice,
+                Count = o.Count
+            }).AsNoTracking().ToListAsync();
     }
 }

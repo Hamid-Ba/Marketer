@@ -10,5 +10,6 @@ namespace Marketer.Domain.RI.Orders
     {
         Task<OrderItem> GetBy(long id);
         Task<IEnumerable<OrderItemVM>> GetOrderDetails(long orderId);
+        Task<IEnumerable<OrderItemVM>> GetOrderDetails(long orderId, long visitorId);
     }
 }

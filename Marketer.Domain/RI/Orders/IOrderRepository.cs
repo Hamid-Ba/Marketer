@@ -12,5 +12,6 @@ namespace Marketer.Domain.RI.Orders
         Task<bool> IsThereOpenOrder(long visitorId);
         Task<IEnumerable<OrderVM>> GetAll();
         Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id);
+        Task<IEnumerable<OrderVM>> GetAllBy(long visitorId);
     }
 }
