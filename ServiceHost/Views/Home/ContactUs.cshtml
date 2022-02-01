@@ -35,30 +35,38 @@
                 <p class="h4">راه های ارتباطی</p>
             </div>
             <div class="contactus-detail">
-                <p>
-                    : تلفن پشتیبانی
-                    <br>
-                    @if (!string.IsNullOrWhiteSpace(settings.Mobiles))
-                    {
-                        @foreach (var mobile in settings.Mobiles.Split(","))
+                @if (settings != null)
+                {
+                    <p>
+                        : تلفن پشتیبانی
+                        <br>
+                        @if (!string.IsNullOrWhiteSpace(settings.Mobiles))
                         {
-                            <span>@mobile</span>
-                            <br>
+                            @foreach (var mobile in settings.Mobiles.Split(","))
+                            {
+                                <span>@mobile</span>
+                                <br>
+                            }
                         }
-                    }
-                </p>
-                <p>
-                    : پست الکترونیک
-                    <br>
-                    @if (!string.IsNullOrWhiteSpace(settings.Emails))
-                    {
-                        @foreach (var email in settings.Emails.Split(","))
+                    </p>
+                }
+
+                @if (settings != null)
+                {
+                    <p>
+                        : پست الکترونیک
+                        <br>
+                        @if (!string.IsNullOrWhiteSpace(settings.Emails))
                         {
-                            <span>@email</span>
-                            <br>
+                            @foreach (var email in settings.Emails.Split(","))
+                            {
+                                <span>@email</span>
+                                <br>
+                            }
                         }
-                    }
-                </p>
+                    </p>
+                }
+
             </div>
         </div>
     </div>
