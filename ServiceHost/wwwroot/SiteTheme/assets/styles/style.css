@@ -1,3 +1,11 @@
+@media only screen and (min-width : 400px) {
+    .title-menu img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+}
+
 :root {
     --background: #45526C;
     --green: #5AA897;
