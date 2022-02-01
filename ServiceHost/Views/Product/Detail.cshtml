@@ -1,5 +1,6 @@
 ﻿@model Marketer.Query.Queries.Products.ProductQueryVM
 @using Framework.Application
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = Model.Title;
@@ -40,7 +41,16 @@
             @Model.Description
         </p>
         <hr>
-        <a asp-area="" asp-controller="Order" asp-action="Basket" asp-route-slug="@Model.Slug">ثبت در سبد خرید</a>
+        @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Visitor")
+        {
+            <a asp-area="" asp-controller="Order" asp-action="Basket" asp-route-slug="@Model.Slug">ثبت در سبد خرید</a>
+        }
+        else
+        {
+            <div class="text-center alert alert-info">
+                <p>برای ثبت سفارش وارد حساب کاربری خود شوید</p>
+            </div>
+        }
     </div>
 </div>
 
