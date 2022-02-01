@@ -40,7 +40,7 @@ namespace ServiceHost
                 {
                     o.LoginPath = "/";
                     o.LogoutPath = "/Logout";
-                    o.AccessDeniedPath = new PathString("/AccessDenied");
+                    o.AccessDeniedPath = new PathString("/NotFound");
                     o.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
                 });
 
@@ -60,12 +60,12 @@ namespace ServiceHost
         {
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/ErrorOccurred");
+                app.UseExceptionHandler("/NotFound");
                 //app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/ErrorOccurred");
+                app.UseExceptionHandler("/NotFound");
                 //app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
