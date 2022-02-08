@@ -55,6 +55,6 @@ namespace Framework.Application.Authentication
             await _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
         }
-        public void SignOut() => _httpContext.HttpContext.SignOutAsync();
+        public async void SignOut() => await _httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }
