@@ -187,7 +187,8 @@ namespace ServiceHost.Controllers
                 PayAmount = finalBasketVM.PayAmount,
                 TotalDiscount = finalBasketVM.TotalDiscount,
                 TotalPrice = finalBasketVM.TotalPrice,
-                VisitorId = finalBasketVM.VisitorId
+                VisitorId = finalBasketVM.VisitorId,
+                Description = command.Description
             };
 
             var result = await _orderApplication.PlaceOrder(order);

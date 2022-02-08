@@ -64,6 +64,11 @@
                                                href="#showmodal=@Url.Action("Market", "Order", new {marketId = order.MarketId , area="Admin"})">
                                                 <i class="fa fa-user"></i>
                                             </a>
+
+                                            <a class="btn btn-light pull-right m-rl-5"
+                                           href="#showmodal=@Url.Action("Description", "Order", new {id = order.Id , area="Admin"})">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                            
                                         </td>
                                     </tr>

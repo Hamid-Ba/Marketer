@@ -22,6 +22,8 @@ namespace ServiceHost.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index() => View(await _orderApplication.GetAll());
 
+        public async Task<IActionResult> Description(long id) => PartialView("Description", await _orderApplication.GetOrderDescription(id));
+
         [HttpGet]
         public async Task<IActionResult> ChangeStatus(long id) => PartialView(await _orderApplication.GetDetailForChangeStatusBy(id));
 

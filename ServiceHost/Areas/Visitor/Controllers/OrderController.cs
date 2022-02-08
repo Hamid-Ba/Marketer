@@ -23,6 +23,9 @@ namespace ServiceHost.Areas.Visitor.Controllers
         public async Task<IActionResult> GetItems(long id) => PartialView(await _orderApplication.GetOrderDetailsBy(id,User.GetVisitorId()));
 
         [HttpGet]
+        public async Task<IActionResult> Description(long id) => PartialView("Description", await _orderApplication.GetOrderDescription(id, User.GetVisitorId()));
+
+        [HttpGet]
         public async Task<IActionResult> Market(long marketId)
         {
             var result = await _marketApplication.DoesMarketBelongToVisitor(marketId,User.GetVisitorId());

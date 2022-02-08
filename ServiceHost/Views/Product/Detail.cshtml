@@ -54,6 +54,10 @@
     </div>
 </div>
 
-<div class="mobile-add">
-    <a href="">ثبت در سبد خرید</a>
-</div>
+@if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Visitor")
+{
+    <div class="mobile-add">
+        <a asp-area="" asp-controller="Order" asp-action="Basket" asp-route-slug="@Model.Slug">ثبت در سبد خرید</a>
+    </div>
+}
+

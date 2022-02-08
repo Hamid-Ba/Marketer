@@ -43,16 +43,14 @@
             </div>
         </div>
         <div class="footer-logo">
-            <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg"/>
+            <img src="~/SiteTheme/assets/images/WhatsApp Image 2021-12-30 at 9.28.03 AM (1).jpeg" />
         </div>
     </div>
     <hr>
     @if (!string.IsNullOrWhiteSpace(Model?.SummaryText))
     {
         <div class="footer-desc">
-            <p>
-                @Html.Raw(Model.SummaryText)
-            </p>
+            @Html.Raw(Model.SummaryText)
         </div>
     }
 

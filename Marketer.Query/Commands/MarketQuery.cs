@@ -28,6 +28,7 @@ namespace Marketer.Query.Commands
                 VisitorCode = m.Visitor.UniqueCode,
                 VisitorId = m.VisitorId,
                 VisitorName = m.Visitor.FullName,
+                Address = m.Address,
                 MarketWithCity = $"{m.Name} - {m.City.Name}"
             }).AsNoTracking().ToListAsync();
         

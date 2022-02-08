@@ -27,7 +27,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                 Name = m.Name,
                 CityName = m.City.Name,
                 Owner = m.Owner,
-                MobilePhone = m.MobilePhone
+                MobilePhone = m.MobilePhone,
+                Address = m.Address
             }).AsNoTracking().ToListAsync();
 
             markets.ForEach(m => m.VisitorName = visitor.Find(v => v.Id == m.VisitorId)?.Name);
@@ -47,7 +48,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                 Name = m.Name,
                 CityName = m.City.Name,
                 Owner = m.Owner,
-                MobilePhone = m.MobilePhone
+                MobilePhone = m.MobilePhone,
+                Address = m.Address
             }).AsNoTracking().ToListAsync();
 
             markets.ForEach(m => m.VisitorName = visitor.Find(v => v.Id == m.VisitorId)?.Name);
@@ -64,7 +66,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             CityName = m.City.Name,
             Name = m.Name,
             MobilePhone = m.MobilePhone,
-            Owner = m.Owner
+            Owner = m.Owner,
+            Address = m.Address
         }).FirstOrDefaultAsync(m => m.Id == id);
 
         public async Task<EditMarketVM> GetDetailForEditBy(long id) => await _context.Markets.Select(m => new EditMarketVM
@@ -74,7 +77,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Name = m.Name,
             MobilePhone = m.MobilePhone,
             Owner = m.Owner,
-            VisitorId = m.VisitorId
+            VisitorId = m.VisitorId,
+            Address = m.Address
         }).FirstOrDefaultAsync(m => m.Id == id);
 
     }

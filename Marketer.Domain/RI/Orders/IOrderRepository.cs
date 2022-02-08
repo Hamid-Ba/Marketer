@@ -13,5 +13,7 @@ namespace Marketer.Domain.RI.Orders
         Task<IEnumerable<OrderVM>> GetAll();
         Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id);
         Task<IEnumerable<OrderVM>> GetAllBy(long visitorId);
+        Task<string> GetDescription(long id);
+        Task<string> GetDescription(long id,long visitorId);
     }
 }

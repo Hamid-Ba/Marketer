@@ -13,6 +13,7 @@ namespace Marketer.Application.Contract.ViewModels.Products
         public string CityName { get; set; }
         public string Owner { get; set; }
         public string MobilePhone { get; set; }
+        public string Address { get; set; }
     }
 
     public class CreateMarketVM
@@ -38,6 +39,10 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [MinLength(11, ErrorMessage = "حداقل تعداد کاراکتر مجاز {1} می باشد")]
         [RegularExpression("(0|\\+98)?([ ]|-|[()]){0,2}9[1|2|3|4|5|6|7|8|9|0]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}", ErrorMessage = "لطفا شماره را به فرم صحیح وارد نمایید")]
         public string MobilePhone { get; set; }
+
+        [Display(Name = "آدرس")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string Address { get; set; }
     }
 
     public class EditMarketVM : CreateMarketVM

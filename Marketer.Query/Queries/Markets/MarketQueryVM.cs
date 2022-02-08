@@ -12,5 +12,6 @@
         public string Owner { get;  set; }
         public string MobilePhone { get;  set; }
         public string MarketWithCity { get; set; }
+        public string Address { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Marketer.Application.Contract.ViewModels.Orders
         public double PayAmount { get;  set; }
         public string RefId { get;  set; }
         public bool IsPayed { get;  set; }
+        public string Description { get; set; }
         public DateTime PlaceOrderDate { get;  set; }
         public OrderStatus Status { get;  set; }
     }

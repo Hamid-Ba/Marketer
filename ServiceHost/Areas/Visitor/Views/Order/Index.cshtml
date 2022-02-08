@@ -45,19 +45,24 @@
                                         <td>@order.PayAmount.ToMoney()</td>
                                         <td>@order.Status.GetEnumName()</td>
                                         <td>@order.PlaceOrderDate.ToFarsi()</td>
-                                       
+
                                         <td>
-                                            
+
                                             <a class="btn btn-primary pull-right m-rl-5"
-                                               href="#showmodal=@Url.Action("GetItems", "Order", new {id = order.Id , area="Visitor"})">
+                                           href="#showmodal=@Url.Action("GetItems", "Order", new {id = order.Id , area="Visitor"})">
                                                 آیتم
                                             </a>
 
-                                              <a class="btn btn-info pull-right m-rl-5"
-                                               href="#showmodal=@Url.Action("Market", "Order", new {marketId = order.MarketId , area="Visitor"})">
+                                            <a class="btn btn-info pull-right m-rl-5"
+                                           href="#showmodal=@Url.Action("Market", "Order", new {marketId = order.MarketId , area="Visitor"})">
                                                 <i class="fa fa-user"></i>
                                             </a>
-                                           
+
+                                            <a class="btn btn-light pull-right m-rl-5"
+                                           href="#showmodal=@Url.Action("Description", "Order", new {id = order.Id , area="Visitor"})">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
                                         </td>
                                     </tr>
                                 }
@@ -71,12 +76,12 @@
 </div>
 
 @section Scripts {
-    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+<script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+<script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#datatable').dataTable();
-        });
-    </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datatable').dataTable();
+    });
+</script>
 }

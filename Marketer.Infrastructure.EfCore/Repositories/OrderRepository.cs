@@ -31,7 +31,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                 TotalDiscount = o.TotalDiscount,
                 RefId = o.RefId,
                 PlaceOrderDate = o.PlaceOrderDate,
-                Status = o.Status
+                Status = o.Status,
+                Description = o.Description
             }).OrderByDescending(o => o.Id).AsNoTracking().ToListAsync();
 
         public async Task<IEnumerable<OrderVM>> GetAllBy(long visitorId) => await _context.Orders
@@ -50,8 +51,14 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                 TotalDiscount = o.TotalDiscount,
                 RefId = o.RefId,
                 PlaceOrderDate = o.PlaceOrderDate,
-                Status = o.Status
+                Status = o.Status,
+                Description = o.Description
             }).OrderByDescending(o => o.Id).ToListAsync();
+
+        public async Task<string> GetDescription(long id, long visitorId) => await _context.Orders.Where(o => o.Id == id && o.VisitorId == visitorId)
+            .Select(o => o.Description).FirstOrDefaultAsync();
+
+        public async Task<string> GetDescription(long id) => await _context.Orders.Where(o => o.Id == id).Select(o => o.Description).FirstOrDefaultAsync();
 
         public async Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id) => await _context.Orders.Select(o => new ChangeStatusOrderVM
         {

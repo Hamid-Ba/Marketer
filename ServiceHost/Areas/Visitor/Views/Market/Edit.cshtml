@@ -41,11 +41,22 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="CityId" class="control-label">نام مارکت</label>
+                    <label asp-for="CityId" class="control-label">شهر</label>
                     <select asp-for="CityId" asp-items="@ViewBag.Cities" class="form-control">
                         <option value="0">انتخاب کنید...</option>
                     </select>
                     <span asp-validation-for="CityId" class="error"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group no-margin">
+                    <label asp-for="Address" class="control-label">آدرس</label>
+                    <textarea class="form-control autogrow" asp-for="Address"
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                    <span asp-validation-for="Address" class="error"></span>
                 </div>
             </div>
         </div>

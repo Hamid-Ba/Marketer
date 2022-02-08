@@ -122,6 +122,10 @@ namespace Marketer.Application
 
         public async Task<ChangeStatusOrderVM> GetDetailForChangeStatusBy(long id) => await _orderRepository.GetDetailForChangeStatusBy(id);
 
+        public async Task<string> GetOrderDescription(long id,long visitorId) => await _orderRepository.GetDescription(id,visitorId);
+
+        public async Task<string> GetOrderDescription(long id) => await _orderRepository.GetDescription(id);
+
         public async Task<IEnumerable<OrderItemVM>> GetOrderDetails(long orderId) => await _itemRepository.GetOrderDetails(orderId);
 
         public async Task<IEnumerable<OrderItemVM>> GetOrderDetailsBy(long orderId, long visitorId) => await _itemRepository.GetOrderDetails(orderId,visitorId);
@@ -156,7 +160,7 @@ namespace Marketer.Application
                     item.PlaceOrder(product.PurchacePrice, (discount.DiscountRate * product.PurchacePrice) / 100);
             }
 
-            order.PlaceOrder(command.MarketId, command.TotalPrice, command.TotalDiscount, command.PayAmount);
+            order.PlaceOrder(command.MarketId, command.TotalPrice, command.TotalDiscount, command.PayAmount,command.Description);
             await _orderRepository.SaveChangesAsync();
 
             return result.Succeeded($"سفارش شما با موفقیت ثبت گردید. کد سفارش شما {order.RefId} می باشد.");
