@@ -12,13 +12,16 @@ namespace Marketer.Application.Contract.ViewModels.Products
         public string BrandName { get; set; }
         public long CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public long PackageTypeId { get; set; }
+        public string PackageTypeTitle { get; set; }
         public string Code { get;  set; }
         public string Title { get;  set; }
         public string Picture { get;  set; }
         public string PictureAlt { get;  set; }
         public string PictureTitle { get;  set; }
-        public int EachBoxCount { get; set; }
-        public double Weight { get; set; }
+        //public int EachBoxCount { get; set; }
+        //public double Weight { get; set; }
+        public double PackageValue { get; set; }
         public string Description { get; set; }
         public double ConsumerPrice { get; set; }
         public double PurchasePrice { get; set; }
@@ -44,6 +47,11 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public long CategoryId { get; set; }
 
+        [Display(Name = "نوع بسته بندی")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long PackageTypeId { get; set; }
+
         [Display(Name = "کد")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Code { get; set; }
@@ -64,15 +72,20 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string PictureTitle { get; set; }
 
-        [Display(Name = "تعداد در هر بسته")]
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public int EachBoxCount { get; set; }
+        //[Display(Name = "تعداد در هر بسته")]
+        //[Required(ErrorMessage = ValidationMessage.IsRequired)]
+        //[Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        //public int EachBoxCount { get; set; }
 
-        [Display(Name = "وزن")]
+        //[Display(Name = "وزن")]
+        //[Required(ErrorMessage = ValidationMessage.IsRequired)]
+        //[Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        //public double Weight { get; set; }
+
+        [Display(Name = "مقدار بسته بندی(مثال : شل ۶تایی)")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public double Weight { get; set; }
+        public double PackageValue { get; set; }
 
         [Display(Name = "توضیحات")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
@@ -126,6 +139,11 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public long CategoryId { get; set; }
 
+        [Display(Name = "نوع بسته بندی")]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long PackageTypeId { get; set; }
+
         [Display(Name = "کد")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string Code { get; set; }
@@ -145,15 +163,20 @@ namespace Marketer.Application.Contract.ViewModels.Products
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string PictureTitle { get; set; }
 
-        [Display(Name = "تعداد در هر بسته")]
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public int EachBoxCount { get; set; }
+        //[Display(Name = "تعداد در هر بسته")]
+        //[Required(ErrorMessage = ValidationMessage.IsRequired)]
+        //[Range(0, int.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        //public int EachBoxCount { get; set; }
 
-        [Display(Name = "وزن")]
+        //[Display(Name = "وزن")]
+        //[Required(ErrorMessage = ValidationMessage.IsRequired)]
+        //[Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        //public double Weight { get; set; }
+
+        [Display(Name = "مقدار بسته بندی(مثال : شل ۶تایی)")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public double Weight { get; set; }
+        public double PackageValue { get; set; }
 
         [Display(Name = "توضیحات")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

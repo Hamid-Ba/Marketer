@@ -34,6 +34,7 @@
                                     <th>اسلاگ</th>
                                     <th>دسته بندی</th>
                                     <th>برند</th>
+                                    <th>بسته بندی</th>
                                     <th>تعداد در انبار</th>
                                     <th>تعداد سفارش</th>
                                     <th>تاریخ انقضاء</th>
@@ -55,6 +56,7 @@
                                         <td>@entity.Slug</td>
                                         <td>@entity.CategoryName</td>
                                         <td>@entity.BrandName</td>
+                                        <td>@entity.PackageTypeTitle</td>
                                         <td>@entity.Count</td>
                                         <td>@entity.OrderCount</td>
                                         <td>@entity.ExpiredDate</td>
@@ -87,9 +89,7 @@
     <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
     <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+    <script type="text/javascript">$(document).ready(function () {
             $('#datatable').dataTable();
-        });
-    </script>
+        });</script>
 }

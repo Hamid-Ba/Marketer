@@ -32,7 +32,11 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             return new StatusCheckVM { IsInStock = true };
         }
 
-        public async Task<IEnumerable<ProductVM>> GetAll() => await _context.Products.Include(s => s.Brand).Include(c => c.Category).Select(
+        public async Task<IEnumerable<ProductVM>> GetAll() => await _context.Products
+            .Include(s => s.Brand)
+            .Include(c => c.Category)
+            .Include(p => p.PackageType)
+            .Select(
                 p => new ProductVM()
                 {
                     Id = p.Id,
@@ -41,12 +45,14 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                     CategoryName = p.Category.Name,
                     BrandId = p.BrandId,
                     BrandName = p.Brand.Name,
+                    PackageTypeId = p.PackageTypeId,
+                    PackageTypeTitle = p.PackageType.Title,
                     OrderCount = p.OrderCount,
                     Code = p.Code,
                     ConsumerPrice = p.ConsumerPrice,
                     PurchasePrice = p.PurchacePrice,
                     Profit = p.Profit,
-                    EachBoxCount = p.EachBoxCount,
+                    //EachBoxCount = p.EachBoxCount,
                     Keywords = p.Keywords,
                     MetaDescription = p.MetaDescription,
                     Picture = p.Picture,
@@ -56,7 +62,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                     Count = p.Count,
                     ExpiredDate = p.ExpiredDate.ToFarsi(),
                     IsStock = p.IsStock,
-                    Weight = p.Weight,
+                    //Weight = p.Weight,
+                    PackageValue = p.PacakageValue,
                     Description = p.Description
                 }).AsNoTracking().ToListAsync();
 
@@ -74,10 +81,11 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Title = p.Title,
             CategoryId = p.CategoryId,
             BrandId = p.BrandId,
+            PackageTypeId = p.PackageTypeId,
             Code = p.Code,
             ConsumerPrice = p.ConsumerPrice,
             PurchacePrice = p.PurchacePrice,
-            EachBoxCount = p.EachBoxCount,
+            //EachBoxCount = p.EachBoxCount,
             Keywords = p.Keywords,
             MetaDescription = p.MetaDescription,
             PictureName = p.Picture,
@@ -86,7 +94,8 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             PictureTitle = p.PictureTitle,
             Count = p.Count,
             ExpiredDate = p.ExpiredDate.ToFarsi(),
-            Weight = p.Weight,
+            //Weight = p.Weight,
+            PackageValue = p.PacakageValue,
             Description = p.Description
         }).FirstOrDefaultAsync(p => p.Id == id);
     }

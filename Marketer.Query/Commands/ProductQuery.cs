@@ -15,7 +15,10 @@ namespace Marketer.Query.Commands
 
         public ProductQuery(MarketerContext context) => _context = context;
 
-        public async Task<ProductQueryVM> GetBy(string slug) => await _context.Products.Include(b => b.Brand).Include(c => c.Category)
+        public async Task<ProductQueryVM> GetBy(string slug) => await _context.Products
+            .Include(b => b.Brand)
+            .Include(c => c.Category)
+            .Include(p => p.PackageType)
             .Where(p => p.Slug == slug).Select(p => new ProductQueryVM
             {
                 Id = p.Id,
@@ -24,6 +27,8 @@ namespace Marketer.Query.Commands
                 CategoryId = p.CategoryId,
                 CategoryName = p.Category.Name,
                 CategorySlug = p.Category.Slug,
+                PackageTypeId = p.PackageTypeId,
+                PackageTypeTitle = p.PackageType.Title,
                 Code = p.Code,
                 Slug = p.Slug,
                 Title = p.Title,
@@ -34,11 +39,12 @@ namespace Marketer.Query.Commands
                 PurchasePrice = p.PurchacePrice,
                 Count = p.Count,
                 IsStock = p.IsStock,
-                EachBoxCount = p.EachBoxCount,
+                //EachBoxCount = p.EachBoxCount,
                 ExpiredDate = p.ExpiredDate.ToFarsi(),
                 Keywords = p.Keywords,
                 MetaDescription = p.MetaDescription,
-                Weight = p.Weight,
+                //Weight = p.Weight,
+                PackageValue = p.PacakageValue,
                 Description = p.Description,
             }).FirstOrDefaultAsync();
 

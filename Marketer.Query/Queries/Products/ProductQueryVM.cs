@@ -11,13 +11,16 @@ namespace Marketer.Query.Queries.Products
         public long CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string CategorySlug { get; set; }
+        public long PackageTypeId { get; set; }
+        public string PackageTypeTitle { get; set; }
         public string Code { get; set; }
         public string Title { get; set; }
         public string Picture { get; set; }
         public string PictureAlt { get; set; }
         public string PictureTitle { get; set; }
-        public int EachBoxCount { get; set; }
-        public double Weight { get; set; }
+        //public int EachBoxCount { get; set; }
+        //public double Weight { get; set; }
+        public double PackageValue { get; set; }
         public string Description { get; set; }
         public double ConsumerPrice { get; set; }
         public double PurchasePrice { get; set; }

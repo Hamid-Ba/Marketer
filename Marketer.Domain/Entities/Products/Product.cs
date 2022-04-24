@@ -7,17 +7,19 @@ namespace Marketer.Domain.Entities.Products
     {
         public long BrandId { get; private set; }
         public long CategoryId { get; private set; }
+        public long PackageTypeId { get; set; }
         public string Code { get; private set; }
         public string Title { get; private set; }
         public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
         public int Count { get; private set; }
-        public int EachBoxCount { get; private set; }
+        //public int EachBoxCount { get; private set; }
         public double ConsumerPrice { get; private set; }
         public double PurchacePrice { get; private set; }
         public double Profit { get; private set; }
-        public double Weight { get; private set; }
+        public double PacakageValue { get; private set; }
+        //public double Weight { get; private set; }
         public string Description { get; private set; }
         public bool IsStock { get; private set; }
         public DateTime ExpiredDate { get; private set; }
@@ -29,24 +31,27 @@ namespace Marketer.Domain.Entities.Products
 
         public Category Category { get; private set; }
         public Brand Brand { get; private set; }
+        public PackageType PackageType { get; set; }
 
-        public Product(long brandId, long categoryId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count, int eachBoxCount,
-          double consumerPrice, double purchacePrice, double weight,string description, DateTime expiredDate,
+        public Product(long brandId, long categoryId,long packageTypeId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count,
+          double consumerPrice, double purchacePrice, double packageValue,string description, DateTime expiredDate,
           string slug, string keywords, string metaDescription)
         {
             BrandId = brandId;
             CategoryId = categoryId;
+            PackageTypeId = packageTypeId;
             Code = code;
             Title = title;
             Picture = picture;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             Count = count;
-            EachBoxCount = eachBoxCount;
+            //EachBoxCount = eachBoxCount;
             ConsumerPrice = consumerPrice;
             PurchacePrice = purchacePrice;
             Profit = ConsumerPrice - PurchacePrice;
-            Weight = weight;
+            //Weight = weight;
+            PacakageValue = packageValue;
             Description = description;
             IsStock = count > 0;
             ExpiredDate = expiredDate;
@@ -57,12 +62,13 @@ namespace Marketer.Domain.Entities.Products
             IsAmazedProduct = false;
         }
 
-        public void Edit(long brandId, long categoryId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count, int eachBoxCount,
-            double consumerPrice, double purchacePrice, double weight,string description, DateTime expiredDate,
+        public void Edit(long brandId, long categoryId,long packageTypeId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count,
+            double consumerPrice, double purchacePrice, double packageValue,string description, DateTime expiredDate,
             string slug, string keywords, string metaDescription)
         {
             BrandId = brandId;
             CategoryId = categoryId;
+            PackageTypeId = packageTypeId;
             Code = code;
             Title = title;
 
@@ -72,11 +78,12 @@ namespace Marketer.Domain.Entities.Products
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             Count = count;
-            EachBoxCount = eachBoxCount;
+            //EachBoxCount = eachBoxCount;
             ConsumerPrice = consumerPrice;
             PurchacePrice = purchacePrice;
             Profit = ConsumerPrice - PurchacePrice;
-            Weight = weight;
+            //Weight = weight;
+            PacakageValue = packageValue;
             Description = description;
             IsStock = count > 0;
             ExpiredDate = expiredDate;

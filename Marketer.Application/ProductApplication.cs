@@ -31,8 +31,8 @@ namespace Marketer.Application
 
             var picture = Uploader.ImageUploader(command.Picture, $"{command.Slug.Slugify()}", null!);
 
-            var product = new Product(command.BrandId, command.CategoryId, command.Code, command.Title, picture, command.PictureAlt,
-                command.PictureTitle, command.Count, command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Weight,
+            var product = new Product(command.BrandId, command.CategoryId,command.PackageTypeId, command.Code, command.Title, picture, command.PictureAlt,
+                command.PictureTitle, command.Count, command.ConsumerPrice, command.PurchacePrice,command.PackageValue,
                 command.Description, command.ExpiredDate.ToGeorgianDateTime(), command.Slug.Slugify(), command.Keywords, command.MetaDescription);
 
             await _productRepository.AddEntityAsync(product);
@@ -74,8 +74,8 @@ namespace Marketer.Application
 
             var picture = Uploader.ImageUploader(command.Picture, $"{product.Slug.Slugify()}", product.Picture);
 
-            product.Edit(command.BrandId, command.CategoryId, command.Code, command.Title, picture, command.PictureAlt,
-                command.PictureTitle, command.Count, command.EachBoxCount, command.ConsumerPrice, command.PurchacePrice, command.Weight,
+            product.Edit(command.BrandId, command.CategoryId,0, command.Code, command.Title, picture, command.PictureAlt,
+                command.PictureTitle, command.Count, command.ConsumerPrice, command.PurchacePrice, command.PackageValue,
                 command.Description, command.ExpiredDate.ToGeorgianDateTime(), command.Slug.Slugify(), command.Keywords, command.MetaDescription);
 
             await _productRepository.SaveChangesAsync();

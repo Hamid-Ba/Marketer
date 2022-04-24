@@ -89,16 +89,16 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label asp-for="EachBoxCount" class="control-label">تعداد در هر بسته</label>
-                    <input type="number" min=0 class="form-control" asp-for="EachBoxCount">
-                    <span asp-validation-for="EachBoxCount" class="error"></span>
+                    <label asp-for="PackageTypeId" class="control-label">بسته بندی</label>
+                    <input type="number" min=0 class="form-control" asp-for="PackageTypeId">
+                    <span asp-validation-for="PackageTypeId" class="error"></span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label asp-for="Weight" class="control-label">وزن(کیلوگرم)</label>
-                    <input type="number" min=0 class="form-control" asp-for="Weight">
-                    <span asp-validation-for="Weight" class="error"></span>
+                    <label asp-for="PackageValue" class="control-label">مقدار بسته بندی(مثال : شل ۶تایی)</label>
+                    <input type="number" min=0 class="form-control" asp-for="PackageValue">
+                    <span asp-validation-for="PackageValue" class="error"></span>
                 </div>
             </div>
             <div class="col-md-4">
