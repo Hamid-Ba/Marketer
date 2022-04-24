@@ -28,8 +28,12 @@
 	  <Folder Include="Areas\Admin\Models\" />
 	  <Folder Include="Areas\Visitor\Data\" />
 	  <Folder Include="Areas\Visitor\Models\" />
+	  <Folder Include="Areas\Admin\Views\PackageType\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Areas\Admin\Views\PackageType\" />
+	</ItemGroup>
 	<ItemGroup>
 	  <None Include="wwwroot\SiteTheme\assets\fonts\Material-Design-Iconic-Font.svg" />
 	  <None Include="wwwroot\SiteTheme\assets\fonts\Material-Design-Iconic-Font.woff2" />
