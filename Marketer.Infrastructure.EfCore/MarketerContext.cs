@@ -30,6 +30,7 @@ namespace Marketer.Infrastructure.EfCore
             modelBuilder.Entity<Discount>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Operator>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Category>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<PackageType>().HasQueryFilter(u => !u.IsDelete);
         }
 
         #region Account
@@ -49,6 +50,7 @@ namespace Marketer.Infrastructure.EfCore
         public DbSet<Market> Markets { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<PackageType> PackageTypes { get; set; }
 
         #endregion
 

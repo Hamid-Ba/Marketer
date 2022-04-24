@@ -27,6 +27,10 @@ namespace Marketer.Infrastructure.EfCore.Mapping
             builder.HasOne(p => p.Brand).
                 WithMany(s => s.Products).
                 HasForeignKey(f => f.BrandId);
+
+            builder.HasOne(p => p.PackageType).
+                WithMany(s => s.Products).
+                HasForeignKey(f => f.PackageTypeId);
         }
     }
 }

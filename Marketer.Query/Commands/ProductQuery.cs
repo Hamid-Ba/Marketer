@@ -44,7 +44,7 @@ namespace Marketer.Query.Commands
                 Keywords = p.Keywords,
                 MetaDescription = p.MetaDescription,
                 //Weight = p.Weight,
-                PackageValue = p.PacakageValue,
+                PackageValue = p.PackageValue,
                 Description = p.Description,
             }).FirstOrDefaultAsync();
 

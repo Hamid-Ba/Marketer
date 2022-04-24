@@ -18,7 +18,7 @@ namespace Marketer.Domain.Entities.Products
         public double ConsumerPrice { get; private set; }
         public double PurchacePrice { get; private set; }
         public double Profit { get; private set; }
-        public double PacakageValue { get; private set; }
+        public double PackageValue { get; private set; }
         //public double Weight { get; private set; }
         public string Description { get; private set; }
         public bool IsStock { get; private set; }
@@ -51,7 +51,7 @@ namespace Marketer.Domain.Entities.Products
             PurchacePrice = purchacePrice;
             Profit = ConsumerPrice - PurchacePrice;
             //Weight = weight;
-            PacakageValue = packageValue;
+            PackageValue = packageValue;
             Description = description;
             IsStock = count > 0;
             ExpiredDate = expiredDate;
@@ -83,7 +83,7 @@ namespace Marketer.Domain.Entities.Products
             PurchacePrice = purchacePrice;
             Profit = ConsumerPrice - PurchacePrice;
             //Weight = weight;
-            PacakageValue = packageValue;
+            PackageValue = packageValue;
             Description = description;
             IsStock = count > 0;
             ExpiredDate = expiredDate;

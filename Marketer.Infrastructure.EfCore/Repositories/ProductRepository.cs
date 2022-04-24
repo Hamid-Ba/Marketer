@@ -63,7 +63,7 @@ namespace Marketer.Infrastructure.EfCore.Repositories
                     ExpiredDate = p.ExpiredDate.ToFarsi(),
                     IsStock = p.IsStock,
                     //Weight = p.Weight,
-                    PackageValue = p.PacakageValue,
+                    PackageValue = p.PackageValue,
                     Description = p.Description
                 }).AsNoTracking().ToListAsync();
 
@@ -95,7 +95,7 @@ namespace Marketer.Infrastructure.EfCore.Repositories
             Count = p.Count,
             ExpiredDate = p.ExpiredDate.ToFarsi(),
             //Weight = p.Weight,
-            PackageValue = p.PacakageValue,
+            PackageValue = p.PackageValue,
             Description = p.Description
         }).FirstOrDefaultAsync(p => p.Id == id);
     }
