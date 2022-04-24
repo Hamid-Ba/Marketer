@@ -14,6 +14,9 @@ namespace Framework.Domain
         Delivering,
 
         [Display(Name = "تحویل داده شد")]
-        Deliverd
+        Deliverd,
+
+        [Display(Name = "کنسل شده")]
+        Cancelled
     }
 }
