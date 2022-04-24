@@ -12,6 +12,8 @@ namespace ServiceHost.Areas.Admin.Controllers
     {
         private readonly IPackageTypeApplication _packageTypeApplication;
 
+        public PackageTypeController(IPackageTypeApplication packageTypeApplication) => _packageTypeApplication = packageTypeApplication;
+
         public async Task<IActionResult> Index() => View(await _packageTypeApplication.GetAll());
 
         [HttpGet]

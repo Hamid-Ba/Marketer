@@ -14,12 +14,15 @@ namespace ServiceHost.Areas.Admin.Controllers
         private readonly IBrandApplication _brandApplication;
         private readonly IProductApplication _productApplication;
         private readonly ICategoryApplication _categoryApplication;
+        private readonly IPackageTypeApplication _packageTypeApplication;
 
-        public ProductController(IBrandApplication brandApplication, IProductApplication productApplication, ICategoryApplication categoryApplication)
+        public ProductController(IBrandApplication brandApplication, IProductApplication productApplication,
+            ICategoryApplication categoryApplication, IPackageTypeApplication packageTypeApplication)
         {
             _brandApplication = brandApplication;
             _productApplication = productApplication;
             _categoryApplication = categoryApplication;
+            _packageTypeApplication = packageTypeApplication;
         }
 
         public async Task<IActionResult> Index() => View(await _productApplication.GetAll());
@@ -30,6 +33,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         {
             ViewBag.Brands = new SelectList(await _brandApplication.GetAllForSelection(), "Id", "Name");
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAllForSelection(), "Id", "Name");
+            ViewBag.Packages = new SelectList(await _packageTypeApplication.GetAll(), "Id", "Title");
 
             return PartialView();
         }
@@ -40,6 +44,7 @@ namespace ServiceHost.Areas.Admin.Controllers
             {
                 ViewBag.Brands = new SelectList(await _brandApplication.GetAllForSelection(), "Id", "Name");
                 ViewBag.Categories = new SelectList(await _categoryApplication.GetAllForSelection(), "Id", "Name");
+                ViewBag.Packages = new SelectList(await _packageTypeApplication.GetAll(), "Id", "Title");
             }
 
             var result = await _productApplication.Create(command);
@@ -55,6 +60,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         {
             ViewBag.Brands = new SelectList(await _brandApplication.GetAllForSelection(), "Id", "Name");
             ViewBag.Categories = new SelectList(await _categoryApplication.GetAllForSelection(), "Id", "Name");
+            ViewBag.Packages = new SelectList(await _packageTypeApplication.GetAll(), "Id", "Title");
 
             return PartialView(await _productApplication.GetDetailForEditBy(id));
         }
@@ -67,6 +73,7 @@ namespace ServiceHost.Areas.Admin.Controllers
             {
                 ViewBag.Brands = new SelectList(await _brandApplication.GetAllForSelection(), "Id", "Name");
                 ViewBag.Categories = new SelectList(await _categoryApplication.GetAllForSelection(), "Id", "Name");
+                ViewBag.Packages = new SelectList(await _packageTypeApplication.GetAll(), "Id", "Title");
             }
 
             var result = await _productApplication.Edit(command);
