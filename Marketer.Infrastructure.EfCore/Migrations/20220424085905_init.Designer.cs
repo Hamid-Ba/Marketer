@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketer.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(MarketerContext))]
-    [Migration("20220103052341_TakeLimitationOnSettingText")]
-    partial class TakeLimitationOnSettingText
+    [Migration("20220424085905_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -284,12 +284,116 @@ namespace Marketer.Infrastructure.EfCore.Migrations
                         .HasMaxLength(47)
                         .HasColumnType("nvarchar(47)");
 
+                    b.Property<string>("SummaryText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("Marketer.Domain.Entities.Orders.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPayed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("MarketId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("PayAmount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("PlaceOrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RefId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalDiscount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.Property<long>("VisitorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarketId");
+
+                    b.HasIndex("VisitorId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Marketer.Domain.Entities.Orders.OrderItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DiscountPrice")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("PayAmount")
+                        .HasColumnType("float");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Marketer.Domain.Entities.Products.Brand", b =>
@@ -429,6 +533,9 @@ namespace Marketer.Infrastructure.EfCore.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("CityId")
                         .HasColumnType("bigint");
 
@@ -499,6 +606,9 @@ namespace Marketer.Infrastructure.EfCore.Migrations
 
                     b.Property<DateTime>("DeletionDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EachBoxCount")
                         .HasColumnType("int");
@@ -602,6 +712,44 @@ namespace Marketer.Infrastructure.EfCore.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("Marketer.Domain.Entities.Orders.Order", b =>
+                {
+                    b.HasOne("Marketer.Domain.Entities.Products.Market", "Market")
+                        .WithMany()
+                        .HasForeignKey("MarketId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Marketer.Domain.Entities.Account.Visitor", "Visitor")
+                        .WithMany()
+                        .HasForeignKey("VisitorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Market");
+
+                    b.Navigation("Visitor");
+                });
+
+            modelBuilder.Entity("Marketer.Domain.Entities.Orders.OrderItem", b =>
+                {
+                    b.HasOne("Marketer.Domain.Entities.Orders.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Marketer.Domain.Entities.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Marketer.Domain.Entities.Products.Market", b =>
                 {
                     b.HasOne("Marketer.Domain.Entities.Products.City", "City")
@@ -655,6 +803,11 @@ namespace Marketer.Infrastructure.EfCore.Migrations
             modelBuilder.Entity("Marketer.Domain.Entities.Account.Visitor", b =>
                 {
                     b.Navigation("Markets");
+                });
+
+            modelBuilder.Entity("Marketer.Domain.Entities.Orders.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Marketer.Domain.Entities.Products.Brand", b =>
