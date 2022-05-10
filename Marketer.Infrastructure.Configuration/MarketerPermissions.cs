@@ -23,24 +23,29 @@
 
         public const int MarketerManagement = 15;
         public const int CreateMarketer = 16;
-        public const int EditMarketer = 17;
-        public const int DeleteMarketer = 18;
+        public const int EditMarketer = 10002;
+        public const int DeleteMarketer = 10003;
 
-        public const int OperatorManagement = 19;
-        public const int CreateOperator = 20;
-        public const int EditOperator = 21;
-        public const int DeleteOperator = 22;
+        public const int OperatorManagement = 10004;
+        public const int CreateOperator = 10005;
+        public const int EditOperator = 10006;
+        public const int DeleteOperator = 10007;
 
-        public const int RoleManagement = 23;
-        public const int CreateRole = 24;
-        public const int EditRole = 25;
-        public const int DeleteRole = 26;
+        public const int RoleManagement = 10008;
+        public const int CreateRole = 10009;
+        public const int EditRole = 10010;
+        public const int DeleteRole = 10011;
 
-        public const int CityManagement = 27;
+        public const int CityManagement = 10012;
 
-        public const int OrderManagement = 28;
+        public const int OrderManagement = 10013;
 
-        public const int SettingManagement = 29;
+        public const int SettingManagement = 10014;
+
+        public const int ProductTypeManagement = 10015;
+        public const int CreateProductType= 10016;
+        public const int EditProductType = 10017;
+        public const int DeleteProductType = 10018;
 
     }
 }

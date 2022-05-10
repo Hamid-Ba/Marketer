@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Marketer.Application.Contract.AI.Products;
 using Marketer.Application.Contract.ViewModels.Products;
 using Marketer.Infrastructure.Configuration;
@@ -7,7 +7,7 @@ using ServiceHost.Tools;
 
 namespace ServiceHost.Areas.Admin.Controllers
 {
-    [PermissionChecker(MarketerPermissions.CategoryManagement)]
+    [PermissionChecker(MarketerPermissions.ProductTypeManagement)]
     public class PackageTypeController : AdminBaseController
     {
         private readonly IPackageTypeApplication _packageTypeApplication;
@@ -17,7 +17,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         public async Task<IActionResult> Index() => View(await _packageTypeApplication.GetAll());
 
         [HttpGet]
-        [PermissionChecker(MarketerPermissions.CreateCategory)]
+        [PermissionChecker(MarketerPermissions.CreateProductType)]
         public IActionResult Create() => PartialView();
 
         [HttpPost]
@@ -31,7 +31,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [PermissionChecker(MarketerPermissions.EditCategory)]
+        [PermissionChecker(MarketerPermissions.EditProductType)]
         public async Task<IActionResult> Edit(long id) => PartialView(await _packageTypeApplication.GetDetailForEditBy(id));
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace ServiceHost.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [PermissionChecker(MarketerPermissions.DeleteCategory)]
+        [PermissionChecker(MarketerPermissions.DeleteProductType)]
         public IActionResult Delete(long id) => PartialView(id);
 
         [HttpPost]
