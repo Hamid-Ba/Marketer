@@ -21,7 +21,7 @@ namespace Marketer.Application.Contract.ViewModels.Products
         public string PictureTitle { get;  set; }
         //public int EachBoxCount { get; set; }
         //public double Weight { get; set; }
-        public double PackageValue { get; set; }
+        public string PackageValue { get; set; }
         public string Description { get; set; }
         public double ConsumerPrice { get; set; }
         public double PurchasePrice { get; set; }
@@ -84,8 +84,7 @@ namespace Marketer.Application.Contract.ViewModels.Products
 
         [Display(Name = "مقدار بسته بندی(مثال : شل ۶تایی)")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public double PackageValue { get; set; }
+        public string PackageValue { get; set; }
 
         [Display(Name = "توضیحات")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
@@ -175,8 +174,7 @@ namespace Marketer.Application.Contract.ViewModels.Products
 
         [Display(Name = "مقدار بسته بندی(مثال : شل ۶تایی)")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        [Range(0, double.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
-        public double PackageValue { get; set; }
+        public string PackageValue { get; set; }
 
         [Display(Name = "توضیحات")]
         [Required(ErrorMessage = ValidationMessage.IsRequired)]

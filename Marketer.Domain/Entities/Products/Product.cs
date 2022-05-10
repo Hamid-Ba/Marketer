@@ -18,7 +18,7 @@ namespace Marketer.Domain.Entities.Products
         public double ConsumerPrice { get; private set; }
         public double PurchacePrice { get; private set; }
         public double Profit { get; private set; }
-        public double PackageValue { get; private set; }
+        public string PackageValue { get; private set; }
         //public double Weight { get; private set; }
         public string Description { get; private set; }
         public bool IsStock { get; private set; }
@@ -34,7 +34,7 @@ namespace Marketer.Domain.Entities.Products
         public PackageType PackageType { get; set; }
 
         public Product(long brandId, long categoryId,long packageTypeId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count,
-          double consumerPrice, double purchacePrice, double packageValue,string description, DateTime expiredDate,
+          double consumerPrice, double purchacePrice, string packageValue,string description, DateTime expiredDate,
           string slug, string keywords, string metaDescription)
         {
             BrandId = brandId;
@@ -63,7 +63,7 @@ namespace Marketer.Domain.Entities.Products
         }
 
         public void Edit(long brandId, long categoryId,long packageTypeId, string code, string title, string picture, string pictureAlt, string pictureTitle, int count,
-            double consumerPrice, double purchacePrice, double packageValue,string description, DateTime expiredDate,
+            double consumerPrice, double purchacePrice, string packageValue,string description, DateTime expiredDate,
             string slug, string keywords, string metaDescription)
         {
             BrandId = brandId;
