@@ -105,7 +105,7 @@ namespace Marketer.Application
                 Mobile = user.Mobile
             };
 
-            await _authHelper.SignInAsync(userVM);
+            _authHelper.SignInAsync(userVM);
 
             return result.Succeeded();
         }

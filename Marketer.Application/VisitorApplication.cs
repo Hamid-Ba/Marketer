@@ -112,7 +112,7 @@ namespace Marketer.Application
                 Mobile = visitor.Mobile
             };
 
-            await _authHelper.SignInAsync(authVM);
+            _authHelper.SignInAsync(authVM);
 
             return result.Succeeded();
         }

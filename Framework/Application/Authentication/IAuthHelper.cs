@@ -1,11 +1,9 @@
-﻿using System.Threading.Tasks;
-
-namespace Framework.Application.Authentication
+﻿namespace Framework.Application.Authentication
 {
     public interface IAuthHelper
     {
         void SignOut();
-        Task SignInAsync(VisitorAuthViewModel account);
-        Task SignInAsync(OperatorAuthViewModel account);
+        void SignInAsync(VisitorAuthViewModel account);
+        void SignInAsync(OperatorAuthViewModel account);
     }
 }
