@@ -26,7 +26,7 @@ namespace Framework.Application.Authentication
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties();
+            var authProperties = new AuthenticationProperties();
 
 
             _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -48,7 +48,7 @@ namespace Framework.Application.Authentication
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties();
+            var authProperties = new AuthenticationProperties();
 
 
             _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,

@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "پخش مهرداد",
   "short_name": "پخش مهرداد",
   "theme_color": "#536162",
@@ -10,39 +10,39 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/msapplication-icon-144x144.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/msapplication-icon-144x144.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/apple-touch-icon-180x180.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/apple-touch-icon-180x180.png",
       "type": "image/png",
       "sizes": "180x180"
     },
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/apple-touch-icon-152x152.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/apple-touch-icon-152x152.png",
       "type": "image/png",
       "sizes": "152x152"
     },
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/android-chrome-maskable-192x192.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/android-chrome-maskable-192x192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/android-chrome-192x192.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/android-chrome-maskable-512x512.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/android-chrome-maskable-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     },
     {
-      "src": "/SiteTheme/public/pwa/imagePWA/android-chrome-512x512.png",
+      "src": "/SiteTheme/assets/pwa/imagePWA/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
