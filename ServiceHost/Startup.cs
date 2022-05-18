@@ -1,4 +1,4 @@
-using Framework.Application.Authentication;
+﻿using Framework.Application.Authentication;
 using Framework.Application.Hashing;
 using Framework.Application.SMS;
 using Marketer.Infrastructure.Configuration;

@@ -62,6 +62,6 @@ namespace ServiceHost.Controllers
         }
 
         [Route("NotFound")]
-        public IActionResult NotFound() => View();
+        public IActionResult NotFoundPage() => View(viewName:"NotFound");
     }
 }

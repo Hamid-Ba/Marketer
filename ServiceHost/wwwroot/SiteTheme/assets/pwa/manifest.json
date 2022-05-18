@@ -4,7 +4,7 @@
   "theme_color": "#536162",
   "background_color": "#3367D6",
   "display": "fullscreen",
-  "start_url": "https://localhost:5001",
+  "start_url": "/",
   "dir": "rtl",
   "lang": "en-US",
   "orientation": "portrait",
