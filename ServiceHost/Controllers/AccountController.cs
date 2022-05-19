@@ -23,22 +23,22 @@ namespace ServiceHost.Controllers
         #region Visitor Login
 
         [HttpGet]
-        public IActionResult VisitorLogin() => User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+        public IActionResult VisitorLogin() => User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> VisitorLogin(LoginVisitorVM command)
         {
-            if (ModelState.IsValid && !User.Identity.IsAuthenticated)
+            if (ModelState.IsValid)
             {
                 var result = await _visitorApplication.Login(command);
 
                 if (result.IsSucceeded)
                 {
                     TempData[SuccessMessage] = result.Message;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home",new {Areas = ""});
                 }
-                else TempData[ErrorMessage] = result.Message;
+                TempData[ErrorMessage] = result.Message;
             }
 
             return View(command);
@@ -48,23 +48,26 @@ namespace ServiceHost.Controllers
 
         #region Operator Login
 
-        [HttpGet("adminlogin")]
-        public IActionResult OperatorLogin() => User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
+        [HttpGet]
+        [Route("AdminLogin")]
+        public IActionResult OperatorLogin() => User.Identity != null && User.Identity.IsAuthenticated ? RedirectToAction("Index", "Home") : View();
 
-        [HttpPost("adminlogin")]
+        [HttpPost]
+        [Route("AdminLogin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OperatorLogin(LoginOperatorVM command)
         {
-            if (ModelState.IsValid && !User.Identity.IsAuthenticated)
+            if (ModelState.IsValid)
             {
                 var result = await _operatorApplication.Login(command);
 
                 if (result.IsSucceeded)
                 {
                     TempData[SuccessMessage] = result.Message;
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home",new {Areas = ""});
                 }
-                else TempData[ErrorMessage] = result.Message;
+
+                TempData[ErrorMessage] = result.Message;
             }
 
             return View(command);
@@ -74,10 +77,15 @@ namespace ServiceHost.Controllers
 
         public IActionResult Logout()
         {
-            if(!User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
+            if (User.Identity.IsAuthenticated)
+            {
+                _authHelper.SignOut();
+                TempData[SuccessMessage] = "با موفقیت خارج شدید";
+            }
+            else
+                TempData[ErrorMessage] = "هنوز وارد نشده اید که";
 
-            _authHelper.SignOut();
-            TempData[SuccessMessage] = "شما با موفقیت خارج شدید";
+
             return RedirectToAction("Index", "Home");
         }
     }

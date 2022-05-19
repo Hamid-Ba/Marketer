@@ -12,7 +12,7 @@ namespace Framework.Application.Authentication
 
         public AuthHelper(IHttpContextAccessor httpContext) => _httpContext = httpContext;
 
-        public void SignInAsync(VisitorAuthViewModel account)
+        public async void SignInAsync(VisitorAuthViewModel account)
         {
             var claims = new List<Claim>
             {
@@ -26,14 +26,17 @@ namespace Framework.Application.Authentication
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties();
+            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties()
+            {
+                IsPersistent = true
+            };
 
 
-            _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+           await _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                new ClaimsPrincipal(claimsIdentity), authProperties);
         }
 
-        public void SignInAsync(OperatorAuthViewModel account)
+        public async void SignInAsync(OperatorAuthViewModel account)
         {
             var claims = new List<Claim>
             {
@@ -48,12 +51,15 @@ namespace Framework.Application.Authentication
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties();
+            var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties()
+            {
+                IsPersistent = true
+            };
 
 
-            _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            await _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                new ClaimsPrincipal(claimsIdentity), authProperties);
         }
-        public void SignOut() => _httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        public async void SignOut() => await _httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }
